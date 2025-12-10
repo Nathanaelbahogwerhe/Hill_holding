@@ -1,0 +1,49 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Filiale;
+
+class FilialeSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $filiales = [
+            [
+                'code' => 'HH-BI',
+                'name' => 'HillHolding Burundi',
+                'adresse' => 'Bujumbura, Burundi',
+                'email' => 'contact@hillholding.bi',
+                'telephone' => '+257 123 456 789',
+            ],
+            [
+                'code' => 'HH-RW',
+                'name' => 'HillHolding Rwanda',
+                'adresse' => 'Kigali, Rwanda',
+                'email' => 'contact@HillHolding.rw',
+                'telephone' => '+250 123 456 789',
+            ],
+            // Tu peux ajouter dâ€™autres filiales ici
+        ];
+
+        foreach ($filiales as $data) {
+            Filiale::updateOrCreate(
+                ['code' => $data['code']],
+                [
+                    'name' => $data['name'],
+                    'adresse' => $data['adresse'],
+                    'email' => $data['email'],
+                    'telephone' => $data['telephone'],
+                ]
+            );
+        }
+    }
+}
+
+
+
+
+
+
+

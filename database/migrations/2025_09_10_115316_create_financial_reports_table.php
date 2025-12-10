@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void {
+        Schema::create('financial_reports', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->enum('type', ['monthly', 'quarterly', 'yearly', 'custom']);
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->decimal('total_revenue', 15, 2)->default(0);
+            $table->decimal('total_expense', 15, 2)->default(0);
+            $table->decimal('net_result', 15, 2)->default(0); // revenu - dÃ©penses
+            
+            $table->foreignId('filiale_id')->nullable()->constrained('filiales')->onDelete('cascade');
+            $table->foreignId('agence_id')->nullable()->constrained('agences')->onDelete('cascade');
+            
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void {
+        Schema::dropIfExists('financial_reports');
+    }
+};
+
+
+
+
+
+
+

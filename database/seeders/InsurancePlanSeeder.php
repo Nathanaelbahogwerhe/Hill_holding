@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\InsurancePlan;
+
+class InsurancePlanSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $plans = [
+            ['name' => 'Basic Health', 'coverage' => '50%', 'monthly_fee' => 20000],
+            ['name' => 'Premium Health', 'coverage' => '80%', 'monthly_fee' => 50000],
+        ];
+
+        foreach ($plans as $plan) {
+            InsurancePlan::updateOrCreate(['name' => $plan['name']], $plan);
+        }
+    }
+}
+
+
+
+
+
+
+

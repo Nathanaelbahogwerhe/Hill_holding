@@ -1,0 +1,18 @@
+﻿@props(['color' => 'blue', 'icon' => '', 'title' => '', 'count' => 0])
+
+<div class="bg-{{ $color }}-500 text-white p-6 rounded-lg shadow flex items-center gap-4">
+    <div class="text-3xl">
+        <i class="{{ $icon }}"></i>
+    </div>
+    <div>
+        <div class="text-2xl font-bold">{{ $count }}</div>
+        <div class="text-sm">{{ $title }}</div>
+    </div>
+</div>
+
+
+
+
+
+
+

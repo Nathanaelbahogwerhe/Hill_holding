@@ -1,0 +1,21 @@
+@extends('layouts.app')
+
+@section('title', 'DÃ©tails Filiale')
+
+@section('content')
+<h1 class="text-xl font-semibold mb-6">DÃ©tails Filiale</h1>
+
+<div class="bg-white dark:bg-hh-gray-dark p-4 rounded shadow">
+    <p><strong>Nom :</strong> {{ $filiale->name }}</p>
+    <p><strong>Adresse :</strong> {{ $filiale->address }}</p>
+</div>
+
+<a href="{{ route('filiales.index') }}" class="mt-4 inline-block text-blue-600 hover:underline">Retour Ã  la liste</a>
+@endsection
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+﻿<ul class="sidebar-menu">
+
+    {{-- Tableau de bord accessible Ã  tous les rÃ´les --}}
+    <li><a href="{{ route('dashboard') }}">ðŸ“Š Tableau de bord</a></li>
+
+    {{-- Super Admin --}}
+    @role('superadmin')
+        <li><a href="{{ route('users.index') }}">ðŸ‘‘ Gestion des Utilisateurs</a></li>
+        <li><a href="{{ route('settings.index') }}">âš™ï¸ ParamÃ¨tres</a></li>
+    @endrole
+
+    {{-- Admin RH --}}
+    @role('admin-rh')
+        <li><a href="{{ route('employees.index') }}">ðŸ‘¨â€ðŸ’¼ EmployÃ©s</a></li>
+        <li><a href="{{ route('departments.index') }}">ðŸ¢ DÃ©partements</a></li>
+        <li><a href="{{ route('payrolls.index') }}">ðŸ’° Paie</a></li>
+        <li><a href="{{ route('leaves.index') }}">ðŸ“… CongÃ©s</a></li>
+        <li><a href="{{ route('insurances.index') }}">ðŸ›¡ï¸ Assurances</a></li>
+        <li><a href="{{ route('attendances.index') }}">ðŸ•’ PrÃ©sences</a></li>
+    @endrole
+
+    {{-- Admin Finance --}}
+    @role('admin-finance')
+        <li><a href="{{ route('transactions.index') }}">ðŸ’µ Transactions</a></li>
+        <li><a href="{{ route('budgets.index') }}">ðŸ“Š Budgets</a></li>
+        <li><a href="{{ route('invoices.index') }}">ðŸ“‘ Factures</a></li>
+        <li><a href="{{ route('revenues.index') }}">ðŸ“ˆ Revenus</a></li>
+        <li><a href="{{ route('expenses.index') }}">ðŸ“‰ DÃ©penses</a></li>
+        <li><a href="{{ route('financial_reports.index') }}">ðŸ“’ Rapports Financiers</a></li>
+    @endrole
+
+    {{-- ChargÃ© des opÃ©rations --}}
+    @role('operations-manager')
+        <li><a href="{{ route('projects.index') }}">ðŸ“‚ Projets</a></li>
+        <li><a href="{{ route('tasks.index') }}">âœ… TÃ¢ches</a></li>
+        <li><a href="{{ route('clients.index') }}">ðŸ‘¥ Clients</a></li>
+        <li><a href="{{ route('client_payments.index') }}">ðŸ’³ Paiements Clients</a></li>
+        <li><a href="{{ route('products.index') }}">ðŸ“¦ Produits</a></li>
+        <li><a href="{{ route('stock_transfers.index') }}">ðŸ”„ Transferts de stock</a></li>
+    @endrole
+
+    {{-- EmployÃ© --}}
+    @role('employee')
+        <li><a href="{{ route('leaves.index') }}">ðŸ“… Mes CongÃ©s</a></li>
+        <li><a href="{{ route('payrolls.index') }}">ðŸ’° Ma Paie</a></li>
+        <li><a href="{{ route('messages.index') }}">âœ‰ï¸ Messagerie</a></li>
+    @endrole
+
+    {{-- Tous les utilisateurs --}}
+    @auth
+        <li><a href="{{ route('profile.index') }}">ðŸ™ Mon Profil</a></li>
+        <li>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit">ðŸšª DÃ©connexion</button>
+            </form>
+        </li>
+    @endauth
+
+</ul>
+
+
+
+
+
+
+

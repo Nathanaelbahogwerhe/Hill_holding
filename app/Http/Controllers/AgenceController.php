@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Agence;
+use App\Models\Filiale;
+use Illuminate\Http\Request;
+
+class AgenceController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Agence::with('filiale');
+
+        if ($request->filled('search')) {
+            $query->where('name', 'like', "%{$request->search}%");
+        }
+
+        $agences = $query->orderBy('name')->paginate(10);
+        return view('agences.index', compact('agences'));
+    }
+
+    public function create()
+    {
+        $filiales = Filiale::orderBy('name')->get();
+        return view('agences.create', compact('filiales'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'filiale_id' => 'nullable|exists:filiales,id'
+        ]);
+
+        Agence::create($request->all());
+        return redirect()->route('agences.index')->with('success', 'Agence crÃ©Ã©e avec succÃ¨s.');
+    }
+
+    public function edit(Agence $agence)
+    {
+        $filiales = Filiale::orderBy('name')->get();
+        return view('agences.edit', compact('agence', 'filiales'));
+    }
+
+    public function update(Request $request, Agence $agence)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'filiale_id' => 'nullable|exists:filiales,id'
+        ]);
+
+        $agence->update($request->all());
+        return redirect()->route('agences.index')->with('success', 'Agence mise Ã  jour avec succÃ¨s.');
+    }
+
+    public function destroy(Agence $agence)
+    {
+        $agence->delete();
+        return redirect()->route('agences.index')->with('success', 'Agence supprimÃ©e.');
+    }
+}
+
+
+
+
+
+
+

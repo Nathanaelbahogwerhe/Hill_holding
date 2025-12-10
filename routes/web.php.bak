@@ -1,0 +1,208 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\{
+    HomeController,
+    DashboardController,
+    FilialeController,
+    AgenceController,
+    DepartmentController,
+    EmployeeController,
+    ClientController,
+    UserController,
+    PayrollController,
+    LeaveController,
+    LeaveTypeController,
+    EmployeeInsuranceController,
+    InvoiceController,
+    MessageController,
+    AssetController,
+    TransactionController,
+    ProductController,
+    StockTransferController,
+    ProjectController,
+    TaskController,
+    ClientPaymentController,
+    Finance\ExpenseController,
+    Finance\RevenueController,
+    FinanceController,
+    Finance\FinancialReportController,
+    BudgetController,
+    ProfileController,
+    ContractController,
+    PositionController,
+    AttendanceController,
+    BusinessContractController,
+    SettingController,
+    RoleController,
+    PermissionController,
+};
+
+/*
+|--------------------------------------------------------------------------
+| Redirection racine vers le dashboard
+|--------------------------------------------------------------------------
+*/
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Auth (login / logout)
+|--------------------------------------------------------------------------
+*/
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+/*
+|--------------------------------------------------------------------------
+| Routes protÃ©gÃ©es (auth required)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard principal & updates
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/data', [HomeController::class, 'data'])->name('dashboard.data');
+    Route::get('/dashboard/updates', [HomeController::class, 'updates'])->name('dashboard.updates');
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboards selon niveau (Maison mÃ¨re / Filiale / Agence)
+    --------------------------------------------------------------------------
+    */
+    Route::get('/dashboard/mere', [HomeController::class, 'index']);
+    Route::get('/dashboard/filiale', [HomeController::class, 'index']);
+    Route::get('/dashboard/agence', [HomeController::class, 'index']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | RH (Super Admin, RH Manager)
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['role:Super Admin|RH Manager'])->group(function () {
+        Route::resources([
+            'employees'    => EmployeeController::class,
+            'departments'  => DepartmentController::class,
+            'users'        => UserController::class,
+            'filiales'     => FilialeController::class,
+            'agences'      => AgenceController::class,
+            'payrolls'     => PayrollController::class,
+            'leaves'       => LeaveController::class,
+            'insurances'   => EmployeeInsuranceController::class,
+            'contracts'    => ContractController::class,
+            'positions'    => PositionController::class,
+            'attendances'  => AttendanceController::class,
+        ]);
+
+        Route::resource('leave-types', LeaveTypeController::class)->names('leave_types');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Business / OpÃ©rations
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['role:Super Admin|ChargÃ© des OpÃ©rations|Operations Manager'])->group(function () {
+        Route::resources([
+            'clients'            => ClientController::class,
+            'projects'           => ProjectController::class,
+            'tasks'              => TaskController::class,
+            'client_payments'    => ClientPaymentController::class,
+            'products'           => ProductController::class,
+            'stock_transfers'    => StockTransferController::class,
+            'contracts_business' => BusinessContractController::class,
+        ]);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Finance
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['role:Super Admin|Admin Finance'])->group(function () {
+        Route::resources([
+            'transactions'      => TransactionController::class,
+            'revenues'          => RevenueController::class,
+            'financial_reports' => FinancialReportController::class,
+            'finances'          => FinanceController::class,
+            'budgets'           => BudgetController::class,
+            'invoices'          => InvoiceController::class,
+        ]);
+
+        Route::get('/finance', [FinanceController::class, 'index'])->name('finance.index');
+        Route::prefix('finance')->group(function () {
+        Route::resource('expenses', App\Http\Controllers\Finance\ExpenseController::class);
+        Route::resource('revenues', App\Http\Controllers\Finance\RevenueController::class);
+        });
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Outils (accessible Ã  tous)
+    |--------------------------------------------------------------------------
+    */
+    Route::resource('messages', MessageController::class);
+    Route::post('messages/{message}/reply', [MessageController::class, 'reply'])->name('messages.reply');
+
+    Route::resources([
+        'assets'   => AssetController::class,
+        'settings' => SettingController::class,
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Profil utilisateur
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/edit', [ProfileController::class, 'update'])->name('update');
+        Route::delete('/delete', [ProfileController::class, 'destroy'])->name('destroy');
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Super Admin seulement : Roles & Permissions
+    |--------------------------------------------------------------------------
+    */
+    Route::middleware(['role:Super Admin'])->group(function () {
+        Route::resources([
+            'roles'       => RoleController::class,
+            'permissions' => PermissionController::class,
+        ]);
+    });
+
+});
+
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Admin console routes (automatically added)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['role:Super Admin'])->group(function () {
+    Route::get('/admin', function () {
+        return view('admin.index');
+    })->name('admin.index');
+
+    Route::post('/admin/users/{user}/permissions', [\App\Http\Controllers\UserPermissionController::class, 'update'])
+        ->name('admin.users.permissions.update');
+});

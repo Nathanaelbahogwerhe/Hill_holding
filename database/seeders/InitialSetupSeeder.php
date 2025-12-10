@@ -1,0 +1,124 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Filiale;
+use App\Models\Agence;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+class InitialSetupSeeder extends Seeder
+{
+    public function run()
+    {
+        // --------------------------
+        // Roles & Permissions
+        // --------------------------
+        $roles = ['superadmin', 'admin', 'manager', 'employee', 'accountant'];
+        foreach ($roles as $role) {
+            Role::firstOrCreate(['name' => $role]);
+        }
+
+        $permissions = [
+            'view dashboard', 'manage employees', 'manage filiales', 'manage agences',
+            'manage projects', 'manage clients', 'manage finances', 'manage settings'
+        ];
+        foreach ($permissions as $permission) {
+            Permission::firstOrCreate(['name' => $permission]);
+        }
+
+        // Assign permissions to roles
+        Role::findByName('superadmin')->syncPermissions(Permission::all());
+
+        // --------------------------
+        // Maison mÃ¨re HillHolding
+        // --------------------------
+        $HillHolding = Filiale::firstOrCreate([
+            'name' => 'HillHolding',
+            'logo' => null, // tu peux ajouter un logo
+        ]);
+
+        // --------------------------
+        // Quelques filiales
+        // --------------------------
+        $filiale1 = Filiale::firstOrCreate([
+            'name' => 'Filiale A',
+            'logo' => null,
+        ]);
+
+        $filiale2 = Filiale::firstOrCreate([
+            'name' => 'Filiale B',
+            'logo' => null,
+        ]);
+
+        // --------------------------
+        // Quelques agences
+        // --------------------------
+        $agence1 = Agence::firstOrCreate([
+            'name' => 'Agence 1',
+            'filiale_id' => $filiale1->id,
+            'logo' => null,
+        ]);
+
+        $agence2 = Agence::firstOrCreate([
+            'name' => 'Agence 2',
+            'filiale_id' => $filiale2->id,
+            'logo' => null,
+        ]);
+
+        // --------------------------
+        // Superadmin
+        // --------------------------
+        $superadmin = User::firstOrCreate([
+            'email' => 'admin@hillholding.com',
+        ], [
+            'name' => 'Super Admin',
+            'password' => Hash::make('Password123!'),
+            'role' => 'superadmin',
+            'filiale_id' => $HillHolding->id,
+            'agence_id' => null,
+        ]);
+
+        $superadmin->assignRole('superadmin');
+
+        // --------------------------
+        // Exemple utilisateur filiale
+        // --------------------------
+        $managerFiliale = User::firstOrCreate([
+            'email' => 'manager@filialea.com',
+        ], [
+            'name' => 'Manager Filiale A',
+            'password' => Hash::make('Password123!'),
+            'role' => 'manager',
+            'filiale_id' => $filiale1->id,
+            'agence_id' => null,
+        ]);
+
+        $managerFiliale->assignRole('manager');
+
+        // --------------------------
+        // Exemple utilisateur agence
+        // --------------------------
+        $employeeAgence = User::firstOrCreate([
+            'email' => 'employee@agence1.com',
+        ], [
+            'name' => 'Employee Agence 1',
+            'password' => Hash::make('Password123!'),
+            'role' => 'employee',
+            'filiale_id' => $filiale1->id,
+            'agence_id' => $agence1->id,
+        ]);
+
+        $employeeAgence->assignRole('employee');
+    }
+}
+
+
+
+
+
+
+

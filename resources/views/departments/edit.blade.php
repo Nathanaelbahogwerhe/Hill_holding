@@ -1,0 +1,83 @@
+@extends('layouts.app')
+
+@section('title', 'Modifier le dÃ©partement')
+
+@section('content')
+<div class="max-w-xl mx-auto bg-hh-card p-6 rounded shadow">
+    <h2 class="text-lg font-semibold mb-4">Modifier le dÃ©partement</h2>
+
+    {{-- Messages dâ€™erreur --}}
+    @if ($errors->any())
+        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+            <ul class="list-disc list-inside text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <form action="{{ route('departments.update', $department) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        {{-- Nom du dÃ©partement --}}
+        <div class="mb-4">
+            <label for="name" class="block mb-1 font-semibold">Nom</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ old('name', $department->name) }}"
+                class="input input-bordered w-full"
+                required
+            >
+            @error('name')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+        {{-- SÃ©lection de la filiale (visible uniquement pour les Super Admins) --}}
+        @role('Super Admin')
+            <div class="mb-4">
+                <label for="filiale_id" class="block mb-1 font-semibold">Filiale</label>
+                <select
+                    id="filiale_id"
+                    name="filiale_id"
+                    class="input input-bordered w-full"
+                >
+                    <option value="">-- SÃ©lectionner --</option>
+                    @foreach($filiales as $filiale)
+                        <option
+                            value="{{ $filiale->id }}"
+                            {{ old('filiale_id', $department->filiale_id) == $filiale->id ? 'selected' : '' }}
+                        >
+                            {{ $filiale->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('filiale_id')
+                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+        @endrole
+
+        {{-- Boutons --}}
+        <div class="flex justify-end mt-6 space-x-2">
+            <a href="{{ route('departments.index') }}" class="btn btn-ghost">
+                Annuler
+            </a>
+            <button type="submit" class="btn btn-primary">
+                Mettre Ã  jour
+            </button>
+        </div>
+    </form>
+</div>
+@endsection
+
+
+
+
+
+
+

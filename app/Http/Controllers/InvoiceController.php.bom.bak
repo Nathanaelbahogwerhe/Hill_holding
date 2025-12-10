@@ -1,0 +1,58 @@
+﻿<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Invoice;
+use Illuminate\Http\Request;
+
+class InvoiceController extends Controller
+{
+    public function index()
+    {
+        return Invoice::with('client')->get();
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'client_id' => 'required|exists:clients,id',
+            'amount'    => 'required|numeric',
+            'status'    => 'required|string|in:pending,paid,cancelled',
+            'due_date'  => 'required|date',
+        ]);
+
+        return Invoice::create($data);
+    }
+
+    public function show(Invoice $invoice)
+    {
+        return $invoice->load('client');
+    }
+
+    public function update(Request $request, Invoice $invoice)
+    {
+        $data = $request->validate([
+            'client_id' => 'sometimes|exists:clients,id',
+            'amount'    => 'sometimes|numeric',
+            'status'    => 'sometimes|string|in:pending,paid,cancelled',
+            'due_date'  => 'sometimes|date',
+        ]);
+
+        $invoice->update($data);
+
+        return $invoice;
+    }
+
+    public function destroy(Invoice $invoice)
+    {
+        $invoice->delete();
+        return response()->json(['message' => 'Facture supprimÃ©e avec succÃ¨s']);
+    }
+}
+
+
+
+
+
+
+

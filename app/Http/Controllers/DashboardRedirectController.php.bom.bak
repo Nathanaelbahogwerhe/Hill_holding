@@ -1,0 +1,39 @@
+﻿<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class DashboardRedirectController extends Controller
+{
+    /**
+     * Redirige l'utilisateur connectÃ© vers le dashboard correspondant
+     */
+    public function redirect()
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'superadmin' || $user->role === 'admin') {
+            return redirect()->route('dashboard.HillHolding');
+        }
+
+        if ($user->filiale_id) {
+            return redirect()->route('dashboard.filiale');
+        }
+
+        if ($user->agence_id) {
+            return redirect()->route('dashboard.agence');
+        }
+
+        // fallback
+        return redirect()->route('home');
+    }
+}
+
+
+
+
+
+
+

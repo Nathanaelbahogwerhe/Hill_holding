@@ -1,0 +1,17 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\HillHolding;
+
+class HillHoldingSeeder extends Seeder
+{
+    public function run(): void
+    {
+        HillHolding::create([
+            'name' => 'Hill Holding',
+            'logo' => null, // Tu pourras l'ajouter plus tard via upload
+        ]);
+    }
+}

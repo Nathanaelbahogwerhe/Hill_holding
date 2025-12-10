@@ -1,0 +1,41 @@
+﻿@extends('app')
+
+@php
+    $user = auth()->user();
+    $niveau = 'filiale';
+    $filiale = $user->filiale;
+    $users = $filiale->users;
+@endphp
+
+@section('title', 'Dashboard Filiale : ' . $filiale->name)
+
+@section('content')
+<h2 class="mb-4">ðŸ¢ Filiale : {{ $filiale->name }}</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Agences</h4>
+        <ul>
+            @foreach($filiale->agences as $a)
+                <li>{{ $a->name }} ({{ $a->code }})</li>
+            @endforeach
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Utilisateurs</h4>
+        <ul>
+            @foreach($users as $u)
+                <li>{{ $u->name }} - {{ $u->email }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+

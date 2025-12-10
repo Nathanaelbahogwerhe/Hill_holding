@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+
+// Imports dÃ©jÃ  corrects
+use App\Models\HillHolding;
+use App\Models\Filiale;
+use App\Models\Agence;
+use App\Models\Employee;
+
+class User extends Authenticatable
+{
+    use HasFactory, Notifiable, HasRoles;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'filiale_id',
+        'agency_id',
+        'role_id'
+    ];
+
+    protected $hidden = ['password', 'remember_token'];
+
+    public function hillHolding()
+    {
+        return $this->belongsTo(HillHolding::class);
+    }
+
+    public function filiale()
+    {
+        return $this->belongsTo(Filiale::class);
+    }
+
+    public function agency()
+    {
+        return $this->belongsTo(Agence::class, 'agency_id');
+    }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class);
+    }
+}
+
+
+
+
+
+
+

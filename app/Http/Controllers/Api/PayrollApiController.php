@@ -1,0 +1,57 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Payroll;
+use Illuminate\Http\Request;
+
+class PayrollApiController extends Controller
+{
+    public function index()
+    {
+        return response()->json(Payroll::with('employee')->get(), 200);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'pay_date'    => 'required|date',
+            'amount'      => 'required|numeric',
+            'status'      => 'required|string|in:Pending,Paid,Failed',
+        ]);
+        $p = Payroll::create($data);
+        return response()->json($p->load('employee'), 201);
+    }
+
+    public function show(Payroll $payroll)
+    {
+        return response()->json($payroll->load('employee'), 200);
+    }
+
+    public function update(Request $request, Payroll $payroll)
+    {
+        $data = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'pay_date'    => 'required|date',
+            'amount'      => 'required|numeric',
+            'status'      => 'required|string|in:Pending,Paid,Failed',
+        ]);
+        $payroll->update($data);
+        return response()->json($payroll->load('employee'), 200);
+    }
+
+    public function destroy(Payroll $payroll)
+    {
+        $payroll->delete();
+        return response()->json(['message' => 'Paie supprimÃ©e'], 200);
+    }
+}
+
+
+
+
+
+
+

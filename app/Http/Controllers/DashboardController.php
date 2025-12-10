@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use App\Models\Employee;
+use App\Models\Department;
+use App\Models\Filiale;
+use App\Models\Agence;
+use App\Models\Client;
+use App\Models\Project;
+use App\Models\Task;
+use App\Models\NoteCirculaire;
+use Illuminate\Http\Request;
+
+class DashboardController extends Controller
+{
+    public function data()
+    {
+        return response()->json([
+            'employees'   => Employee::count(),
+            'departments' => Department::count(),
+            'filiales'    => Filiale::count(),
+            'agences'     => Agence::count(),
+            'users'       => User::count(),
+            'clients'     => Client::count(),
+            'projects'    => Project::count(),
+            'tasks'       => Task::count(),
+            'notes'       => NoteCirculaire::count(),
+        ]);
+    }
+
+    public function index()
+    {
+        return view('dashboard');
+    }
+}
+
+
+
+
+
+
+

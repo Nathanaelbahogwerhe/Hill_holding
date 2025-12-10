@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Leave;
+use Illuminate\Http\Request;
+
+class LeaveApiController extends Controller
+{
+    public function index()
+    {
+        return response()->json(Leave::with(['employee','type'])->get(), 200);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'employee_id'   => 'required|exists:employees,id',
+            'leave_type_id' => 'required|exists:leave_types,id',
+            'start_date'    => 'required|date',
+            'end_date'      => 'required|date|after_or_equal:start_date',
+            'status'        => 'required|string|in:Pending,Approved,Rejected',
+            'reason'        => 'nullable|string',
+        ]);
+        $leave = Leave::create($data);
+        return response()->json($leave->load(['employee','type']), 201);
+    }
+
+    public function show(Leave $leave)
+    {
+        return response()->json($leave->load(['employee','type']), 200);
+    }
+
+    public function update(Request $request, Leave $leave)
+    {
+        $data = $request->validate([
+            'employee_id'   => 'required|exists:employees,id',
+            'leave_type_id' => 'required|exists:leave_types,id',
+            'start_date'    => 'required|date',
+            'end_date'      => 'required|date|after_or_equal:start_date',
+            'status'        => 'required|string|in:Pending,Approved,Rejected',
+            'reason'        => 'nullable|string',
+        ]);
+        $leave->update($data);
+        return response()->json($leave->load(['employee','type']), 200);
+    }
+
+    public function destroy(Leave $leave)
+    {
+        $leave->delete();
+        return response()->json(['message' => 'Demande de congÃ© supprimÃ©e'], 200);
+    }
+}
+
+
+
+
+
+
+

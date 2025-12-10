@@ -1,0 +1,36 @@
+@extends('layouts.app')
+@section('title', 'DÃ©tails contrat')
+
+@section('content')
+<div class="max-w-xl mx-auto bg-hh-card p-6 rounded shadow">
+    <h2 class="text-lg font-semibold mb-4">DÃ©tails du contrat</h2>
+
+    <div class="space-y-3">
+        <p><strong>EmployÃ© :</strong> {{ $contract->employee->name }}</p>
+        <p><strong>Type :</strong> {{ $contract->type }}</p>
+        <p><strong>Date dÃ©but :</strong> {{ \Carbon\Carbon::parse($contract->start_date)->translatedFormat('d F Y') }}</p>
+        <p><strong>Date fin :</strong> {{ \Carbon\Carbon::parse($contract->end_date)->translatedFormat('d F Y') }}</p>
+        <p><strong>Salaire :</strong> {{ number_format($contract->salary,0,',',' ') }} FBU</p>
+        <p><strong>Statut :</strong>
+            @php
+                $statusColors = ['active'=>'bg-green-600','expired'=>'bg-red-600','terminated'=>'bg-yellow-600'];
+            @endphp
+            <span class="px-2 py-1 rounded text-white {{ $statusColors[$contract->status] ?? 'bg-gray-500' }}">
+                {{ ucfirst($contract->status) }}
+            </span>
+        </p>
+    </div>
+
+    <div class="mt-4 space-x-2">
+        <a href="{{ route('contracts.edit', $contract) }}" class="btn btn-secondary">Ã‰diter</a>
+        <a href="{{ route('contracts.index') }}" class="btn btn-primary">Retour Ã  la liste</a>
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+

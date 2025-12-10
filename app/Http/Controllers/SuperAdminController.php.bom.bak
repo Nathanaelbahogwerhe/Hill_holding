@@ -1,0 +1,53 @@
+﻿<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
+class SuperAdminController extends Controller
+{
+    public function edit()
+    {
+        $superadmin = auth()->user(); // ou User::where('role', 'superadmin')->first();
+        return view('superadmin.edit', compact('superadmin'));
+    }
+
+    public function update(Request $request)
+    {
+        $superadmin = auth()->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $superadmin->id,
+            'password' => 'nullable|string|min:6|confirmed',
+            'logo' => 'nullable|image|max:2048',
+        ]);
+
+        $superadmin->name = $request->name;
+        $superadmin->email = $request->email;
+
+        if ($request->filled('password')) {
+            $superadmin->password = Hash::make($request->password);
+        }
+
+        // Upload du logo
+        if ($request->hasFile('logo')) {
+            $path = $request->file('logo')->store('HillHolding', 'public');
+            $superadmin->logo = $path;
+        }
+
+        $superadmin->save();
+
+        return redirect()->route('superadmin.edit')->with('success', 'SuperAdmin mis Ã  jour avec succÃ¨s.');
+    }
+}
+
+
+
+
+
+
+

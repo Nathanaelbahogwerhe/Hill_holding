@@ -1,0 +1,30 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'hh-dark': '#0b0b0d',
+        'hh-card': '#0f1113',
+        'hh-border': '#1c1c1f',
+        'hh-gold': '#d4af37',
+        'hh-light': '#ffffff',
+        'hh-muted': '#9a8f77',
+      },
+    },
+  },
+  plugins: [],
+}
+
+
+
+
+
+
+
+
+

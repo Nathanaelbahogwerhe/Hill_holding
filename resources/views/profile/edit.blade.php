@@ -1,0 +1,55 @@
+<x-app-layout>
+    <div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-bold mb-4">Ã‰diter mon profil</h2>
+
+        @if (session('success'))
+            <div class="bg-green-100 text-green-800 p-3 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('PATCH')
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium">Nom</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full border rounded p-2">
+                @error('name') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}" class="w-full border rounded p-2">
+                @error('email') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium">Mot de passe (laisser vide pour ne pas changer)</label>
+                <input type="password" name="password" class="w-full border rounded p-2">
+                <input type="password" name="password_confirmation" placeholder="Confirmer le mot de passe" class="w-full border rounded p-2 mt-2">
+                @error('password') <p class="text-red-600 text-sm">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="flex justify-between">
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Mettre Ã  jour</button>
+            </div>
+        </form>
+
+        <form method="POST" action="{{ route('profile.destroy') }}" class="mt-6">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded"
+                onclick="return confirm('ÃŠtes-vous sÃ»r de vouloir supprimer votre compte ?')">
+                Supprimer mon compte
+            </button>
+        </form>
+    </div>
+</x-app-layout>
+
+
+
+
+
+
+

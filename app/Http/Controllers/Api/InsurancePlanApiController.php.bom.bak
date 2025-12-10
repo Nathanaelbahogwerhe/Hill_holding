@@ -1,0 +1,55 @@
+﻿<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\InsurancePlan;
+use Illuminate\Http\Request;
+
+class InsurancePlanApiController extends Controller
+{
+    public function index()
+    {
+        return response()->json(InsurancePlan::all(), 200);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name'            => 'required|string|max:255|unique:insurance_plans,name',
+            'details'         => 'nullable|string',
+            'coverage_amount' => 'required|numeric',
+        ]);
+        $plan = InsurancePlan::create($data);
+        return response()->json($plan, 201);
+    }
+
+    public function show(InsurancePlan $insurancePlan)
+    {
+        return response()->json($insurancePlan, 200);
+    }
+
+    public function update(Request $request, InsurancePlan $insurancePlan)
+    {
+        $data = $request->validate([
+            'name'            => 'required|string|max:255|unique:insurance_plans,name,'.$insurancePlan->id,
+            'details'         => 'nullable|string',
+            'coverage_amount' => 'required|numeric',
+        ]);
+        $insurancePlan->update($data);
+        return response()->json($insurancePlan, 200);
+    }
+
+    public function destroy(InsurancePlan $insurancePlan)
+    {
+        $insurancePlan->delete();
+        return response()->json(['message' => 'Plan supprimÃ©'], 200);
+    }
+}
+
+
+
+
+
+
+

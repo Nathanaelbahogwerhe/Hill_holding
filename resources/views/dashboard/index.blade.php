@@ -1,0 +1,145 @@
+@extends('layouts.app')
+
+@php
+    $user = auth()->user();
+    if ($user?->agence_id) {
+        $niveau = 'agence';
+        $agence = $user->agence;
+        $filiale = $user->filiale;
+        $users = $agence->users;
+    } elseif ($user?->filiale_id) {
+        $niveau = 'filiale';
+        $filiale = $user->filiale;
+        $users = $filiale->users;
+    } else {
+        $niveau = 'mere';
+        $filiales = \App\Models\Filiale::with('agences')->get();
+        $users = \App\Models\User::all();
+    }
+
+    // exemples de mÃ©triques (Ã  remplacer par vraies queries dans controller si besoin)
+    $totalUsers = $users->count();
+    $totalAgences = $niveau === 'mere' ? \App\Models\Agence::count() : ($filiale->agences->count() ?? 0);
+    $payrollsThisMonth = \App\Models\Payroll::whereMonth('month', now()->month)->count() ?? 0;
+@endphp
+
+@section('title', 'Dashboard')
+
+@section('content')
+<div class="space-y-6">
+
+    <!-- Top widgets -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <x-card title="Utilisateurs" :icon="'ðŸ‘¥'">
+            {{ number_format($totalUsers) }}
+        </x-card>
+
+        <x-card title="Agences" :icon="'ðŸ¬'">
+            {{ number_format($totalAgences) }}
+        </x-card>
+
+        <x-card title="Fiches paie (mois)" :icon="'ðŸ’µ'">
+            {{ number_format($payrollsThisMonth) }}
+        </x-card>
+    </div>
+
+    <!-- Charts row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">ActivitÃ© â€” 30 derniers jours</h3>
+                <div class="text-xs text-[#9b9b9b]">visites & actions</div>
+            </div>
+            <div id="chart-activity" class="h-64"></div>
+        </div>
+
+        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Paie â€” rÃ©partition</h3>
+                <div class="text-xs text-[#9b9b9b]">salaire / primes / indemnitÃ©s</div>
+            </div>
+            <div id="chart-payroll" class="h-64"></div>
+        </div>
+    </div>
+
+    <!-- Listes -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        @if($niveau === 'mere')
+            <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+                <h4 class="text-sm font-semibold mb-3" style="color:var(--hh-gold)">Filiales & Agences</h4>
+                <ul class="space-y-2 text-sm text-[#d0d0d0]">
+                    @foreach($filiales as $f)
+                        <li class="border-b border-black/20 pb-2">
+                            <div class="font-medium">{{ $f->name }} <span class="text-xs text-[#9b9b9b]">({{ $f->code }})</span></div>
+                            <div class="text-xs mt-1">
+                                @forelse($f->agences as $a)
+                                    <span class="inline-block mr-2">ðŸ¢ {{ $a->name }}</span>
+                                @empty
+                                    <span class="text-[#9b9b9b]">Aucune agence</span>
+                                @endforelse
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+            <h4 class="text-sm font-semibold mb-3" style="color:var(--hh-gold)">Utilisateurs</h4>
+            <ul class="space-y-2 text-sm text-[#d0d0d0]">
+                @forelse($users->take(12) as $u)
+                    <li class="flex items-center justify-between">
+                        <div>
+                            <div class="font-medium">{{ $u->name }}</div>
+                            <div class="text-xs text-[#9b9b9b]">{{ $u->email }}</div>
+                        </div>
+                        <div class="text-xs text-[#9b9b9b]">{{ $u->roles->pluck('name')->join(', ') }}</div>
+                    </li>
+                @empty
+                    <li class="text-[#9b9b9b]">Aucun utilisateur</li>
+                @endforelse
+            </ul>
+        </div>
+    </div>
+
+</div>
+@endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Chart: activity (spline)
+    var optionsActivity = {
+        chart: { type: 'area', height: 350, toolbar: { show: false } },
+        series: [{ name: 'Actions', data: Array.from({length:30}, ()=> Math.floor(Math.random()*50)+10) }],
+        stroke: { curve: 'smooth' },
+        colors: ['#D4AF37'],
+        fill: { opacity: 0.12 },
+        grid: { borderColor: '#111' },
+        xaxis: { categories: Array.from({length:30}, (_,i)=> i+1) },
+        tooltip: { theme: 'dark' }
+    };
+    var chartActivity = new ApexCharts(document.querySelector("#chart-activity"), optionsActivity);
+    chartActivity.render();
+
+    // Chart: payroll (donut)
+    var optionsPayroll = {
+        chart: { type: 'donut', height: 300 },
+        series: [55, 25, 15, 5],
+        labels: ['Salaire de base','Primes','IndemnitÃ©s','Frais'],
+        colors: ['#D4AF37','#B8860B','#E6C07A','#8B6914'],
+        legend: { position: 'bottom', labels: { colors: '#d0d0d0' } },
+        tooltip: { theme: 'dark' }
+    };
+    var chartPayroll = new ApexCharts(document.querySelector("#chart-payroll"), optionsPayroll);
+    chartPayroll.render();
+});
+</script>
+@endpush
+
+
+
+
+
+
+

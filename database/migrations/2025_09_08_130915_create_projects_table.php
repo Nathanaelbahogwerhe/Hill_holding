@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name'); // âœ… nom du projet
+            $table->text('description')->nullable(); // âœ… description
+            $table->text('details')->nullable(); // âœ… dÃ©tails supplÃ©mentaires
+            $table->date('start_date')->nullable(); // âœ… date de dÃ©but
+            $table->date('end_date')->nullable(); // date de fin prÃ©vue
+            $table->date('due_date')->nullable(); // âœ… date dâ€™Ã©chÃ©ance
+            $table->unsignedBigInteger('responsible_id')->nullable(); // âœ… responsable
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending'); // âœ… statut
+            $table->unsignedBigInteger('created_by')->nullable(); // qui a crÃ©Ã© le projet ?
+            $table->timestamps();
+
+            // clÃ© Ã©trangÃ¨re pour lâ€™utilisateur qui a crÃ©Ã©
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('projects');
+    }
+};
+
+
+
+
+
+
+

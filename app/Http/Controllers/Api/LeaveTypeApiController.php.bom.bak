@@ -1,0 +1,53 @@
+﻿<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\LeaveType;
+use Illuminate\Http\Request;
+
+class LeaveTypeApiController extends Controller
+{
+    public function index()
+    {
+        return response()->json(LeaveType::all(), 200);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'name'    => 'required|string|max:255|unique:leave_types,name',
+            'details' => 'nullable|string',
+        ]);
+        $lt = LeaveType::create($data);
+        return response()->json($lt, 201);
+    }
+
+    public function show(LeaveType $leaveType)
+    {
+        return response()->json($leaveType, 200);
+    }
+
+    public function update(Request $request, LeaveType $leaveType)
+    {
+        $data = $request->validate([
+            'name'    => 'required|string|max:255|unique:leave_types,name,'.$leaveType->id,
+            'details' => 'nullable|string',
+        ]);
+        $leaveType->update($data);
+        return response()->json($leaveType, 200);
+    }
+
+    public function destroy(LeaveType $leaveType)
+    {
+        $leaveType->delete();
+        return response()->json(['message' => 'Type de congÃ© supprimÃ©'], 200);
+    }
+}
+
+
+
+
+
+
+

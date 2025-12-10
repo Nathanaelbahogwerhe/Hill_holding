@@ -1,0 +1,34 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Department;
+use App\Models\Filiale;
+
+class DepartmentSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $filiales = Filiale::all();
+
+        foreach ($filiales as $filiale) {
+            $departments = [
+                ['name' => 'HR', 'filiale_id' => $filiale->id],
+                ['name' => 'Sales', 'filiale_id' => $filiale->id],
+                ['name' => 'Finance', 'filiale_id' => $filiale->id],
+            ];
+
+            foreach ($departments as $dept) {
+                Department::firstOrCreate($dept);
+            }
+        }
+    }
+}
+
+
+
+
+
+
+

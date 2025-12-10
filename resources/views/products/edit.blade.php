@@ -1,0 +1,55 @@
+@extends('layouts.app')
+
+@section('title', 'Modifier Produit')
+
+@section('content')
+<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-semibold mb-4">Modifier le produit</h1>
+
+    <form action="{{ route('products.update', $product) }}" method="POST" class="space-y-4">
+        @csrf @method('PUT')
+        <div>
+            <label class="block font-medium">Nom</label>
+            <input type="text" name="name" value="{{ $product->name }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
+        </div>
+
+        <div>
+            <label class="block font-medium">CatÃ©gorie</label>
+            <input type="text" name="category" value="{{ $product->category }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker">
+        </div>
+
+        <div>
+            <label class="block font-medium">Fournisseur</label>
+            <select name="supplier_id" class="w-full border rounded p-2 dark:bg-hh-gray-darker">
+                <option value="">-- Aucun --</option>
+                @foreach($suppliers as $supplier)
+                    <option value="{{ $supplier->id }}" @selected($product->supplier_id == $supplier->id)>{{ $supplier->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div>
+            <label class="block font-medium">Prix</label>
+            <input type="number" step="0.01" name="price" value="{{ $product->price }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
+        </div>
+
+        <div>
+            <label class="block font-medium">Stock</label>
+            <input type="number" name="stock" value="{{ $product->stock }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit" class="bg-hh-green hover:bg-hh-green-dark text-white px-4 py-2 rounded">
+                Mettre Ã  jour
+            </button>
+        </div>
+    </form>
+</div>
+@endsection
+
+
+
+
+
+
+

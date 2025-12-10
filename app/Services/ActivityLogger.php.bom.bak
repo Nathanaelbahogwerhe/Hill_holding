@@ -1,0 +1,26 @@
+﻿<?php
+
+namespace App\Services;
+
+use App\Models\Activity;
+use Illuminate\Support\Facades\Auth;
+
+class ActivityLogger
+{
+    public static function log(string $module, string $action, string $description)
+    {
+        Activity::create([
+            'user_id' => Auth::id(),
+            'module' => $module,
+            'action' => $action,
+            'description' => $description,
+        ]);
+    }
+}
+
+
+
+
+
+
+

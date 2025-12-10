@@ -1,0 +1,70 @@
+@extends('layouts.app')
+
+@section('title', 'Projets')
+
+@section('content')
+<div class="space-y-6">
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-semibold flex items-center space-x-2">
+            <x-heroicon-o-briefcase class="w-6 h-6 text-hh-primary" />
+            <span>Liste des Projets</span>
+        </h1>
+        <a href="{{ route('projects.create') }}" 
+           class="bg-hh-primary text-white px-4 py-2 rounded hover:bg-hh-primary-dark">
+           <x-heroicon-o-plus class="w-5 h-5 inline"/> Nouveau Projet
+        </a>
+    </div>
+
+    <div class="bg-white dark:bg-hh-gray-dark rounded-lg shadow overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+            <thead class="bg-hh-gray-light dark:bg-hh-gray-darker text-hh-gray-dark dark:text-hh-gray-light">
+                <tr>
+                    <th class="px-6 py-3">#</th>
+                    <th class="px-6 py-3">Nom du projet</th>
+                    <th class="px-6 py-3">Responsable</th>
+                    <th class="px-6 py-3">Statut</th>
+                    <th class="px-6 py-3">Date de début</th>
+                    <th class="px-6 py-3">Date de fin</th>
+                    <th class="px-6 py-3 text-right">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($projects as $project)
+                    <tr class="border-t dark:border-hh-gray-darker">
+                        <td class="px-6 py-3">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-3">{{ $project->name }}</td>
+                        <td class="px-6 py-3">{{ $project->manager->name ?? '—' }}</td>
+                        <td class="px-6 py-3">
+                            <span class="px-2 py-1 rounded text-xs font-medium 
+                                {{ $project->status === 'En cours' ? 'bg-yellow-100 text-yellow-700' : 
+                                   ($project->status === 'Terminé' ? 'bg-green-100 text-green-700' : 
+                                   'bg-gray-100 text-gray-700') }}">
+                                {{ $project->status }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-3">{{ $project->start_date->format('d/m/Y') }}</td>
+                        <td class="px-6 py-3">{{ $project->end_date?->format('d/m/Y') ?? '—' }}</td>
+                        <td class="px-6 py-3 text-right space-x-2">
+                            <a href="{{ route('projects.show', $project) }}" class="text-hh-primary hover:underline">
+                                <x-heroicon-o-eye class="w-5 h-5 inline"/>
+                            </a>
+                            <a href="{{ route('projects.edit', $project) }}" class="text-yellow-500 hover:underline">
+                                <x-heroicon-o-pencil-square class="w-5 h-5 inline"/>
+                            </a>
+                            <form action="{{ route('projects.destroy', $project) }}" method="POST" class="inline">
+                                @csrf @method('DELETE')
+                                <button type="submit" onclick="return confirm('Supprimer ce projet ?')" 
+                                        class="text-red-500 hover:underline">
+                                    <x-heroicon-o-trash class="w-5 h-5 inline"/>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="7" class="text-center py-6 text-gray-500">Aucun projet trouvé.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+@endsection

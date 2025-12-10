@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Position;
+use Illuminate\Http\Request;
+use App\Services\ActivityLogger;
+
+class PositionController extends Controller
+{
+    /**
+     * Afficher la liste des postes avec pagination
+     */
+    public function index()
+    {
+        $positions = Position::orderBy('name')->paginate(10);
+        return view('positions.index', compact('positions'));
+    }
+
+    /**
+     * Formulaire de crÃ©ation
+     */
+    public function create()
+    {
+        return view('positions.create');
+    }
+
+    /**
+     * Enregistrer un nouveau poste
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:positions,name',
+        ]);
+
+        $position = Position::create([
+            'name' => $request->name,
+        ]);
+
+        ActivityLogger::log('positions', 'create', 'Ajout d\'un nouveau poste : ' . $position->name);
+
+        return redirect()->route('positions.index')->with('success', 'Poste ajoutÃ© avec succÃ¨s.');
+    }
+
+    /**
+     * Formulaire dâ€™Ã©dition
+     */
+    public function edit(Position $position)
+    {
+        return view('positions.edit', compact('position'));
+    }
+
+    /**
+     * Mettre Ã  jour un poste
+     */
+    public function update(Request $request, Position $position)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:positions,name,' . $position->id,
+        ]);
+
+        $position->update([
+            'name' => $request->name,
+        ]);
+
+        ActivityLogger::log('positions', 'update', 'Mise Ã  jour du poste : ' . $position->name);
+
+        return redirect()->route('positions.index')->with('success', 'Poste mis Ã  jour avec succÃ¨s.');
+    }
+
+    /**
+     * Supprimer un poste
+     */
+    public function destroy(Position $position)
+    {
+        ActivityLogger::log('positions', 'delete', 'Suppression du poste : ' . $position->name);
+        $position->delete();
+
+        return redirect()->route('positions.index')->with('success', 'Poste supprimÃ© avec succÃ¨s.');
+    }
+}
+
+
+
+
+
+
+

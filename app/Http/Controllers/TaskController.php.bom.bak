@@ -1,0 +1,87 @@
+﻿<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Task;
+use App\Models\Project;
+use App\Models\Employee;
+use Illuminate\Http\Request;
+
+class TaskController extends Controller
+{
+    // Liste de toutes les tÃ¢ches
+    public function index()
+    {
+        $tasks = Task::with('project', 'assignedTo')->get(); // utilisÃ© assignedTo
+        return view('tasks.index', compact('tasks'));
+    }
+
+    // Formulaire crÃ©ation tÃ¢che
+    public function create()
+    {
+        $projects = Project::all();
+        $employees = Employee::all();
+        return view('tasks.create', compact('projects', 'employees'));
+    }
+
+    // Enregistrer une tÃ¢che
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:todo,doing,done',
+            'due_date' => 'required|date',
+            'project_id' => 'required|exists:projects,id',
+            'assigned_to' => 'required|exists:employees,id', // ici assigned_to
+        ]);
+
+        Task::create($data);
+        return redirect()->route('tasks.index')->with('success', 'TÃ¢che crÃ©Ã©e.');
+    }
+
+    // Afficher une tÃ¢che
+    public function show(Task $task)
+    {
+        $task->load('project', 'assignedTo'); // utilisÃ© assignedTo
+        return view('tasks.show', compact('task'));
+    }
+
+    // Formulaire Ã©dition tÃ¢che
+    public function edit(Task $task)
+    {
+        $projects = Project::all();
+        $employees = Employee::all();
+        return view('tasks.edit', compact('task', 'projects', 'employees'));
+    }
+
+    // Mettre Ã  jour tÃ¢che
+    public function update(Request $request, Task $task)
+    {
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|in:todo,doing,done',
+            'due_date' => 'required|date',
+            'project_id' => 'required|exists:projects,id',
+            'assigned_to' => 'required|exists:employees,id', // ici assigned_to
+        ]);
+
+        $task->update($data);
+        return redirect()->route('tasks.index')->with('success', 'TÃ¢che mise Ã  jour.');
+    }
+
+    // Supprimer tÃ¢che
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'TÃ¢che supprimÃ©e.');
+    }
+}
+
+
+
+
+
+
+

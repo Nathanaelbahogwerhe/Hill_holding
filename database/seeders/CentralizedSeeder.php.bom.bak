@@ -1,0 +1,157 @@
+﻿<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Filiale;
+use App\Models\Agence;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+class CentralizedSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $this->command->info("âš¡ DÃ©but du seeding centralisÃ©...");
+
+        // -------------------------------
+        // 1) DÃ©finir les filiales avec leurs agences
+        // -------------------------------
+        $filialesData = [
+            'HH-BI' => [
+                'name' => 'HillHolding Burundi',
+                'adresse' => 'Bujumbura, Burundi',
+                'email' => 'contact@hillholding.bi',
+                'telephone' => '+257 123 456 789',
+                'agences' => [
+                    ['code'=>'AG-BI-01','name'=>'Agence Bujumbura','adresse'=>'Bujumbura, Burundi','email'=>'bujumbura@hillholding.bi','telephone'=>'+257 111 222 333'],
+                ],
+            ],
+            'HH-RW' => [
+                'name' => 'HillHolding Rwanda',
+                'adresse' => 'Kigali, Rwanda',
+                'email' => 'contact@HillHolding.rw',
+                'telephone' => '+250 123 456 789',
+                'agences' => [
+                    ['code'=>'AG-RW-01','name'=>'Agence Kigali','adresse'=>'Kigali, Rwanda','email'=>'kigali@HillHolding.rw','telephone'=>'+250 111 222 333'],
+                ],
+            ],
+            'HH-RDC' => [
+                'name' => 'HillHolding RDC',
+                'adresse' => 'Kinshasa, RDC',
+                'email' => 'contact@HillHolding.cd',
+                'telephone' => '+243 123 456 789',
+                'agences' => [
+                    ['code'=>'AG-RDC-01','name'=>'Agence Kinshasa','adresse'=>'Kinshasa, RDC','email'=>'kinshasa@HillHolding.cd','telephone'=>'+243 111 222 333'],
+                    ['code'=>'AG-RDC-02','name'=>'Agence Goma','adresse'=>'Goma, RDC','email'=>'goma@HillHolding.cd','telephone'=>'+243 111 222 444'],
+                ],
+            ],
+        ];
+
+        // -------------------------------
+        // 2) CrÃ©ation Filiales et Agences
+        // -------------------------------
+        foreach ($filialesData as $code => $fData) {
+            $filiale = Filiale::updateOrCreate(
+                ['code' => $code],
+                [
+                    'name' => $fData['name'],
+                    'adresse' => $fData['adresse'],
+                    'email' => $fData['email'],
+                    'telephone' => $fData['telephone'],
+                ]
+            );
+
+            foreach ($fData['agences'] as $aData) {
+                Agence::updateOrCreate(
+                    ['code' => $aData['code']],
+                    array_merge($aData, ['filiale_id' => $filiale->id])
+                );
+            }
+        }
+        $this->command->info("âœ… Filiales et agences crÃ©Ã©es automatiquement.");
+
+        // -------------------------------
+        // 3) RÃ´les et permissions
+        // -------------------------------
+        $roles = ['Super Admin', 'RH Manager', 'Finance Manager', 'Operations Manager', 'Employee'];
+        foreach ($roles as $roleName) {
+            Role::firstOrCreate(['name' => $roleName, 'guard_name' => 'web']);
+        }
+
+        $permissions = [
+            // RH
+            'view employees','create employees','edit employees','delete employees',
+            'view departments','create departments','edit departments','delete departments',
+            'view leaves','create leaves','edit leaves','delete leaves','approve leaves','reject leaves',
+            'view payrolls','generate payrolls','edit payrolls',
+            // Finance
+            'view transactions','create transactions','edit transactions','delete transactions',
+            'view expenses','create expenses','edit expenses','delete expenses',
+            'view revenues','create revenues','edit revenues','delete revenues',
+            'view budgets','create budgets','edit budgets','delete budgets',
+            'view financial reports','generate reports',
+            // OpÃ©rations
+            'view clients','create clients','edit clients','delete clients',
+            'view projects','create projects','edit projects','delete projects',
+            'view tasks','create tasks','edit tasks','delete tasks',
+            'view contracts','create contracts','edit contracts','delete contracts',
+            // SystÃ¨me
+            'view assets','edit settings',
+            'view notifications','mark notifications as read',
+        ];
+        foreach ($permissions as $perm) {
+            Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
+        }
+        $this->command->info("âœ… RÃ´les et permissions crÃ©Ã©s.");
+
+        // -------------------------------
+        // 4) CrÃ©ation des utilisateurs automatiquement
+        // -------------------------------
+        $usersData = [
+            ['email'=>'admin@hillholding.com','name'=>'Super Admin','role'=>'Super Admin','filiale'=>null,'agence'=>null],
+        ];
+
+        // GÃ©nÃ©rer automatiquement un utilisateur RH, Finance, Ops et Employee pour chaque agence
+        foreach ($filialesData as $fCode => $fData) {
+            foreach ($fData['agences'] as $aData) {
+                $usersData[] = ['email'=>"rh.{$aData['code']}@HillHolding.com",'name'=>"RH {$aData['name']}",'role'=>'RH Manager','filiale'=>$fCode,'agence'=>$aData['code']];
+                $usersData[] = ['email'=>"finance.{$aData['code']}@HillHolding.com",'name'=>"Finance {$aData['name']}",'role'=>'Finance Manager','filiale'=>$fCode,'agence'=>$aData['code']];
+                $usersData[] = ['email'=>"ops.{$aData['code']}@HillHolding.com",'name'=>"Ops {$aData['name']}",'role'=>'Operations Manager','filiale'=>$fCode,'agence'=>$aData['code']];
+                $usersData[] = ['email'=>"employee.{$aData['code']}@HillHolding.com",'name'=>"Employee {$aData['name']}",'role'=>'Employee','filiale'=>$fCode,'agence'=>$aData['code']];
+            }
+        }
+
+        foreach ($usersData as $u) {
+            $filiale = $u['filiale'] ? Filiale::where('code', $u['filiale'])->first() : null;
+            $agence  = $u['agence'] ? Agence::where('code', $u['agence'])->first() : null;
+            $role    = Role::where('name', $u['role'])->first();
+
+            if ($u['filiale'] && !$filiale) continue;
+            if ($u['agence'] && !$agence) continue;
+            if (!$role) continue;
+
+            $user = User::updateOrCreate(
+                ['email' => $u['email']],
+                [
+                    'name' => $u['name'],
+                    'password' => Hash::make('password'),
+                    'filiale_id' => $filiale?->id,
+                    'agence_id' => $agence?->id,
+                ]
+            );
+            $user->assignRole($role);
+        }
+
+        $this->command->info("âœ… Utilisateurs gÃ©nÃ©rÃ©s automatiquement pour toutes les filiales et agences !");
+    }
+}
+
+
+
+
+
+
+

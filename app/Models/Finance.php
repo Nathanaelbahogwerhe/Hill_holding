@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory; // <-- Ajoute cette ligne
+use Illuminate\Database\Eloquent\Model;
+
+class Finance extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'type',
+        'amount',
+        'finance_date',
+        'description',
+    ];
+}
+
+
+
+
+
+
+

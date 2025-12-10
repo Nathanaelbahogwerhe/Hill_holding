@@ -1,0 +1,80 @@
+:root {
+    --hh-dark: #1a1a1a;
+    --hh-card: #2c2c2c;
+    --hh-light: #f5f5f5;
+    --hh-gold: #FFD700;
+    --input-glow: rgba(255, 215, 0, 0.5);
+}
+
+/* Fond général */
+body.bg-kc-dark {
+    background-color: var(--hh-dark);
+    overflow: hidden;
+}
+
+/* Carte login */
+.login-card {
+    max-width: 420px;
+    width: 100%;
+    background-color: var(--hh-card);
+    border-radius: 15px;
+    padding: 2rem;
+    color: var(--hh-light);
+    position: relative;
+    z-index: 10;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.login-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+}
+
+/* Texte doré pour boutons */
+.btn-gold {
+    background-color: var(--hh-gold);
+    color: #000;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.btn-gold:hover {
+    background-color: #e6c200;
+    color: #000;
+}
+
+/* Labels */
+.text-kc-light { color: var(--hh-light) !important; }
+
+/* Input glow + icône */
+.input-glow {
+    padding-left: 2.5rem;
+    background-color: #1f1f1f;
+    border: 1px solid #444;
+    color: var(--hh-light);
+    transition: all 0.3s;
+}
+.input-glow:focus {
+    border-color: var(--hh-gold);
+    box-shadow: 0 0 8px var(--input-glow);
+    background-color: #292929;
+    color: #fff;
+}
+.input-icon {
+    position: absolute;
+    left: 10px;
+    top: 38px;
+    color: var(--hh-gold);
+    font-size: 1.1rem;
+}
+
+/* Canvas particles */
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .login-card { padding: 1.25rem; margin: 1rem; }
+}

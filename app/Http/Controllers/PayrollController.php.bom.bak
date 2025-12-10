@@ -1,0 +1,71 @@
+﻿<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Employee;
+use App\Models\Payroll;
+use Illuminate\Http\Request;
+
+class PayrollController extends Controller
+{
+    public function index()
+    {
+        $payrolls = Payroll::with('employee')->latest()->paginate(10); 
+        return view('payrolls.index', compact('payrolls'));
+    }
+
+    public function create()
+    {
+        $employees = Employee::all();
+        return view('payrolls.create', compact('employees'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'amount' => 'required|numeric|min:0',
+            'month' => 'required|date'
+        ]);
+
+        Notify::admins('Nouvelle paie enregistrÃ©e', 'La paie de ' . $request->employee_id . ' a Ã©tÃ© enregistrÃ©e.', route('payrolls.index'));
+
+        Payroll::create($request->all());
+        return redirect()->route('payrolls.index')->with('success', 'Paie enregistrÃ©e avec succÃ¨s');
+    }
+
+    public function show(Payroll $payroll)
+    {
+        return view('payrolls.show', compact('payroll'));
+    }
+
+    public function edit(Payroll $payroll)
+    {
+        $employees = Employee::all();
+        return view('payrolls.edit', compact('payroll', 'employees'));
+    }
+
+    public function update(Request $request, Payroll $payroll)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'month' => 'required|date'
+        ]);
+
+        $payroll->update($request->all());
+        return redirect()->route('payrolls.index')->with('success', 'Paie mise Ã  jour avec succÃ¨s');
+    }
+
+    public function destroy(Payroll $payroll)
+    {
+        $payroll->delete();
+        return redirect()->route('payrolls.index')->with('success', 'Paie supprimÃ©e avec succÃ¨s');
+    }
+}
+
+
+
+
+
+
+

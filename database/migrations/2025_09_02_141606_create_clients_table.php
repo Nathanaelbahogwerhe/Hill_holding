@@ -1,0 +1,49 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    public function up(): void
+    {
+        Schema::create('clients', function (Blueprint $table) {
+            $table->id();
+            $table->string('name'); // Nom du client
+            $table->string('contact_person')->nullable(); // Personne de contact
+            $table->string('email')->nullable()->unique(); // Unique si besoin
+            $table->string('phone')->nullable();
+            $table->text('address')->nullable();
+
+            // Relations organisationnelles
+            $table->foreignId('filiale_id')->nullable()->constrained('filiales')->onDelete('cascade');
+            $table->foreignId('agence_id')->nullable()->constrained('agences')->onDelete('cascade');
+
+            // Suivi financier stockÃ©
+            $table->decimal('total_due', 15, 2)->default(0);   // Total des dettes
+            $table->decimal('total_paid', 15, 2)->default(0);  // Total payÃ©
+            $table->decimal('balance', 15, 2)->default(0);     // Solde (total_due - total_paid)
+
+            $table->enum('status', ['prospect', 'active', 'inactive'])->default('prospect');
+
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropForeign(['filiale_id']);
+            $table->dropForeign(['agence_id']);
+        });
+
+        Schema::dropIfExists('clients');
+    }
+};
+
+
+
+
+
+
+

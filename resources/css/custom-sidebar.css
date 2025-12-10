@@ -1,0 +1,124 @@
+/* custom-sidebar.css */
+
+/* Variables globales pour le thÃ¨me */
+:root {
+    --hh-dark: #0b0b0d;
+    --hh-card: #0f1113;
+    --hh-border: #1c1c1f;
+    --hh-gold: #d4af37;
+    --hh-light: #ffffff;
+    --hh-muted: #9a8f77;
+}
+
+/* Sidebar gÃ©nÃ©ral */
+aside {
+    background-color: var(--hh-card);
+    color: var(--hh-light);
+    border-right: 1px solid var(--hh-border);
+}
+
+/* Liens sidebar */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    color: var(--hh-light);
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-link:hover {
+    background-color: rgba(212, 175, 55, 0.1); /* hh-gold/10 */
+    color: var(--hh-gold);
+}
+
+/* Sous-liens */
+.sub-link {
+    display: block;
+    padding: 0.25rem 0.5rem;
+    color: var(--hh-muted);
+    text-decoration: none;
+    border-radius: 0.25rem;
+}
+
+.sub-link:hover {
+    color: var(--hh-gold);
+    background-color: rgba(212, 175, 55, 0.1); /* hh-gold/10 */
+}
+
+/* IcÃ´nes */
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    stroke: currentColor;
+}
+
+/* Boutons pour les sous-menus */
+button.sidebar-link {
+    width: 100%;
+    justify-content: space-between;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--hh-light);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+button.sidebar-link:hover {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--hh-gold);
+}
+
+/* Ouverture des sous-menus */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Marge pour sous-menu */
+ul[x-show] {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+    list-style: none;
+    transition: max-height 0.3s ease;
+}
+
+/* Logo dans la sidebar */
+aside > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--hh-border);
+}
+
+aside svg {
+    display: block;
+}
+
+/* Footer de la sidebar */
+aside .text-xs {
+    padding: 1rem;
+    border-top: 1px solid var(--hh-border);
+    color: var(--hh-muted);
+    font-size: 0.75rem;
+}
+
+/* Hover gÃ©nÃ©ral */
+.hover-gold:hover {
+    color: var(--hh-gold);
+    background-color: rgba(212, 175, 55, 0.1);
+}
+
+
+
+
+
+
+
+
+

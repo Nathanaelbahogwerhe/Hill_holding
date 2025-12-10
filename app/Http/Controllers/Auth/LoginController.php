@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class LoginController extends Controller
+{
+    // Affiche le formulaire de connexion
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+    // Traitement du login
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $request->filled('remember'))) {
+            $request->session()->regenerate();
+            // Redirection vers le dashboard unique
+            return redirect()->route('dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Les identifiants sont incorrects.',
+        ]);
+    }
+
+    // DÃ©connexion
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
+    }
+}
+
+
+
+
+
+
+

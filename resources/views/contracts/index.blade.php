@@ -1,0 +1,71 @@
+@extends('layouts.app')
+@section('title', 'Contrats')
+
+@section('content')
+<div class="max-w-7xl mx-auto bg-hh-card p-6 rounded shadow">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold">Gestion des contrats</h1>
+        <a href="{{ route('contracts.create') }}" class="btn btn-primary flex items-center space-x-2">
+            <span>Nouveau contrat</span>
+        </a>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto border border-gray-700 rounded shadow">
+            <thead class="bg-gray-800">
+                <tr>
+                    <th class="px-4 py-2 text-left text-hh-gold">EmployÃ©</th>
+                    <th class="px-4 py-2 text-left text-hh-gold">Type</th>
+                    <th class="px-4 py-2 text-left text-hh-gold">DÃ©but</th>
+                    <th class="px-4 py-2 text-left text-hh-gold">Fin</th>
+                    <th class="px-4 py-2 text-left text-hh-gold">Salaire</th>
+                    <th class="px-4 py-2 text-left text-hh-gold">Statut</th>
+                    <th class="px-4 py-2 text-hh-gold">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($contracts as $contract)
+                <tr class="border-t border-gray-700">
+                    <td class="px-4 py-2">{{ $contract->employee->name }}</td>
+                    <td class="px-4 py-2">{{ $contract->type }}</td>
+                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($contract->start_date)->translatedFormat('d F Y') }}</td>
+                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($contract->end_date)->translatedFormat('d F Y') }}</td>
+                    <td class="px-4 py-2">{{ number_format($contract->salary,0,',',' ') }} FBU</td>
+                    <td class="px-4 py-2">
+                        @php
+                            $statusColors = ['active'=>'bg-green-600','expired'=>'bg-red-600','terminated'=>'bg-yellow-600'];
+                        @endphp
+                        <span class="px-2 py-1 rounded text-white {{ $statusColors[$contract->status] ?? 'bg-gray-500' }}">
+                            {{ ucfirst($contract->status) }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-2 space-x-2">
+                        <a href="{{ route('contracts.show', $contract) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('contracts.edit', $contract) }}" class="text-green-600 hover:underline">Ã‰diter</a>
+                        <form action="{{ route('contracts.destroy', $contract) }}" method="POST" class="inline">
+                            @csrf @method('DELETE')
+                            <button type="submit" onclick="return confirm('Supprimer ce contrat ?')" class="text-red-600 hover:underline">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="px-4 py-2 text-center text-gray-400">Aucun contrat trouvÃ©.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4">
+        {{ $contracts->links() }}
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+

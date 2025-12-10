@@ -1,0 +1,58 @@
+@extends('layouts.app')
+@section('title', 'Présences')
+
+@section('content')
+<div class="max-w-7xl mx-auto bg-hh-card p-6 rounded shadow">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold">Gestion des présences</h1>
+        <a href="{{ route('attendances.create') }}" class="btn btn-primary flex items-center space-x-2">
+            <span>Nouvelle présence</span>
+        </a>
+    </div>
+
+    <table class="w-full table-auto border border-gray-700 rounded shadow">
+        <thead class="bg-gray-800">
+            <tr>
+                <th class="px-4 py-2 text-left text-hh-gold">Employé</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Date</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Heure arrivée</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Heure départ</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($attendances as $attendance)
+            <tr class="border-t border-gray-700">
+                <td class="px-4 py-2">{{ $attendance->employee->name }}</td>
+                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($attendance->date)->translatedFormat('d F Y') }}</td>
+                <td class="px-4 py-2">{{ $attendance->check_in }}</td>
+                <td class="px-4 py-2">{{ $attendance->check_out ?? '-' }}</td>
+                <td class="px-4 py-2 space-x-2">
+                    <a href="{{ route('attendances.show', $attendance) }}" class="text-blue-600 hover:underline">Voir</a>
+                    <a href="{{ route('attendances.edit', $attendance) }}" class="text-green-600 hover:underline">Éditer</a>
+                    <form action="{{ route('attendances.destroy', $attendance) }}" method="POST" class="inline">
+                        @csrf @method('DELETE')
+                        <button type="submit" onclick="return confirm('Supprimer ce pointage ?')" class="text-red-600 hover:underline">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="5" class="px-4 py-2 text-center text-gray-400">Aucun pointage trouvé.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        {{-- {{ $attendances->links() }} --}}
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+

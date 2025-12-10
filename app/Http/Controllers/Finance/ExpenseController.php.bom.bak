@@ -1,0 +1,146 @@
+﻿<?php
+
+namespace App\Http\Controllers\Finance;
+
+use App\Http\Controllers\Controller;
+use App\Models\Expense;
+use App\Models\Filiale;
+use App\Models\Agence;
+use Illuminate\Http\Request;
+
+class ExpenseController extends Controller
+{
+    /**
+     * Liste toutes les dÃ©penses
+     */
+    public function index()
+    {
+        $user = auth()->user();
+
+        if ($user->isSuperAdmin()) {
+            $expenses = Expense::with(['filiale', 'agence'])->latest()->get();
+        } elseif ($user->filiale_id && !$user->agence_id) {
+            $expenses = Expense::where('filiale_id', $user->filiale_id)
+                ->with(['filiale', 'agence'])
+                ->latest()
+                ->get();
+        } elseif ($user->agence_id) {
+            $expenses = Expense::where('agence_id', $user->agence_id)
+                ->with(['filiale', 'agence'])
+                ->latest()
+                ->get();
+        } else {
+            $expenses = collect(); // pas de droits
+        }
+
+        return view('expenses.index', compact('expenses'));
+    }
+
+    /**
+     * Formulaire de crÃ©ation
+     */
+    public function create()
+    {
+        $filiales = Filiale::all();
+        $agences  = Agence::all();
+
+        return view('expenses.create', compact('filiales', 'agences'));
+    }
+
+    /**
+     * Enregistrement d'une dÃ©pense
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'description' => 'required|string|max:255',
+            'amount'      => 'required|numeric|min:0',
+            'date'        => 'required|date',
+            'category'    => 'required|string|max:100',
+            'filiale_id'  => 'nullable|exists:filiales,id',
+            'agence_id'   => 'nullable|exists:agences,id',
+        ]);
+
+        Expense::create($validated);
+
+        return redirect()->route('expenses.index')
+            ->with('success', 'DÃ©pense enregistrÃ©e avec succÃ¨s.');
+    }
+
+    /**
+     * Afficher une dÃ©pense
+     */
+    public function show(Expense $expense)
+    {
+        $this->authorizeAccess($expense);
+
+        return view('expenses.show', compact('expense'));
+    }
+
+    /**
+     * Formulaire dâ€™Ã©dition
+     */
+    public function edit(Expense $expense)
+    {
+        $this->authorizeAccess($expense);
+
+        $filiales = Filiale::all();
+        $agences  = Agence::all();
+
+        return view('expenses.edit', compact('expense', 'filiales', 'agences'));
+    }
+
+    /**
+     * Mise Ã  jour
+     */
+    public function update(Request $request, Expense $expense)
+    {
+        $this->authorizeAccess($expense);
+
+        $validated = $request->validate([
+            'description' => 'required|string|max:255',
+            'amount'      => 'required|numeric|min:0',
+            'date'        => 'required|date',
+            'category'    => 'required|string|max:100',
+            'filiale_id'  => 'nullable|exists:filiales,id',
+            'agence_id'   => 'nullable|exists:agences,id',
+        ]);
+
+        $expense->update($validated);
+
+        return redirect()->route('expenses.index')
+            ->with('success', 'DÃ©pense mise Ã  jour avec succÃ¨s.');
+    }
+
+    /**
+     * Suppression
+     */
+    public function destroy(Expense $expense)
+    {
+        $this->authorizeAccess($expense);
+
+        $expense->delete();
+
+        return redirect()->route('expenses.index')
+            ->with('success', 'DÃ©pense supprimÃ©e avec succÃ¨s.');
+    }
+
+    /**
+     * VÃ©rifie que lâ€™utilisateur a bien accÃ¨s Ã  la dÃ©pense
+     */
+    private function authorizeAccess(Expense $expense)
+    {
+        $user = auth()->user();
+
+        if (!$user->canAccessExpense($expense)) {
+            abort(403, 'AccÃ¨s non autorisÃ©.');
+        }
+    }
+}
+
+
+
+
+
+
+

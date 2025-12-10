@@ -1,0 +1,21 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h1>Espace EmployÃ© ðŸ‘¤</h1>
+    <p>Bienvenue dans votre espace personnel.</p>
+
+    <ul>
+        <li>Voir vos informations</li>
+        <li>Demander un congÃ©</li>
+        <li>Consulter vos projets</li>
+    </ul>
+</div>
+@endsection
+
+
+
+
+
+
+

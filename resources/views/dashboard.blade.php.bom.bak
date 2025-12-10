@@ -1,0 +1,191 @@
+﻿@extends('layouts.app')
+
+@section('title', 'Tableau de Bord')
+
+@section('content')
+<div class="px-6 py-6">
+
+    <h2 class="text-4xl font-extrabold text-hh-light mb-6 tracking-wide drop-shadow-md">
+        ðŸ§­ Tableau de Bord â€” Vue Globale
+    </h2>
+
+    <div id="status" class="text-sm text-hh-light/70 mb-4 italic">
+        Chargement des statistiques...
+    </div>
+
+    <!-- CARDS STATISTIQUES -->
+    <div id="stats-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+        <!-- Les cartes seront injectÃ©es par JS -->
+    </div>
+
+    <!-- GRAPHIQUES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-hh-card/80 backdrop-blur-xl border border-hh-gold/40 rounded-2xl p-5 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+            <h3 class="text-hh-light/70 font-semibold mb-3">ðŸ“ˆ Projets vs TÃ¢ches</h3>
+            <canvas id="projectsTasksChart" class="w-full h-64"></canvas>
+        </div>
+
+        <div class="bg-hh-card/80 backdrop-blur-xl border border-hh-gold/40 rounded-2xl p-5 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+            <h3 class="text-hh-light/70 font-semibold mb-3">ðŸ‘¥ RÃ©partition RH</h3>
+            <canvas id="employeesChart" class="w-full h-64"></canvas>
+        </div>
+    </div>
+
+    <!-- PROGRESS BARS KPI -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-hh-card/80 backdrop-blur-xl border border-hh-gold/40 rounded-2xl p-5 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+            <h3 class="text-hh-light/70 font-semibold mb-3">ðŸ“Š CongÃ©s Utilisateurs</h3>
+            <div class="space-y-3" id="leaves-progress">
+                <!-- Les progress bars seront injectÃ©es par JS -->
+            </div>
+        </div>
+
+        <div class="bg-hh-card/80 backdrop-blur-xl border border-hh-gold/40 rounded-2xl p-5 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+            <h3 class="text-hh-light/70 font-semibold mb-3">ðŸ’¼ Projets Progression</h3>
+            <div class="space-y-3" id="projects-progress">
+                <!-- Les progress bars seront injectÃ©es par JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DERNIÃˆRES ACTIONS -->
+    <div class="bg-hh-card/80 backdrop-blur-xl border border-hh-gold/40 rounded-2xl p-5 shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+        <h3 class="text-hh-light/70 font-semibold mb-4">ðŸ•’ DerniÃ¨res actions</h3>
+        <ul id="latest-actions" class="space-y-2 text-hh-light/70">
+            <li>Chargementâ€¦</li>
+        </ul>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const status = document.getElementById('status');
+    const statsContainer = document.getElementById('stats-cards');
+    const latestActions = document.getElementById('latest-actions');
+    const leavesProgress = document.getElementById('leaves-progress');
+    const projectsProgress = document.getElementById('projects-progress');
+
+    async function loadDashboard() {
+        status.textContent = "â³ Mise Ã  jour en cours...";
+
+        try {
+            const response = await fetch("{{ route('dashboard.data') }}");
+            if (!response.ok) throw new Error("Erreur rÃ©seau");
+            const data = await response.json();
+
+            // --- CARDS STATISTIQUES ---
+            const cards = [
+                {title: 'EmployÃ©s', value: data.employees, icon: 'ðŸ‘¥'},
+                {title: 'DÃ©partements', value: data.departments, icon: 'ðŸ¢'},
+                {title: 'Filiales', value: data.filiales, icon: 'ðŸ­'},
+                {title: 'Agences', value: data.agences, icon: 'ðŸ¢'},
+                {title: 'Utilisateurs', value: data.users, icon: 'ðŸ‘¤'},
+                {title: 'Clients', value: data.clients, icon: 'ðŸ§¾'},
+                {title: 'Projets', value: data.projects, icon: 'ðŸ“'},
+                {title: 'TÃ¢ches', value: data.tasks, icon: 'ðŸ“'},
+                {title: 'Notes', value: data.notes, icon: 'ðŸ“œ'},
+            ];
+
+            statsContainer.innerHTML = cards.map(card => `
+                <div class="p-6 rounded-2xl border border-hh-gold/40 bg-hh-card/80 
+                            backdrop-blur-xl shadow-[0_0_20px_rgba(212,175,55,0.15)]
+                            transition transform hover:scale-105 hover:shadow-[0_0_35px_rgba(212,175,55,0.35)]
+                            animate-fadeIn">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-lg font-semibold text-hh-light/70 tracking-wide">
+                            ${card.icon} ${card.title}
+                        </div>
+                    </div>
+                    <div class="text-5xl font-extrabold text-hh-light drop-shadow-lg">
+                        ${card.value}
+                    </div>
+                </div>
+            `).join('');
+
+            // --- GRAPHIQUES ---
+            const projectsTasksCtx = document.getElementById('projectsTasksChart').getContext('2d');
+            new Chart(projectsTasksCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Projets', 'TÃ¢ches'],
+                    datasets: [{
+                        label: 'Nombre',
+                        data: [data.projects, data.tasks],
+                        backgroundColor: ['#d4af37', '#bfa32a'],
+                        borderRadius: 10,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, ticks: { color: '#ffffff' } },
+                        x: { ticks: { color: '#ffffff' } }
+                    }
+                }
+            });
+
+            const employeesCtx = document.getElementById('employeesChart').getContext('2d');
+            new Chart(employeesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['EmployÃ©s', 'Clients', 'Utilisateurs'],
+                    datasets: [{
+                        data: [data.employees, data.clients, data.users],
+                        backgroundColor: ['#d4af37', '#bfa32a', '#c9a825'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { position: 'bottom', labels: { color: '#ffffff' } } }
+                }
+            });
+
+            // --- PROGRESS BARS ---
+            leavesProgress.innerHTML = (data.leaves || []).map(l =>
+                `<div>
+                    <div class="flex justify-between text-hh-light/70 text-sm mb-1">${l.title} (${l.value}%)</div>
+                    <div class="w-full bg-hh-dark/50 rounded-full h-3">
+                        <div class="bg-hh-gold h-3 rounded-full" style="width:${l.value}%"></div>
+                    </div>
+                </div>`).join('');
+
+            projectsProgress.innerHTML = (data.projects_progress || []).map(p =>
+                `<div>
+                    <div class="flex justify-between text-hh-light/70 text-sm mb-1">${p.title} (${p.value}%)</div>
+                    <div class="w-full bg-hh-dark/50 rounded-full h-3">
+                        <div class="bg-hh-gold h-3 rounded-full" style="width:${p.value}%"></div>
+                    </div>
+                </div>`).join('');
+
+            // --- DERNIÃˆRES ACTIONS ---
+            latestActions.innerHTML = (data.latest_actions || []).map(a =>
+                `<li>â€¢ ${a}</li>`
+            ).join('') || '<li>Aucune action rÃ©cente</li>';
+
+            status.textContent = "âœ” DerniÃ¨re mise Ã  jour : " + new Date().toLocaleTimeString();
+
+        } catch (error) {
+            console.error(error);
+            status.textContent = "âš  Erreur de chargement â€” vÃ©rifier connexion.";
+        }
+    }
+
+    loadDashboard();
+    setInterval(loadDashboard, 30000);
+});
+</script>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.8s ease-out; }
+</style>
+@endsection
+
+
+

@@ -1,0 +1,20 @@
+@extends('layouts.app')
+@section('title','Nouvelle Filiale')
+@section('content')
+<form method="POST" action="{{ route('filiales.store') }}" class="max-w-md bg-hh-card p-6 rounded shadow">
+    @csrf
+    <label class="block mb-2">Nom</label>
+    <input name="name" class="w-full px-3 py-2 rounded bg-transparent border border-hh-border" value="{{ old('name') }}">
+    <div class="mt-4 flex justify-end">
+        <a href="{{ route('filiales.index') }}" class="px-3 py-2 mr-2 border rounded text-hh-muted">Annuler</a>
+        <button class="px-4 py-2 rounded bg-hh-gold text-black">Enregistrer</button>
+    </div>
+</form>
+@endsection
+
+
+
+
+
+
+

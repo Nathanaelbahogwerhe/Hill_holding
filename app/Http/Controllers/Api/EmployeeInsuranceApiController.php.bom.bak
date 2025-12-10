@@ -1,0 +1,57 @@
+﻿<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\EmployeeInsurance;
+use Illuminate\Http\Request;
+
+class EmployeeInsuranceApiController extends Controller
+{
+    public function index()
+    {
+        return response()->json(EmployeeInsurance::with(['employee','plan'])->get(), 200);
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'employee_id'       => 'required|exists:employees,id',
+            'insurance_plan_id' => 'required|exists:insurance_plans,id',
+            'start_date'        => 'required|date',
+            'end_date'          => 'nullable|date|after_or_equal:start_date',
+        ]);
+        $ei = EmployeeInsurance::create($data);
+        return response()->json($ei->load(['employee','plan']), 201);
+    }
+
+    public function show(EmployeeInsurance $employeeInsurance)
+    {
+        return response()->json($employeeInsurance->load(['employee','plan']), 200);
+    }
+
+    public function update(Request $request, EmployeeInsurance $employeeInsurance)
+    {
+        $data = $request->validate([
+            'employee_id'       => 'required|exists:employees,id',
+            'insurance_plan_id' => 'required|exists:insurance_plans,id',
+            'start_date'        => 'required|date',
+            'end_date'          => 'nullable|date|after_or_equal:start_date',
+        ]);
+        $employeeInsurance->update($data);
+        return response()->json($employeeInsurance->load(['employee','plan']), 200);
+    }
+
+    public function destroy(EmployeeInsurance $employeeInsurance)
+    {
+        $employeeInsurance->delete();
+        return response()->json(['message' => 'Couverture supprimÃ©e'], 200);
+    }
+}
+
+
+
+
+
+
+

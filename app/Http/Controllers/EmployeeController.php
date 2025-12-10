@@ -1,0 +1,185 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Employee;
+use App\Models\Department;
+use App\Models\Filiale;
+use App\Models\Agence;
+use App\Models\User;
+use App\Helpers\Notify;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Events\DashboardUpdated;
+
+class EmployeeController extends Controller
+{
+    /**
+     * ðŸ§¾ Liste des employÃ©s
+     */
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $query = Employee::query()->with(['department', 'filiale', 'agence']);
+
+        // ðŸ” Recherche
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('first_name', 'like', '%' . $request->search . '%')
+                  ->orWhere('last_name', 'like', '%' . $request->search . '%')
+                  ->orWhere('email', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        // ðŸ” Filtrage selon le rÃ´le
+        if ($user->hasRole('Super Admin')) {
+            $employees = $query->paginate(10);
+        } elseif ($user->filiale_id) {
+            $employees = $query->where('filiale_id', $user->filiale_id)->paginate(10);
+        } elseif ($user->agency_id) {
+            $employees = $query->where('agency_id', $user->agency_id)->paginate(10);
+        } else {
+            $employees = collect(); // Aucun accÃ¨s
+        }
+
+        return view('employees.index', compact('employees'));
+    }
+
+    /**
+     * âž• Formulaire de crÃ©ation
+     */
+    public function create()
+    {
+        $departments = Department::all();
+        $filiales = Filiale::all();
+        $agences = Agence::all();
+        $users = User::all();
+
+        return view('employees.create', compact('departments', 'filiales', 'agences', 'users'));
+    }
+
+    /**
+     * ðŸ’¾ Enregistrement dâ€™un nouvel employÃ©
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id'       => 'nullable|exists:users,id',
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'email'         => 'nullable|email|max:255',
+            'department_id' => 'nullable|exists:departments,id',
+            'filiale_id'    => 'nullable|exists:filiales,id',
+            'agency_id'     => 'nullable|exists:agences,id',
+            'basic_salary'  => 'nullable|numeric|min:0',
+        ]);
+
+        // âœ… CrÃ©ation de lâ€™employÃ©
+        $employee = Employee::create([
+            'user_id'       => $request->user_id,
+            'first_name'    => $request->first_name,
+            'last_name'     => $request->last_name,
+            'email'         => $request->email,
+            'department_id' => $request->department_id,
+            'filiale_id'    => $request->filiale_id ?? Auth::user()->filiale_id,
+            'agency_id'     => $request->agency_id ?? Auth::user()->agency_id,
+            'basic_salary'  => $request->basic_salary ?? 0,
+        ]);
+
+        // ðŸŸ¡ Notification automatique aux administrateurs
+        Notify::admins(
+            'Nouvel employÃ© ajoutÃ©',
+            'Un nouvel employÃ© a Ã©tÃ© ajoutÃ© : ' . $employee->first_name . ' ' . $employee->last_name,
+            route('employees.show', $employee)
+        );
+
+        // ðŸŸ¢ Envoi dâ€™un Ã©vÃ©nement pour mise Ã  jour du dashboard en temps rÃ©el
+        event(new DashboardUpdated('employee_created', [
+            'id' => $employee->id,
+            'name' => $employee->first_name . ' ' . $employee->last_name,
+            'department' => optional($employee->department)->name,
+        ]));
+
+        return redirect()->route('employees.index')->with('success', 'EmployÃ© crÃ©Ã© avec succÃ¨s.');
+    }
+
+    /**
+     * ðŸ‘ï¸ Affichage des dÃ©tails dâ€™un employÃ©
+     */
+    public function show(Employee $employee)
+    {
+        $employee->load(['department', 'filiale', 'agence']);
+        return view('employees.show', compact('employee'));
+    }
+
+    /**
+     * âœï¸ Formulaire dâ€™Ã©dition
+     */
+    public function edit(Employee $employee)
+    {
+        $departments = Department::all();
+        $filiales = Filiale::all();
+        $agences = Agence::all();
+        $users = User::all();
+
+        return view('employees.edit', compact('employee', 'departments', 'filiales', 'agences', 'users'));
+    }
+
+    /**
+     * ðŸ” Mise Ã  jour dâ€™un employÃ©
+     */
+    public function update(Request $request, Employee $employee)
+    {
+        $request->validate([
+            'first_name'    => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'email'         => 'nullable|email|max:255',
+            'department_id' => 'nullable|exists:departments,id',
+            'filiale_id'    => 'nullable|exists:filiales,id',
+            'agency_id'     => 'nullable|exists:agences,id',
+            'basic_salary'  => 'nullable|numeric|min:0',
+        ]);
+
+        $employee->update([
+            'first_name'    => $request->first_name,
+            'last_name'     => $request->last_name,
+            'email'         => $request->email,
+            'department_id' => $request->department_id,
+            'filiale_id'    => $request->filiale_id,
+            'agency_id'     => $request->agency_id,
+            'basic_salary'  => $request->basic_salary,
+        ]);
+
+        // Ã‰vÃ©nement de mise Ã  jour du dashboard
+        event(new DashboardUpdated('employee_updated', [
+            'id' => $employee->id,
+            'name' => $employee->first_name . ' ' . $employee->last_name,
+        ]));
+
+        return redirect()->route('employees.show', $employee->id)
+                         ->with('success', 'EmployÃ© mis Ã  jour avec succÃ¨s.');
+    }
+
+    /**
+     * ðŸ—‘ï¸ Suppression dâ€™un employÃ©
+     */
+    public function destroy(Employee $employee)
+    {
+        $employee->delete();
+
+        // Ã‰vÃ©nement de suppression du dashboard
+        event(new DashboardUpdated('employee_deleted', [
+            'id' => $employee->id,
+            'name' => $employee->first_name . ' ' . $employee->last_name,
+        ]));
+
+        return redirect()->route('employees.index')->with('success', 'EmployÃ© supprimÃ© avec succÃ¨s.');
+    }
+}
+
+
+
+
+
+
+

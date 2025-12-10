@@ -1,0 +1,72 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Client;
+use App\Models\Filiale;
+use App\Models\Agence;
+
+class ClientSeeder extends Seeder
+{
+    public function run(): void
+    {
+        // RÃ©cupÃ©rer quelques filiales et agences existantes
+        $filiales = Filiale::all();
+        $agences = Agence::all();
+
+        // CrÃ©er des clients
+        $clientsData = [
+            [
+                'name' => 'Client One',
+                'contact_person' => 'Alice',
+                'email' => 'client1@company.com',
+                'phone' => '+25770000001',
+                'address' => 'Bujumbura, Burundi',
+                'filiale_id' => $filiales->random()->id ?? null,
+                'agence_id' => $agences->random()->id ?? null,
+                'total_due' => 1000,
+                'total_paid' => 500,
+                'balance' => 500,
+                'status' => 'active',
+            ],
+            [
+                'name' => 'Client Two',
+                'contact_person' => 'Bob',
+                'email' => 'client2@company.com',
+                'phone' => '+25770000002',
+                'address' => 'Gitega, Burundi',
+                'filiale_id' => $filiales->random()->id ?? null,
+                'agence_id' => $agences->random()->id ?? null,
+                'total_due' => 2000,
+                'total_paid' => 2000,
+                'balance' => 0,
+                'status' => 'active',
+            ],
+            [
+                'name' => 'Client Three',
+                'contact_person' => 'Charlie',
+                'email' => 'client3@company.com',
+                'phone' => '+25770000003',
+                'address' => 'Ngozi, Burundi',
+                'filiale_id' => $filiales->random()->id ?? null,
+                'agence_id' => $agences->random()->id ?? null,
+                'total_due' => 1500,
+                'total_paid' => 0,
+                'balance' => 1500,
+                'status' => 'prospect',
+            ],
+        ];
+
+        foreach ($clientsData as $data) {
+            Client::updateOrCreate(['email' => $data['email']], $data);
+        }
+    }
+}
+
+
+
+
+
+
+

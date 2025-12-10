@@ -1,0 +1,57 @@
+@extends('layouts.app')
+@section('title', 'Utilisateurs')
+
+@section('content')
+<div class="max-w-7xl mx-auto bg-hh-card p-6 rounded shadow">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-xl font-semibold">Gestion des utilisateurs</h1>
+        <a href="{{ route('users.create') }}" class="btn btn-primary flex items-center space-x-2">
+            <span>Nouvel utilisateur</span>
+        </a>
+    </div>
+
+    <table class="w-full table-auto border border-gray-700 rounded shadow">
+        <thead class="bg-gray-800">
+            <tr>
+                <th class="px-4 py-2 text-left text-hh-gold">Nom</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Email</th>
+                <th class="px-4 py-2 text-left text-hh-gold">RÃ´le</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Filiale</th>
+                <th class="px-4 py-2 text-left text-hh-gold">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($users as $user)
+            <tr class="border-t border-gray-700">
+                <td class="px-4 py-2">{{ $user->name }}</td>
+                <td class="px-4 py-2">{{ $user->email }}</td>
+                <td class="px-4 py-2">{{ $user->roles->pluck('name')->join(', ') }}</td>
+                <td class="px-4 py-2">{{ $user->filiale?->name ?? '-' }}</td>
+                <td class="px-4 py-2 space-x-2">
+                    <a href="{{ route('users.edit', $user) }}" class="text-green-600 hover:underline">Ã‰diter</a>
+                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="inline">
+                        @csrf @method('DELETE')
+                        <button type="submit" onclick="return confirm('Supprimer cet utilisateur ?')" class="text-red-600 hover:underline">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="5" class="px-4 py-2 text-center text-gray-400">Aucun utilisateur trouvÃ©.</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        {{ $users->links() }}
+    </div>
+</div>
+@endsection
+
+
+
+
+
+
+

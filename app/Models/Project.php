@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Project extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+        'responsible_id',  // AjoutÃ© pour la relation responsable
+        'start_date',
+        'due_date',
+        'details',
+    ];
+
+    // ðŸ”— Un projet a plusieurs tÃ¢ches
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    // ðŸ”— Relation vers l'utilisateur responsable
+    public function responsible()
+    {
+        return $this->belongsTo(User::class, 'responsible_id');
+    }
+}
+
+
+
+
+
+
+

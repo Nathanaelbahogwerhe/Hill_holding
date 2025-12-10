@@ -1,0 +1,27 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="flex items-center justify-between mb-4">
+        <h1 class="text-2xl font-bold">Gestion des rôles</h1>
+        <a href="{{ route('roles.create') }}" class="px-3 py-2 bg-blue-600 text-white rounded">+ Nouveau rôle</a>
+    </div>
+
+    <ul class="space-y-3">
+        @foreach ($roles as $role)
+            <li class="p-3 bg-hh-card border border-hh-border rounded flex items-center justify-between">
+                <div>
+                    <div class="font-semibold">{{ $role->name }}</div>
+                    <div class="text-sm text-hh-muted">{{ $role->permissions->pluck('name')->join(', ') }}</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('roles.edit', $role->id) }}" class="px-2 py-1 bg-yellow-500 text-white rounded">Éditer</a>
+                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Supprimer ce rôle ?');" style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="px-2 py-1 bg-red-600 text-white rounded">Supprimer</button>
+                    </form>
+                </div>
+            </li>
+        @endforeach
+    </ul>
+@endsection
