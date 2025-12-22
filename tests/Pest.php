@@ -45,10 +45,3 @@ function something()
 {
     // ..
 }
-
-
-
-
-
-
-

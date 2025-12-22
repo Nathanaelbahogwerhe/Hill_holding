@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('leave_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('days'); // nombre de jours autorisÃ©s
+            $table->integer('days'); // nombre de jours autorisés
             $table->timestamps();
         });
     }
@@ -20,9 +20,6 @@ return new class extends Migration {
         Schema::dropIfExists('leave_types');
     }
 };
-
-
-
 
 
 

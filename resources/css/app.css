@@ -2,177 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === HILL HOLDING THEME (Noir & DorÃ©) === */
+/* Variables Dark Mode */
 :root {
-    --hh-dark: #0b0b0d;      /* fond principal / trÃ¨s foncÃ© */
-    --hh-card: #0f1113;      /* cartes, sidebar, header */
-    --hh-border: #1c1c1f;    /* bordures */
-    --hh-gold: #d4af37;      /* couleur principale (boutons, hover) */
-    --hh-light: #ffffff;     /* texte principal */
-    --hh-muted: #a6a6a6;     /* texte secondaire / muted */
+    --hh-black: #0A0A0A;
+    --hh-gold: #c89b5a;
+    --hh-gold-light: #d4af37;
 }
 
-/* === BASE === */
+/* Global */
 body {
-    background-color: var(--hh-dark);
-    color: var(--hh-light);
-    font-family: 'Inter', sans-serif;
+    background-color: var(--hh-black);
+    color: var(--hh-gold-light);
+    font-family: "Inter", sans-serif;
 }
 
-/* === SIDEBAR === */
-.sidebar-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.6rem 0.9rem;
-    border-radius: 0.5rem;
-    color: var(--hh-muted);
-    transition: all 0.25s ease;
-}
-
-.sidebar-link:hover,
-.sidebar-link.active {
-    background-color: var(--hh-gold);
-    color: #000;
-}
-
-.sub-link {
-    display: block;
-    padding: 0.45rem 0.75rem;
-    border-radius: 0.4rem;
-    color: var(--hh-muted);
-    transition: all 0.2s ease;
-}
-
-.sub-link:hover {
-    color: var(--hh-gold);
-}
-
-/* === HEADER / NAVBAR === */
-header {
-    background-color: var(--hh-card);
-    border-bottom: 1px solid var(--hh-border);
-    color: var(--hh-light);
-}
-
-header button:hover {
-    background-color: var(--hh-gold);
-    color: #000;
-}
-
-/* === BOUTONS === */
-button, .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.4rem;
-    transition: all 0.2s ease;
-}
-
-.btn-gold {
-    background-color: var(--hh-gold);
-    color: #000;
-}
-.btn-gold:hover {
-    background-color: #e5c04a;
-}
-
-.btn-dark {
-    background-color: var(--hh-card);
-    border: 1px solid var(--hh-border);
-    color: var(--hh-light);
-}
-.btn-dark:hover {
-    border-color: var(--hh-gold);
-    color: var(--hh-gold);
-}
-
-/* === TABLES === */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    color: var(--hh-light);
-}
-th {
-    background-color: var(--hh-card);
-    border-bottom: 1px solid var(--hh-border);
-    padding: 0.75rem;
-    text-align: left;
-    color: var(--hh-gold);
-    font-weight: 600;
-}
-td {
-    border-bottom: 1px solid var(--hh-border);
-    padding: 0.75rem;
-}
-tr:hover {
-    background-color: #1a1a1a;
-}
-
-/* === FORMULAIRES === */
-input, select, textarea {
-    background-color: var(--hh-card);
-    color: var(--hh-light);
-    border: 1px solid var(--hh-border);
-    border-radius: 0.4rem;
-    padding: 0.5rem;
-    width: 100%;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: var(--hh-gold);
-    outline: none;
-}
-
-/* === CARTES === */
-.card {
-    background-color: var(--hh-card);
-    border: 1px solid var(--hh-border);
-    border-radius: 0.6rem;
-    padding: 1.2rem;
-    color: var(--hh-light);
-    transition: all 0.2s ease;
-}
-.card:hover {
-    border-color: var(--hh-gold);
-}
-
-/* === SCROLLBAR === */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-thumb {
-    background-color: var(--hh-gold);
-    border-radius: 8px;
-}
-::-webkit-scrollbar-track {
-    background-color: var(--hh-card);
-}
-
-/* === TITRES ET TEXTE === */
-h1, h2, h3, h4 {
-    color: var(--hh-gold);
-    font-weight: 600;
-}
+/* Liens */
 a {
-    color: var(--hh-light);
-    transition: all 0.2s ease;
+    color: var(--hh-gold-light);
 }
 a:hover {
-    color: #f1d879;
-}
-
-/* === LOGIN CARD === */
-.login-card {
-    background-color: var(--hh-card);
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    color: var(--hh-light);
-}
-.login-card h3 {
     color: var(--hh-gold);
 }
 
+/* Boutons */
+.btn-gold {
+    background-color: var(--hh-gold);
+    color: var(--hh-black);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: 600;
+}
+.btn-gold:hover {
+    background-color: var(--hh-gold-light);
+}
 
+/* Inputs */
+input, select, textarea {
+    background-color: #111;
+    border: 1px solid var(--hh-gold);
+    color: var(--hh-gold-light);
+}
+input:focus, select:focus, textarea:focus {
+    border-color: var(--hh-gold-light);
+}
 
-
-
+/* Navbar Breeze */
+.navbar {
+    background-color: var(--hh-black);
+    color: var(--hh-gold-light);
+    border-bottom: 1px solid var(--hh-gold);
+}

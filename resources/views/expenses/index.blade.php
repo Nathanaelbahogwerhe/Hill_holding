@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'DÃ©penses')
+@section('title', 'Dépenses')
 
 @section('content')
 <div class="p-6">
 
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold text-hh-gold">ðŸ“‰ DÃ©penses</h2>
+        <h2 class="text-2xl font-semibold text-hh-gold">📉 Dépenses</h2>
 
         <a href="{{ route('expenses.create') }}" class="hh-btn-primary">
-            + Nouvelle DÃ©pense
+            + Nouvelle Dépense
         </a>
     </div>
 
@@ -18,11 +18,13 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Catégorie</th>
                     <th>Montant</th>
                     <th>Date</th>
                     <th>Filiale</th>
                     <th>Agence</th>
+                    <th>Document</th>
                     <th class="text-right">Actions</th>
                 </tr>
             </thead>
@@ -31,13 +33,30 @@
                 @forelse($expenses as $expense)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $expense->title }}</td>
+                        <td>{{ $expense->description }}</td>
+                        <td>
+                            @if($expense->category)
+                                <span class="text-xs px-2 py-1 bg-gray-700 rounded">📁 {{ $expense->category }}</span>
+                            @else
+                                <span class="text-gray-500">—</span>
+                            @endif
+                        </td>
                         <td class="text-red-400 font-semibold">
-                            - {{ number_format($expense->amount, 2) }} Fbu
+                            - {{ number_format($expense->amount, 0, ',', ' ') }} FBu
                         </td>
                         <td>{{ \Carbon\Carbon::parse($expense->date)->format('d/m/Y') }}</td>
-                        <td>{{ $expense->filiale->name ?? 'â€”' }}</td>
-                        <td>{{ $expense->agence->name ?? 'â€”' }}</td>
+                        <td>{{ $expense->filiale->name ?? '—' }}</td>
+                        <td>{{ $expense->agence->name ?? '—' }}</td>
+                        <td class="text-center">
+                            @if($expense->attachment)
+                                <a href="{{ Storage::url($expense->attachment) }}" target="_blank" 
+                                   class="text-blue-400 hover:text-blue-300" title="Télécharger">
+                                    <i class="fas fa-file-download"></i>
+                                </a>
+                            @else
+                                <span class="text-gray-500">—</span>
+                            @endif
+                        </td>
 
                         <td class="text-right space-x-3">
                             <a href="{{ route('expenses.show', $expense) }}" class="text-blue-400 hover:text-blue-300">
@@ -50,7 +69,7 @@
 
                             <form action="{{ route('expenses.destroy', $expense) }}" method="POST"
                                   class="inline-block"
-                                  onsubmit="return confirm('Supprimer cette dÃ©pense ?')">
+                                  onsubmit="return confirm('Supprimer cette dépense ?')">
                                 @csrf @method('DELETE')
                                 <button class="text-red-500 hover:text-red-300">
                                     <i class="fas fa-trash-alt"></i>
@@ -61,7 +80,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center py-4 text-gray-400">Aucune dÃ©pense enregistrÃ©e.</td>
+                        <td colspan="7" class="text-center py-4 text-gray-400">Aucune dépense enregistrée.</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -70,9 +89,6 @@
 
 </div>
 @endsection
-
-
-
 
 
 

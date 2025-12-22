@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\Budget;
+use App\Observers\BudgetObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,12 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Enregistrer l'observer pour le modèle Budget
+        Budget::observe(BudgetObserver::class);
     }
 }
-
-
-
 
 
 

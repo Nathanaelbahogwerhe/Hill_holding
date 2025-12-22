@@ -35,7 +35,7 @@ class Client extends Model
         return $this->belongsTo(Agence::class);
     }
 
-    // ðŸ”— Relation vers les factures
+    // 🔗 Relation vers les factures
     public function invoices()
     {
         return $this->hasMany(Invoice::class);
@@ -48,12 +48,9 @@ class Client extends Model
         return $this->balance;
     }
 
-    // VÃ©rifier si le client est Ã  jour de ses paiements
+    // Vérifier si le client est à jour de ses paiements
     public function isPaidUp()
     {
         return $this->balance <= 0;
     }
 }
-
-
-

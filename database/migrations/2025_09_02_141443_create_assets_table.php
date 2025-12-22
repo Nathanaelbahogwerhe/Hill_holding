@@ -9,12 +9,12 @@ return new class extends Migration {
     {
         Schema::create('assets', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // Nom de lâ€™actif
-            $table->string('category'); // CatÃ©gorie (ex : vÃ©hicule, matÃ©riel, logicielâ€¦)
-            $table->decimal('value', 15, 2)->nullable(); // Valeur dâ€™achat
-            $table->date('acquisition_date')->nullable(); // Date dâ€™acquisition
-            $table->string('status')->default('active'); // Statut : actif, hors serviceâ€¦
-            $table->text('description')->nullable(); // DÃ©tails
+            $table->string('name'); // Nom de l’actif
+            $table->string('category'); // Catégorie (ex : véhicule, matériel, logiciel…)
+            $table->decimal('value', 15, 2)->nullable(); // Valeur d’achat
+            $table->date('acquisition_date')->nullable(); // Date d’acquisition
+            $table->string('status')->default('active'); // Statut : actif, hors service…
+            $table->text('description')->nullable(); // Détails
             $table->timestamps();
         });
     }
@@ -24,9 +24,6 @@ return new class extends Migration {
         Schema::dropIfExists('assets');
     }
 };
-
-
-
 
 
 

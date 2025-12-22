@@ -14,24 +14,24 @@
             Bienvenue dans la filiale {{ Auth::user()->filiale->name }}
         </h1>
     @else
-        {{-- Cas visiteur ou pas encore de filiale liÃ©e --}}
+        {{-- Cas visiteur ou pas encore de filiale liée --}}
         <div class="mb-4">
             <img src="{{ asset('images/default_logo.png') }}" 
-                 alt="Logo HillHolding" 
+                 alt="Logo novacore" 
                  style="max-height: 120px;">
         </div>
-        <h1 class="fw-bold text-secondary">Bienvenue sur HillHolding Company</h1>
+        <h1 class="fw-bold text-secondary">Bienvenue sur novacore Company</h1>
     @endif
 
     <p class="mt-4">
-        Vous Ãªtes connectÃ© en tant que <strong>{{ Auth::user()->name ?? 'Visiteur' }}</strong>.
+        Vous êtes connecté en tant que <strong>{{ Auth::user()->name ?? 'Visiteur' }}</strong>.
     </p>
 
     @auth
         <a href="{{ route('logout') }}" 
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
            class="btn btn-danger mt-3">
-            DÃ©connexion
+            Déconnexion
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
@@ -43,9 +43,6 @@
     @endauth
 </div>
 @endsection
-
-
-
 
 
 

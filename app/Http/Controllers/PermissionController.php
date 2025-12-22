@@ -9,7 +9,7 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        // Seul le Super Admin peut gÃ©rer les permissions
+        // Seul le Super Admin peut gérer les permissions
         $this->middleware('role:Super Admin');
     }
 
@@ -23,7 +23,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
@@ -44,11 +44,11 @@ class PermissionController extends Controller
             'guard_name' => 'web',
         ]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission crÃ©Ã©e avec succÃ¨s.');
+        return redirect()->route('permissions.index')->with('success', 'Permission créée avec succès.');
     }
 
     /**
-     * Formulaire dâ€™Ã©dition
+     * Formulaire d’édition
      */
     public function edit(Permission $permission)
     {
@@ -56,7 +56,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Mettre Ã  jour une permission
+     * Mettre à jour une permission
      */
     public function update(Request $request, Permission $permission)
     {
@@ -66,7 +66,7 @@ class PermissionController extends Controller
 
         $permission->update(['name' => $request->name]);
 
-        return redirect()->route('permissions.index')->with('success', 'Permission mise Ã  jour avec succÃ¨s.');
+        return redirect()->route('permissions.index')->with('success', 'Permission mise à jour avec succès.');
     }
 
     /**
@@ -75,12 +75,9 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        return redirect()->route('permissions.index')->with('success', 'Permission supprimÃ©e avec succÃ¨s.');
+        return redirect()->route('permissions.index')->with('success', 'Permission supprimée avec succès.');
     }
 }
-
-
-
 
 
 

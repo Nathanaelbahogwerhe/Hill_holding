@@ -28,14 +28,14 @@ class AgenceSeeder extends Seeder
                 'telephone' => '+250 111 222 333',
                 'filiale_code' => 'HH-RW',
             ],
-            // Ajoute dâ€™autres agences ici si nÃ©cessaire
+            // Ajoute d’autres agences ici si nécessaire
         ];
 
         foreach ($agences as $data) {
             $filiale = Filiale::where('code', $data['filiale_code'])->first();
 
             if (!$filiale) {
-                $this->command->warn("Filiale {$data['filiale_code']} non trouvÃ©e, l'agence {$data['code']} ne sera pas crÃ©Ã©e.");
+                $this->command->warn("Filiale {$data['filiale_code']} non trouvée, l'agence {$data['code']} ne sera pas créée.");
                 continue;
             }
 
@@ -51,7 +51,7 @@ class AgenceSeeder extends Seeder
             );
         }
 
-        $this->command->info("âœ… Agences seedÃ©es avec succÃ¨s !");
+        $this->command->info("âœ… Agences seedées avec succès !");
     }
 }
 

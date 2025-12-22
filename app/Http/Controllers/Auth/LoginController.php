@@ -30,7 +30,7 @@ class LoginController extends Controller
         ]);
     }
 
-    // DÃ©connexion
+    // Déconnexion
     public function logout(Request $request)
     {
         Auth::logout();
@@ -39,9 +39,6 @@ class LoginController extends Controller
         return redirect()->route('login');
     }
 }
-
-
-
 
 
 

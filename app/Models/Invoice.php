@@ -18,6 +18,7 @@ class Invoice extends Model
         'due_date',
         'amount',
         'status',
+        'attachment',
     ];
 
     // Relation vers le client
@@ -26,18 +27,15 @@ class Invoice extends Model
         return $this->belongsTo(Client::class);
     }
 
-    // Relation vers l'agence associÃ©e Ã  la facture
+    // Relation vers l'agence associée à la facture
     public function agence()
     {
         return $this->belongsTo(Agence::class, 'agency_id');
     }
 
-    // Relation vers l'utilisateur qui a crÃ©Ã© la facture
+    // Relation vers l'utilisateur qui a créé la facture
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
-
-
-

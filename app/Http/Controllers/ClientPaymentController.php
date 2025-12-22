@@ -15,7 +15,7 @@ class ClientPaymentController extends Controller
         return view('client_payments.index', compact('payments'));
     }
 
-    // Formulaire crÃ©ation paiement
+    // Formulaire création paiement
     public function create()
     {
         $clients = Client::all();
@@ -36,17 +36,17 @@ class ClientPaymentController extends Controller
 
         ClientPayment::create($request->all());
 
-        return redirect()->route('client_payments.index')->with('success', 'Paiement enregistrÃ© avec succÃ¨s.');
+        return redirect()->route('client_payments.index')->with('success', 'Paiement enregistré avec succès.');
     }
 
-    // Formulaire Ã©dition paiement
+    // Formulaire édition paiement
     public function edit(ClientPayment $clientPayment)
     {
         $clients = Client::all();
         return view('client_payments.edit', compact('clientPayment', 'clients'));
     }
 
-    // Mise Ã  jour paiement
+    // Mise à jour paiement
     public function update(Request $request, ClientPayment $clientPayment)
     {
         $request->validate([
@@ -60,19 +60,16 @@ class ClientPaymentController extends Controller
 
         $clientPayment->update($request->all());
 
-        return redirect()->route('client_payments.index')->with('success', 'Paiement mis Ã  jour avec succÃ¨s.');
+        return redirect()->route('client_payments.index')->with('success', 'Paiement mis à jour avec succès.');
     }
 
     // Supprimer paiement
     public function destroy(ClientPayment $clientPayment)
     {
         $clientPayment->delete();
-        return redirect()->route('client_payments.index')->with('success', 'Paiement supprimÃ© avec succÃ¨s.');
+        return redirect()->route('client_payments.index')->with('success', 'Paiement supprimé avec succès.');
     }
 }
-
-
-
 
 
 

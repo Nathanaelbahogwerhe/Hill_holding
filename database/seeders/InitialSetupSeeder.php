@@ -34,7 +34,7 @@ class InitialSetupSeeder extends Seeder
         Role::findByName('superadmin')->syncPermissions(Permission::all());
 
         // --------------------------
-        // Maison mÃ¨re HillHolding
+        // Maison mère HillHolding
         // --------------------------
         $HillHolding = Filiale::firstOrCreate([
             'name' => 'HillHolding',

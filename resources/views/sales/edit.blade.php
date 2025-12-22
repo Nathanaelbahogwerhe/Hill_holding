@@ -43,7 +43,7 @@
         </div>
 
         <div>
-            <label class="block font-medium">QuantitÃ©</label>
+            <label class="block font-medium">Quantité</label>
             <input type="number" name="quantity" value="{{ $sale->quantity }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker">
         </div>
 
@@ -59,15 +59,12 @@
 
         <div class="flex justify-end">
             <button type="submit" class="bg-hh-green hover:bg-hh-green-dark text-white px-4 py-2 rounded">
-                Mettre Ã  jour
+                Mettre à jour
             </button>
         </div>
     </form>
 </div>
 @endsection
-
-
-
 
 
 

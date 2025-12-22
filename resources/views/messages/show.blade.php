@@ -2,19 +2,19 @@
 
 @section('content')
 <div class="container mx-auto p-6 text-white">
-    <h1 class="text-2xl font-bold mb-6 text-yellow-500">ðŸ“¬ Message reÃ§u</h1>
+    <h1 class="text-2xl font-bold mb-6 text-yellow-500">ðŸ“¬ Message reà§u</h1>
 
     <div class="bg-gray-900 p-6 rounded-xl shadow mb-6">
-        <p><strong>De :</strong> {{ $message->sender->first_name ?? 'â€”' }} {{ $message->sender->last_name ?? '' }}</p>
-        <p><strong>Ã€ :</strong> {{ $message->recipient->first_name ?? 'â€”' }} {{ $message->recipient->last_name ?? '' }}</p>
+        <p><strong>De :</strong> {{ $message->sender->first_name ?? '—' }} {{ $message->sender->last_name ?? '' }}</p>
+        <p><strong>à€ :</strong> {{ $message->recipient->first_name ?? '—' }} {{ $message->recipient->last_name ?? '' }}</p>
         <p><strong>Objet :</strong> {{ $message->subject }}</p>
         <p><strong>Date :</strong> {{ $message->created_at->format('d/m/Y H:i') }}</p>
 
         @if($message->attachment)
             <p class="mt-3">
-                <strong>ðŸ“Ž PiÃ¨ce jointe :</strong>
+                <strong>ðŸ“Ž Pièce jointe :</strong>
                 <a href="{{ asset('storage/'.$message->attachment) }}" target="_blank" class="text-yellow-400 hover:text-yellow-600">
-                    Voir / TÃ©lÃ©charger
+                    Voir / Télécharger
                 </a>
             </p>
         @endif
@@ -24,9 +24,9 @@
         </div>
     </div>
 
-    {{-- RÃ©pondre au message --}}
+    {{-- Répondre au message --}}
     <div class="bg-gray-900 p-6 rounded-xl shadow">
-        <h2 class="text-xl mb-4 text-yellow-400">â†©ï¸ RÃ©pondre</h2>
+        <h2 class="text-xl mb-4 text-yellow-400">â†©ï¸ Répondre</h2>
         <form action="{{ route('messages.reply', $message) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -44,7 +44,7 @@
 
             <div class="flex justify-end">
                 <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">
-                    Envoyer la rÃ©ponse
+                    Envoyer la réponse
                 </button>
             </div>
         </form>

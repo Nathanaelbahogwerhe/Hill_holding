@@ -28,22 +28,37 @@ class HomeController extends Controller
      */
     public function data()
     {
-        // Exemple de donnÃ©es dynamiques pour le dashboard
+        $user = auth()->user();
+        $filialeId = $user->filiale_id;
+        $isSuperAdmin = $user->hasRole('Super Admin');
+
+        // Si l'utilisateur appartient à une filiale, filtrer les données
+        $employeesQuery = Employee::query();
+        $departmentsQuery = Department::query();
+        $usersQuery = User::query();
+        
+        if (!$isSuperAdmin && $filialeId) {
+            $employeesQuery->where('filiale_id', $filialeId);
+            $departmentsQuery->where('filiale_id', $filialeId);
+            $usersQuery->where('filiale_id', $filialeId);
+        }
+
+        // Exemple de données dynamiques pour le dashboard
         return response()->json([
-            'employees' => Employee::count(),
-            'departments' => Department::count(),
-            'filiales' => Filiale::count(),
-            'agences' => Agence::count(),
-            'users' => User::count(),
+            'employees' => $employeesQuery->count(),
+            'departments' => $departmentsQuery->count(),
+            'filiales' => $isSuperAdmin ? Filiale::count() : 1, // Utilisateur de filiale voit 1
+            'agences' => $isSuperAdmin ? Agence::count() : Agence::where('filiale_id', $filialeId)->count(),
+            'users' => $usersQuery->count(),
             'clients' => Client::count(),
             'projects' => Project::count(),
             'tasks' => Task::count(),
             'notes' => class_exists(Note::class) ? Note::count() : 0,
 
-            // Progression des congÃ©s (exemple)
+            // Progression des congés (exemple)
             'leaves' => [
-                ['title' => 'CongÃ©s pris', 'value' => 40],
-                ['title' => 'CongÃ©s restants', 'value' => 60],
+                ['title' => 'Congés pris', 'value' => 40],
+                ['title' => 'Congés restants', 'value' => 60],
             ],
 
             // Progression des projets (exemple)
@@ -52,18 +67,15 @@ class HomeController extends Controller
                 ['title' => 'Projet Beta', 'value' => 40],
             ],
 
-            // DerniÃ¨res actions
+            // Dernières actions
             'latest_actions' => [
-                'Nouvel employÃ© ajoutÃ© : John Doe',
-                'Projet Alpha mis Ã  jour',
-                'TÃ¢che "Documentation" complÃ©tÃ©e',
+                'Nouvel employé ajouté : John Doe',
+                'Projet Alpha mis à jour',
+                'Tâche "Documentation" complétée',
             ],
         ]);
     }
 }
-
-
-
 
 
 

@@ -47,12 +47,9 @@ class TransactionApiController extends Controller
     public function destroy(Transaction $transaction)
     {
         $transaction->delete();
-        return response()->json(['message' => 'Transaction supprimÃ©e'], 200);
+        return response()->json(['message' => 'Transaction supprimée'], 200);
     }
 }
-
-
-
 
 
 

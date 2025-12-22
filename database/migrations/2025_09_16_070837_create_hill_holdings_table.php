@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('hill_holdings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');     // Nom de la maison mÃ¨re
+            $table->string('name');     // Nom de la maison mère
             $table->string('logo')->nullable(); // Logo optionnel
             $table->timestamps();
         });
@@ -20,9 +20,6 @@ return new class extends Migration {
         Schema::dropIfExists('hill_holdings');
     }
 };
-
-
-
 
 
 

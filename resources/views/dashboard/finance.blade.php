@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h1>Dashboard Finance ðŸ’°</h1>
-    <p>Bienvenue Admin Finance, vous avez accÃ¨s aux donnÃ©es financiÃ¨res.</p>
+    <h1>Dashboard Finance 💰</h1>
+    <p>Bienvenue Admin Finance, vous avez accès aux données financières.</p>
 
     <ul>
         <li>Suivi des budgets</li>
@@ -12,9 +12,6 @@
     </ul>
 </div>
 @endsection
-
-
-
 
 
 

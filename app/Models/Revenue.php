@@ -10,13 +10,17 @@ class Revenue extends Model
     use HasFactory;
 
     protected $fillable = [
-        'source',
         'description',
         'amount',
         'date',
-        'status',
         'filiale_id',
         'agence_id',
+        'attachment',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'amount' => 'decimal:2',
     ];
 
     public function filiale() {
@@ -27,9 +31,6 @@ class Revenue extends Model
         return $this->belongsTo(Agence::class);
     }
 }
-
-
-
 
 
 

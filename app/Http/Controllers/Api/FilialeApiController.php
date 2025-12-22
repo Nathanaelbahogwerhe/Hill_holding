@@ -43,12 +43,25 @@ class FilialeApiController extends Controller
     public function destroy(Filiale $filiale)
     {
         $filiale->delete();
-        return response()->json(['message' => 'Filiale supprimÃ©e'], 200);
+        return response()->json(['message' => 'Filiale supprimée'], 200);
+    }
+
+    /**
+     * Retourne les agences d'une filiale
+     */
+    public function agences(Filiale $filiale)
+    {
+        return response()->json($filiale->agences()->get(['id', 'name']), 200);
+    }
+
+    /**
+     * Retourne les départements d'une filiale
+     */
+    public function departments(Filiale $filiale)
+    {
+        return response()->json($filiale->departments()->get(['id', 'name']), 200);
     }
 }
-
-
-
 
 
 

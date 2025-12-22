@@ -11,11 +11,11 @@ class ClientSeeder extends Seeder
 {
     public function run(): void
     {
-        // RÃ©cupÃ©rer quelques filiales et agences existantes
+        // Récupérer quelques filiales et agences existantes
         $filiales = Filiale::all();
         $agences = Agence::all();
 
-        // CrÃ©er des clients
+        // Créer des clients
         $clientsData = [
             [
                 'name' => 'Client One',

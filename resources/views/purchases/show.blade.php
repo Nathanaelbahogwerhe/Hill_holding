@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'DÃ©tails Achat')
+@section('title', 'Détails Achat')
 
 @section('content')
 <div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-semibold mb-4">DÃ©tails de lâ€™achat</h1>
+    <h1 class="text-2xl font-semibold mb-4">Détails de l’achat</h1>
 
     <div class="space-y-2">
         <p><strong>Fournisseur :</strong> {{ $purchase->supplier->name ?? '-' }}</p>
         <p><strong>Produit :</strong> {{ $purchase->product->name ?? '-' }}</p>
-        <p><strong>QuantitÃ© :</strong> {{ $purchase->quantity }}</p>
+        <p><strong>Quantité :</strong> {{ $purchase->quantity }}</p>
         <p><strong>Prix unitaire :</strong> {{ number_format($purchase->unit_price, 2) }}</p>
         <p><strong>Total :</strong> {{ number_format($purchase->total_amount, 2) }} {{ config('app.currency', 'USD') }}</p>
         <p><strong>Date :</strong> {{ \Carbon\Carbon::parse($purchase->date)->format('d/m/Y') }}</p>
@@ -21,9 +21,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

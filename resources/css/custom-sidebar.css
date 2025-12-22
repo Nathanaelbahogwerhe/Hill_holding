@@ -1,36 +1,68 @@
 /* custom-sidebar.css */
 
-/* Variables globales pour le thÃ¨me */
+/* ================== Variables de couleurs ================== */
 :root {
-    --hh-dark: #0b0b0d;
-    --hh-card: #0f1113;
-    --hh-border: #1c1c1f;
-    --hh-gold: #d4af37;
-    --hh-light: #ffffff;
-    --hh-muted: #9a8f77;
+    --hh-dark: #0b0b0d;           /* fond général */
+    --hh-card: #0f1113;           /* cartes / sidebar / header */
+    --hh-border: #1c1c1f;         /* bordures */
+    --hh-gold: #d4af37;           /* couleur dorée */
+    --hh-light: #ffffff;          /* texte clair */
+    --hh-muted: #9a8f77;          /* texte secondaire */
+    --hh-dark-hover: #1a1a1d;     /* hover dark */
 }
 
-/* Sidebar gÃ©nÃ©ral */
+/* ================== Body & Scroll ================== */
+body {
+    background-color: var(--hh-dark);
+    color: var(--hh-light);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--hh-card);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--hh-border);
+    border-radius: 4px;
+}
+
+/* ================== Sidebar ================== */
 aside {
     background-color: var(--hh-card);
     color: var(--hh-light);
     border-right: 1px solid var(--hh-border);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Logo sidebar */
+aside > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--hh-border);
 }
 
 /* Liens sidebar */
 .sidebar-link {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: space-between;
     padding: 0.5rem 0.75rem;
     color: var(--hh-light);
     text-decoration: none;
     border-radius: 0.25rem;
     transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
 }
 
 .sidebar-link:hover {
-    background-color: rgba(212, 175, 55, 0.1); /* hh-gold/10 */
+    background-color: rgba(212, 175, 55, 0.1);
     color: var(--hh-gold);
 }
 
@@ -41,66 +73,29 @@ aside {
     color: var(--hh-muted);
     text-decoration: none;
     border-radius: 0.25rem;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .sub-link:hover {
     color: var(--hh-gold);
-    background-color: rgba(212, 175, 55, 0.1); /* hh-gold/10 */
-}
-
-/* IcÃ´nes */
-.icon {
-    width: 1.25rem;
-    height: 1.25rem;
-    flex-shrink: 0;
-    stroke: currentColor;
+    background-color: rgba(212, 175, 55, 0.1);
 }
 
 /* Boutons pour les sous-menus */
 button.sidebar-link {
     width: 100%;
-    justify-content: space-between;
     background: none;
     border: none;
-    cursor: pointer;
-    color: var(--hh-light);
-    padding: 0.5rem 0.75rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
 }
 
-button.sidebar-link:hover {
-    background-color: rgba(212, 175, 55, 0.1);
-    color: var(--hh-gold);
-}
-
-/* Ouverture des sous-menus */
-[x-cloak] {
-    display: none !important;
-}
-
-/* Marge pour sous-menu */
-ul[x-show] {
-    margin-top: 0.5rem;
-    padding-left: 1.5rem;
-    list-style: none;
-    transition: max-height 0.3s ease;
-}
-
-/* Logo dans la sidebar */
-aside > div:first-child {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem;
-    border-bottom: 1px solid var(--hh-border);
-}
-
+/* Icônes SVG dans sidebar */
 aside svg {
-    display: block;
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke: currentColor;
 }
 
-/* Footer de la sidebar */
+/* Footer sidebar */
 aside .text-xs {
     padding: 1rem;
     border-top: 1px solid var(--hh-border);
@@ -108,17 +103,70 @@ aside .text-xs {
     font-size: 0.75rem;
 }
 
-/* Hover gÃ©nÃ©ral */
-.hover-gold:hover {
-    color: var(--hh-gold);
+/* ================== Header ================== */
+header {
+    background-color: var(--hh-card);
+    border-bottom: 1px solid var(--hh-border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+/* Bouton dark mode */
+header button {
+    transition: background-color 0.2s;
+}
+header button:hover {
     background-color: rgba(212, 175, 55, 0.1);
 }
 
+/* ================== Main content ================== */
+main {
+    padding: 1.5rem;
+    flex: 1;
+    overflow: auto;
+}
 
+/* ================== Notifications ================== */
+div[x-data] > div[x-show] {
+    display: none;
+}
+div[x-data] > div[x-show].x-cloak {
+    display: none !important;
+}
 
+/* ================== Toasts ================== */
+.fixed.bottom-4.right-4 {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
 
+/* ================== Dark Mode ================== */
+.dark body {
+    background-color: var(--hh-dark);
+    color: var(--hh-light);
+}
 
+.dark aside {
+    background-color: var(--hh-card);
+}
 
+.dark .sidebar-link:hover,
+.dark .sub-link:hover {
+    background-color: rgba(212, 175, 55, 0.2);
+    color: var(--hh-gold);
+}
 
+.dark header {
+    background-color: var(--hh-card);
+}
 
+.dark .fixed.bottom-4.right-4 {
+    color: var(--hh-light);
+}
 
+/* ================== Utilitaires ================== */
+[x-cloak] { display: none !important; }
+.hover-gold:hover { color: var(--hh-gold); background-color: rgba(212,175,55,0.1); }

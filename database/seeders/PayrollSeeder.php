@@ -13,7 +13,7 @@ class PayrollSeeder extends Seeder
         $employees = Employee::all();
 
         foreach ($employees as $employee) {
-            $basicSalary = rand(300000, 800000); // salaire de base alÃ©atoire en FBu
+            $basicSalary = rand(300000, 800000); // salaire de base aléatoire en FBu
             $bonus       = rand(20000, 150000);
             $deductions  = rand(10000, 100000);
             $netSalary   = $basicSalary + $bonus - $deductions;
@@ -32,7 +32,7 @@ class PayrollSeeder extends Seeder
             );
         }
 
-        $this->command->info('ðŸ’° Fiches de paie gÃ©nÃ©rÃ©es avec succÃ¨s.');
+        $this->command->info('ðŸ’° Fiches de paie générées avec succès.');
     }
 }
 

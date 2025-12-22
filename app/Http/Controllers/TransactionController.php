@@ -30,10 +30,15 @@ class TransactionController extends Controller
             'category' => 'nullable|string|max:100',
             'description' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
 
+        if ($request->hasFile('attachment')) {
+            $data['attachment'] = $request->file('attachment')->store('transactions/attachments', 'public');
+        }
+
         Transaction::create($data);
-        return redirect()->route('transactions.index')->with('success', 'Transaction enregistrÃ©e.');
+        return redirect()->route('transactions.index')->with('success', 'Transaction enregistrée.');
     }
 
     public function show(Transaction $transaction)
@@ -57,21 +62,29 @@ class TransactionController extends Controller
             'category' => 'nullable|string|max:100',
             'description' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
 
+        if ($request->hasFile('attachment')) {
+            if ($transaction->attachment && \Storage::disk('public')->exists($transaction->attachment)) {
+                \Storage::disk('public')->delete($transaction->attachment);
+            }
+            $data['attachment'] = $request->file('attachment')->store('transactions/attachments', 'public');
+        }
+
         $transaction->update($data);
-        return redirect()->route('transactions.index')->with('success', 'Transaction mise Ã  jour.');
+        return redirect()->route('transactions.index')->with('success', 'Transaction mise à jour.');
     }
 
     public function destroy(Transaction $transaction)
     {
+        if ($transaction->attachment && \Storage::disk('public')->exists($transaction->attachment)) {
+            \Storage::disk('public')->delete($transaction->attachment);
+        }
         $transaction->delete();
-        return redirect()->route('transactions.index')->with('success', 'Transaction supprimÃ©e.');
+        return redirect()->route('transactions.index')->with('success', 'Transaction supprimée.');
     }
 }
-
-
-
 
 
 

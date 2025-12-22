@@ -5,18 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HillHoldingController extends Controller
+class novacoreController extends Controller
 {
     public function welcome()
     {
         return response()->json([
-            'message' => 'Bienvenue sur lâ€™API HillHolding !'
+            'message' => 'Bienvenue sur l’API novacore !'
         ]);
     }
 }
-
-
-
 
 
 

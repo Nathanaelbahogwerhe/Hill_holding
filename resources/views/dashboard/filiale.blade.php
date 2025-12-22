@@ -10,7 +10,7 @@
 @section('title', 'Dashboard Filiale : ' . $filiale->name)
 
 @section('content')
-<h2 class="mb-4">ðŸ¢ Filiale : {{ $filiale->name }}</h2>
+<h2 class="mb-4">🏢 Filiale : {{ $filiale->name }}</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -32,9 +32,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

@@ -35,18 +35,15 @@ class SuperAdminController extends Controller
 
         // Upload du logo
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('HillHolding', 'public');
+            $path = $request->file('logo')->store('novacore', 'public');
             $superadmin->logo = $path;
         }
 
         $superadmin->save();
 
-        return redirect()->route('superadmin.edit')->with('success', 'SuperAdmin mis Ã  jour avec succÃ¨s.');
+        return redirect()->route('superadmin.edit')->with('success', 'SuperAdmin mis à jour avec succès.');
     }
 }
-
-
-
 
 
 

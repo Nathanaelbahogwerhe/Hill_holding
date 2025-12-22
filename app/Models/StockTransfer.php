@@ -43,6 +43,3 @@ class StockTransfer extends Model
 
 
 
-
-
-

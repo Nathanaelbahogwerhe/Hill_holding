@@ -45,12 +45,9 @@ class EmployeeInsuranceApiController extends Controller
     public function destroy(EmployeeInsurance $employeeInsurance)
     {
         $employeeInsurance->delete();
-        return response()->json(['message' => 'Couverture supprimÃ©e'], 200);
+        return response()->json(['message' => 'Couverture supprimée'], 200);
     }
 }
-
-
-
 
 
 

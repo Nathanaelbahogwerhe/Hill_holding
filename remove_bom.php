@@ -16,7 +16,7 @@ $iterator = new RecursiveIteratorIterator($directory);
 foreach ($iterator as $file) {
     $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
-    // Extensions à corriger
+    // Extensions Àcorriger
     $allowed = ['php','js','json','css','scss','vue','html','md','blade.php'];
 
     foreach ($allowed as $a) {

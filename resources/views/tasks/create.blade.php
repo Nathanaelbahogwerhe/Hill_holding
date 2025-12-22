@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Nouvelle TÃ¢che')
+@section('title', 'Nouvelle Tâche')
 
 @section('content')
-<div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6 max-w-4xl mx-auto">
-    <h2 class="text-xl font-semibold mb-4">ðŸ“ CrÃ©er une nouvelle tÃ¢che</h2>
+<div class="bg-hh-card rounded-lg shadow p-6 max-w-4xl mx-auto">
+    <h2 class="text-xl font-semibold mb-4">ðŸ“ Créer une nouvelle tâche</h2>
 
     <form action="{{ route('tasks.store') }}" method="POST" class="space-y-4">
         @csrf
@@ -21,7 +21,7 @@
             <label for="project_id" class="block font-medium mb-1">Projet</label>
             <select name="project_id" id="project_id"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
+                <option value="">— Sélectionner —</option>
                 @foreach($projects as $project)
                     <option value="{{ $project->id }}" {{ old('project_id') == $project->id ? 'selected' : '' }}>
                         {{ $project->name }}
@@ -32,10 +32,10 @@
         </div>
 
         <div>
-            <label for="assigned_to" class="block font-medium mb-1">AssignÃ© Ã </label>
+            <label for="assigned_to" class="block font-medium mb-1">Assigné à </label>
             <select name="assigned_to" id="assigned_to"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
+                <option value="">— Sélectionner —</option>
                 @foreach($employees as $employee)
                     <option value="{{ $employee->id }}" {{ old('assigned_to') == $employee->id ? 'selected' : '' }}>
                         {{ $employee->name }}
@@ -49,15 +49,15 @@
             <label for="status" class="block font-medium mb-1">Statut</label>
             <select name="status" id="status"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
-                <option value="todo" {{ old('status') == 'todo' ? 'selected' : '' }}>Ã€ faire</option>
+                <option value="todo" {{ old('status') == 'todo' ? 'selected' : '' }}>à€ faire</option>
                 <option value="doing" {{ old('status') == 'doing' ? 'selected' : '' }}>En cours</option>
-                <option value="done" {{ old('status') == 'done' ? 'selected' : '' }}>TerminÃ©</option>
+                <option value="done" {{ old('status') == 'done' ? 'selected' : '' }}>Terminé</option>
             </select>
             @error('status') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
-            <label for="due_date" class="block font-medium mb-1">Ã‰chÃ©ance</label>
+            <label for="due_date" class="block font-medium mb-1">Échéance</label>
             <input type="date" name="due_date" id="due_date"
                 class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary"
                 value="{{ old('due_date') }}">
@@ -72,7 +72,7 @@
         </div>
 
         <button type="submit" class="px-4 py-2 bg-hh-primary text-white rounded hover:bg-hh-primary-dark">
-            CrÃ©er la tÃ¢che
+            Créer la tâche
         </button>
     </form>
 </div>

@@ -2,105 +2,101 @@
 
 namespace App\Models;
 
+use App\Traits\FileUploadTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class Employee extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, FileUploadTrait;
 
     protected $fillable = [
-        'user_id',
-        'first_name',
-        'last_name',
-        'email',
-        'department_id',
-        'filiale_id',
-        'agency_id',
-        'basic_salary',
+        "user_id",
+        "first_name",
+        "last_name",
+        "email",
+        "department_id",
+        "filiale_id",
+        "agency_id",
+        "position_id",
+        "basic_salary",
+        "attachments",
+
+        // Identity
+        'date_of_birth',
+        'place_of_birth',
+        'nationality',
+        'id_document_type',
+        'id_document_number',
+        'id_document_file',
+
+        // Contact
+        'address',
+        'phone',
+        'personal_email',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+
+        // Administrative & Banking
+        'matricule',
+        'inss_number',
+        'nif',
+        'rib',
+
+        // Contractual
+        'contract_type',
+        'hire_date',
+        'workplace',
+        'qualifications',
+
+        // Family & salary extras
+        'marital_status',
+        'children_count',
+        'salary_allowances',
     ];
 
-    // ----------------- Relations de base -----------------
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $casts = [
+        'date_of_birth' => 'date',
+        'hire_date' => 'date',
+        'basic_salary' => 'decimal:2',
+        'salary_allowances' => 'decimal:2',
+        'attachments' => 'array',
+    ];
 
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
+    // Relations
+    public function user() { return $this->belongsTo(User::class); }
+    public function department() { return $this->belongsTo(Department::class); }
+    public function filiale() { return $this->belongsTo(Filiale::class); }
+    public function agence() { return $this->belongsTo(Agence::class, 'agency_id'); }
+    public function position() { return $this->belongsTo(Position::class, 'position_id'); }
 
-    public function filiale()
-    {
-        return $this->belongsTo(Filiale::class);
-    }
+    // Messaging
+    public function messagesSent() { return $this->hasMany(Message::class, 'sender_id'); }
+    public function messagesReceived() { return $this->hasMany(Message::class, 'recipient_id'); }
 
-    public function agence()
-    {
-        return $this->belongsTo(Agence::class, 'agency_id');
-    }
+    // Payroll
+    public function payrolls() { return $this->hasMany(Payroll::class); }
 
-    // ----------------- Messagerie -----------------
-    public function messagesSent()
-    {
-        return $this->hasMany(Message::class, 'sender_id');
-    }
+    // Leaves
+    public function leaves() { return $this->hasMany(Leave::class); }
+    public function leaveTypes() { return $this->hasManyThrough(LeaveType::class, Leave::class); }
 
-    public function messagesReceived()
-    {
-        return $this->hasMany(Message::class, 'recipient_id');
-    }
+    // Attendance
+    public function attendances() { return $this->hasMany(Attendance::class); }
 
-    // ----------------- Paie -----------------
-    public function payrolls()
-    {
-        return $this->hasMany(Payroll::class);
-    }
+    // Contracts
+    public function contracts() { return $this->hasMany(Contract::class); }
 
-    // ----------------- CongÃ©s -----------------
-    public function leaves()
-    {
-        return $this->hasMany(Leave::class);
-    }
+    // Employee Insurances
+    public function insurances() { return $this->hasMany(EmployeeInsurance::class); }
 
-    public function leaveTypes()
-    {
-        return $this->hasManyThrough(LeaveType::class, Leave::class);
-    }
+    // Tasks & Projects
+    public function tasks() { return $this->hasMany(Task::class, 'employee_id'); }
+    public function projects() { return $this->belongsToMany(Project::class, 'employee_project')->withTimestamps(); }
 
-    // ----------------- PrÃ©sences -----------------
-    public function attendances()
-    {
-        return $this->hasMany(Attendance::class);
-    }
-
-    // ----------------- Contrats -----------------
-    public function contracts()
-    {
-        return $this->hasMany(Contract::class);
-    }
-
-    // ----------------- Assurances -----------------
-    public function insurances()
-    {
-        return $this->hasMany(Insurance::class);
-    }
-
-    // ----------------- Projets et tÃ¢ches -----------------
-    public function tasks()
-    {
-        return $this->hasMany(Task::class);
-    }
-
-    public function projects()
-    {
-        return $this->belongsToMany(Project::class, 'employee_project')
-                    ->withTimestamps();
-    }
-
-    // ----------------- Email auto-gÃ©nÃ©rÃ© -----------------
+    // Auto-generated email
     public function getGeneratedEmailAttribute()
     {
         if (!empty($this->first_name) && !empty($this->last_name)) {
@@ -118,12 +114,17 @@ class Employee extends Model
         } elseif ($this->filiale) {
             $domain = strtolower(str_replace(' ', '', $this->filiale->name)) . '.com';
         } else {
-            $domain = 'HillHolding.com';
+            $domain = 'novacore.com';
         }
 
         return $username . '@' . $domain;
     }
+
+    public function getIdDocumentUrlAttribute()
+    {
+        if (!$this->id_document_file) return null;
+        // use Storage::disk('local') since files stored privately
+        return Storage::disk('local')->exists($this->id_document_file)
+            ? route('employees.document', $this->id) : null;
+    }
 }
-
-
-

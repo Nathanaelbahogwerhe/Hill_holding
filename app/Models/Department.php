@@ -9,7 +9,7 @@ class Department extends Model
 {
     use HasFactory;
 
-    // ðŸ”¹ Colonnes autorisÃ©es Ã  l'assignation de masse
+    // 🔹 Colonnes autorisées à l'assignation de masse
     protected $fillable = [
         'name',
         'filiale_id',
@@ -19,31 +19,25 @@ class Department extends Model
     /**
      * Relation avec la filiale
      */
-    public function filiale()
-    {
-        return $this->belongsTo(Filiale::class);
+    public function filiale() { 
+        return $this->belongsTo(Filiale::class); 
     }
 
     /**
      * Relation avec l'agence
-     * On garde le nom "agence" pour correspondre Ã  tes vues actuelles
+     * On garde le nom "agence" pour correspondre à tes vues actuelles
      */
-    public function agence()
-    {
-        return $this->belongsTo(Agence::class, 'agency_id');
+    public function agence() { 
+        return $this->belongsTo(Agence::class, 'agency_id'); 
     }
 
     /**
-     * Relation avec les employÃ©s
+     * Relation avec les employés
      */
-    public function employees()
-    {
+    public function employees() {
         return $this->hasMany(Employee::class);
     }
 }
-
-
-
 
 
 

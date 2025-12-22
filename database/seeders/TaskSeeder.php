@@ -15,16 +15,16 @@ class TaskSeeder extends Seeder
         $employees = Employee::all();
 
         if ($projects->isEmpty() || $employees->isEmpty()) {
-            $this->command->warn('Aucun projet ou employÃ© trouvÃ©. Veuillez dâ€™abord seed Employees et Projects.');
+            $this->command->warn('Aucun projet ou employé trouvé. Veuillez d’abord seed Employees et Projects.');
             return;
         }
 
         foreach ($projects as $project) {
-            // CrÃ©ons 3 tÃ¢ches par projet
+            // Créons 3 tâches par projet
             for ($i = 1; $i <= 3; $i++) {
                 Task::create([
-                    'title' => "TÃ¢che $i pour {$project->name}",
-                    'description' => "Description de la tÃ¢che $i du projet {$project->name}",
+                    'title' => "Tâche $i pour {$project->name}",
+                    'description' => "Description de la tâche $i du projet {$project->name}",
                     'status' => ['todo','doing','done'][array_rand(['todo','doing','done'])],
                     'due_date' => now()->addDays(rand(1, 30)),
                     'project_id' => $project->id,

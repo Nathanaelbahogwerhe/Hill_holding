@@ -11,7 +11,7 @@ class ExpenseSeeder extends Seeder
     {
         $expenses = [
             [
-                'title'       => 'Achat matÃ©riel bureautique',
+                'title'       => 'Achat matériel bureautique',
                 'amount'      => 350.00,
                 'description' => 'Achat de papiers, stylos et classeurs',
                 'date'        => now()->subDays(10),
@@ -19,9 +19,9 @@ class ExpenseSeeder extends Seeder
                 'agence_id'   => 1,
             ],
             [
-                'title'       => 'Frais de dÃ©placement',
+                'title'       => 'Frais de déplacement',
                 'amount'      => 120.50,
-                'description' => 'Transport pour une rÃ©union client',
+                'description' => 'Transport pour une réunion client',
                 'date'        => now()->subDays(5),
                 'filiale_id'  => 1,
                 'agence_id'   => 1,

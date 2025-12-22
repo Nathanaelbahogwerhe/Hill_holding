@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="max-w-xl mx-auto bg-hh-card p-6 rounded shadow">
-    <h2 class="text-lg font-semibold mb-4">CrÃ©er une assurance</h2>
+    <h2 class="text-lg font-semibold mb-4">Créer une assurance</h2>
 
     @if($errors->any())
         <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
@@ -19,9 +19,9 @@
         @csrf
 
         <div class="mb-4">
-            <label class="block mb-1 font-semibold">EmployÃ©</label>
+            <label class="block mb-1 font-semibold">Employé</label>
             <select name="employee_id" class="input input-bordered w-full" required>
-                <option value="">-- SÃ©lectionner --</option>
+                <option value="">-- Sélectionner --</option>
                 @foreach($employees as $employee)
                     <option value="{{ $employee->id }}" {{ old('employee_id')==$employee->id ? 'selected' : '' }}>
                         {{ $employee->name }}
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-semibold">Type dâ€™assurance</label>
+            <label class="block mb-1 font-semibold">Type d’assurance</label>
             <input type="text" name="type" value="{{ old('type') }}" class="input input-bordered w-full" required>
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <div class="mb-4">
-            <label class="block mb-1 font-semibold">Date dÃ©but</label>
+            <label class="block mb-1 font-semibold">Date début</label>
             <input type="date" name="start_date" value="{{ old('start_date') }}" class="input input-bordered w-full" required>
         </div>
 
@@ -59,9 +59,6 @@
     </form>
 </div>
 @endsection
-
-
-
 
 
 

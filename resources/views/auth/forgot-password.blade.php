@@ -1,32 +1,22 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+    <h2 class="text-xl font-bold mb-4">Réinitialiser le mot de passe</h2>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+    <p class="text-sm mb-6 text-neutral-300">
+        Entrez votre adresse email pour recevoir un lien de réinitialisation.
+    </p>
 
     <form method="POST" action="{{ route('password.email') }}">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="mb-4">
+            <label class="block mb-1 hh-gold">Email</label>
+            <input type="email" name="email"
+                   class="w-full bg-black border hh-border-gold text-white p-3 rounded-lg"
+                   required>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div>
+        <button class="w-full py-3 hh-bg-gold text-black font-bold rounded-lg hover:bg-[#c79549] transition">
+            Envoyer le lien
+        </button>
     </form>
 </x-guest-layout>
-
-
-
-
-
-
-

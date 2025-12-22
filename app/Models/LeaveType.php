@@ -9,17 +9,14 @@ class LeaveType extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'days', 'duration', 'attachment'];
 
-    // Un type de congÃ© peut Ãªtre attribuÃ© Ã  plusieurs congÃ©s
+    // Un type de congé peut être attribué à plusieurs congés
     public function leaves()
     {
         return $this->hasMany(Leave::class);
     }
 }
-
-
-
 
 
 

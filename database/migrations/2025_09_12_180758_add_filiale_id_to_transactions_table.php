@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('transactions', function (Blueprint $table) {
             $table->unsignedBigInteger('filiale_id')->after('id')->nullable();
 
-            // Si tu veux relier Ã  une table filiales
+            // Si tu veux relier à une table filiales
             $table->foreign('filiale_id')->references('id')->on('filiales')->onDelete('cascade');
         });
     }
@@ -28,9 +28,6 @@ return new class extends Migration
     }
 
 };
-
-
-
 
 
 

@@ -14,7 +14,7 @@ class MessageTest extends TestCase
     /** @test */
     public function un_employe_peut_envoyer_un_message_a_un_collaborateur_de_sa_agence()
     {
-        // Seeder pour avoir des employÃ©s et agences
+        // Seeder pour avoir des employés et agences
         $this->seed();
 
         $sender = Employee::first();

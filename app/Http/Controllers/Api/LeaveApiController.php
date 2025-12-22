@@ -49,12 +49,9 @@ class LeaveApiController extends Controller
     public function destroy(Leave $leave)
     {
         $leave->delete();
-        return response()->json(['message' => 'Demande de congÃ© supprimÃ©e'], 200);
+        return response()->json(['message' => 'Demande de congé supprimée'], 200);
     }
 }
-
-
-
 
 
 

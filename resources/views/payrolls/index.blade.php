@@ -1,86 +1,69 @@
-@extends('layouts.app')
-@section('title', 'Paie')
+﻿@extends('layouts.app')
+@section('title', 'Paies')
 
 @section('content')
-<div class="max-w-7xl mx-auto bg-hh-card p-6 rounded shadow">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-semibold">Gestion des salaires</h1>
-        <a href="{{ route('payrolls.create') }}" class="btn btn-primary flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-            </svg>
-            <span>Nouvelle fiche de paie</span>
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-[#D4AF37]">💰 Paies</h1>
+        <a href="{{ route('payrolls.create') }}" class="px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-bold transition">
+            ➕ Ajouter
         </a>
     </div>
 
-    <div class="overflow-x-auto">
-        <table class="w-full table-auto border border-gray-700 rounded shadow">
-            <thead class="bg-gray-800">
+    @if (session('success'))
+        <div class="bg-[#D4AF37] bg-opacity-20 border border-[#D4AF37] text-[#D4AF37] p-4 rounded-lg mb-6">✅ {{ session('success') }}</div>
+    @endif
+
+    <div class="bg-black rounded-lg shadow-xl overflow-hidden border border-neutral-800">
+        <table class="w-full">
+            <thead class="bg-[#D4AF37]">
                 <tr>
-                    <th class="px-4 py-2 text-left text-hh-gold">Employé</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Mois</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Salaire de base</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Primes</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Indemnités</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Indemnité km</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Frais de comm.</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Déductions</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Salaire net</th>
-                    <th class="px-4 py-2 text-left text-hh-gold">Statut</th>
-                    <th class="px-4 py-2 text-hh-gold">Actions</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Employé</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Filiale</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Agence</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Département</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Salaire Net</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Date</th>
+                    <th class="px-6 py-4 text-right text-sm font-bold text-black">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-neutral-800">
                 @forelse($payrolls as $payroll)
-                <tr class="border-t border-gray-700">
-                    <td class="px-4 py-2">{{ $payroll->employee->name }}</td>
-                    <td class="px-4 py-2">{{ \Carbon\Carbon::parse($payroll->month)->translatedFormat('F Y') }}</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->base_salary, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->bonuses, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->allowances, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->km_allowance, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->comm_allowance, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2">{{ number_format($payroll->deductions, 0, ',', ' ') }} FBU</td>
-                    <td class="px-4 py-2 font-semibold text-green-600">
-                        {{ number_format(
-                            $payroll->base_salary + $payroll->bonuses + $payroll->allowances + $payroll->km_allowance + $payroll->comm_allowance - $payroll->deductions, 
-                            0, ',', ' '
-                        ) }} FBU
-                    </td>
-                    <td class="px-4 py-2">
-                        <span class="px-2 py-1 rounded text-white {{ $payroll->paid ? 'bg-green-600' : 'bg-yellow-600' }}">
-                            {{ $payroll->paid ? 'Payé' : 'En attente' }}
-                        </span>
-                    </td>
-                    <td class="px-4 py-2 space-x-2">
-                        <a href="{{ route('payrolls.show', $payroll) }}" class="text-blue-600 hover:underline">Voir</a>
-                        <a href="{{ route('payrolls.edit', $payroll) }}" class="text-green-600 hover:underline">Éditer</a>
-                        <form action="{{ route('payrolls.destroy', $payroll) }}" method="POST" class="inline">
-                            @csrf @method('DELETE')
-                            <button type="submit" onclick="return confirm('Supprimer cette fiche de paie ?')" class="text-red-600 hover:underline">
-                                Supprimer
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                    <tr class="hover:bg-neutral-900 transition">
+                        <td class="px-6 py-4 text-sm font-semibold text-white">{{ $payroll->employee?->first_name }} {{ $payroll->employee?->last_name }}</td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ $payroll->employee?->filiale?->name ?? '—' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ $payroll->employee?->agence?->name ?? '—' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ $payroll->employee?->department?->name ?? '—' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-green-400 font-semibold">{{ number_format($payroll->net_salary ?? 0, 0, ',', ' ') }} FBu</td>
+                        <td class="px-6 py-4 text-sm text-neutral-300">{{ $payroll->payment_date?->format('d/m/Y') ?? '—' }}</td>
+                        <td class="px-6 py-4 text-right text-sm space-x-2">
+                            <a href="{{ route('payrolls.show', $payroll->id) }}" class="inline-block px-3 py-1 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded font-semibold transition" title="Voir">👁️</a>
+                            <a href="{{ route('payrolls.edit', $payroll->id) }}" class="inline-block px-3 py-1 bg-neutral-700 hover:bg-neutral-600 text-white rounded font-semibold transition" title="Modifier">✏️</a>
+                            <form action="{{ route('payrolls.destroy', $payroll->id) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded font-semibold transition" title="Supprimer">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="11" class="px-4 py-2 text-center text-gray-400">Aucune fiche de paie trouvée.</td>
-                </tr>
+                    <tr>
+                        <td colspan="7" class="px-6 py-8 text-center text-neutral-500">Aucune paie trouvée</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-
-    <div class="mt-4">
-        {{ $payrolls->links() }}
-    </div>
 </div>
 @endsection
-
-
-
-
-
-
-

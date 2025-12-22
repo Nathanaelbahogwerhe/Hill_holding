@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'ðŸ’³ DÃ©tails Transaction')
+@section('title', '💳 Détails Transaction')
 
 @section('content')
 <div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6 max-w-3xl mx-auto">
-    <h2 class="text-xl font-semibold mb-4">ðŸ’³ DÃ©tails Transaction</h2>
+    <h2 class="text-xl font-semibold mb-4">💳 Détails Transaction</h2>
 
     <div class="space-y-3">
-        <div><strong>RÃ©fÃ©rence :</strong> {{ $transaction->reference }}</div>
+        <div><strong>Référence :</strong> {{ $transaction->reference }}</div>
         <div><strong>Type :</strong> {{ ucfirst($transaction->type) }}</div>
         <div><strong>Montant :</strong> {{ number_format($transaction->amount, 2, ',', ' ') }}</div>
         <div><strong>Date :</strong> {{ $transaction->transaction_date->format('d/m/Y') }}</div>
-        <div><strong>CatÃ©gorie :</strong> {{ $transaction->category ?? 'â€”' }}</div>
-        <div><strong>Description :</strong> {{ $transaction->description ?? 'â€”' }}</div>
-        <div><strong>Utilisateur :</strong> {{ $transaction->user->name ?? 'â€”' }}</div>
+        <div><strong>Catégorie :</strong> {{ $transaction->category ?? '—' }}</div>
+        <div><strong>Description :</strong> {{ $transaction->description ?? '—' }}</div>
+        <div><strong>Utilisateur :</strong> {{ $transaction->user->name ?? '—' }}</div>
     </div>
 
     <div class="mt-4 flex justify-end space-x-2">
@@ -22,9 +22,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

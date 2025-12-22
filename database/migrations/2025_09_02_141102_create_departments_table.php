@@ -21,9 +21,15 @@ return new class extends Migration {
         Schema::dropIfExists('departments');
     }
 };
-
-
-
+CREATE TABLE `departments` (
+  `id` bigint unsigned PRIMARY KEY,
+  `name` varchar(255),
+  `filiale_id` bigint unsigned DEFAULT NULL,  -- ✅ Département rattaché à une Filiale
+  `agency_id` bigint unsigned DEFAULT NULL,   -- ✅ Département rattaché à une Agence
+  
+  CONSTRAINT `departments_filiale_id_foreign` 
+    FOREIGN KEY (`filiale_id`) REFERENCES `filiales` (`id`) ON DELETE SET NULL
+)
 
 
 

@@ -2,16 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Position extends Model
 {
-    protected $fillable = ['name'];
+    use HasFactory;
+
+    protected $fillable = ['name', 'description', 'filiale_id'];
+
+    public function filiale() {
+        return $this->belongsTo(Filiale::class);
+    }
+
+    public function employees() {
+        return $this->hasMany(Employee::class);
+    }
 }
-
-
-
-
-
-
-

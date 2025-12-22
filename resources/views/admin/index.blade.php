@@ -103,9 +103,9 @@
 
     </div>
 
-    {{-- Attribution rôle / autorisations à un utilisateur --}}
+    {{-- Attribution rôle / autorisations Àun utilisateur --}}
     <section class="bg-hh-card p-6 rounded shadow">
-        <h2 class="font-semibold mb-3">Attribuer rôle et autorisations à un utilisateur</h2>
+        <h2 class="font-semibold mb-3">Attribuer rôle et autorisations Àun utilisateur</h2>
 
         <form id="admin-user-form" method="POST">
             @csrf

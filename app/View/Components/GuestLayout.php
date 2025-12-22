@@ -19,6 +19,3 @@ class GuestLayout extends Component
 
 
 
-
-
-

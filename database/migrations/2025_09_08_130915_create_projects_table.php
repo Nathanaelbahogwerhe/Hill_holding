@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name'); // âœ… nom du projet
-            $table->text('description')->nullable(); // âœ… description
-            $table->text('details')->nullable(); // âœ… dÃ©tails supplÃ©mentaires
-            $table->date('start_date')->nullable(); // âœ… date de dÃ©but
-            $table->date('end_date')->nullable(); // date de fin prÃ©vue
-            $table->date('due_date')->nullable(); // âœ… date dâ€™Ã©chÃ©ance
-            $table->unsignedBigInteger('responsible_id')->nullable(); // âœ… responsable
-            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending'); // âœ… statut
-            $table->unsignedBigInteger('created_by')->nullable(); // qui a crÃ©Ã© le projet ?
+            $table->string('name'); // ✅ nom du projet
+            $table->text('description')->nullable(); // ✅ description
+            $table->text('details')->nullable(); // ✅ détails supplémentaires
+            $table->date('start_date')->nullable(); // ✅ date de début
+            $table->date('end_date')->nullable(); // date de fin prévue
+            $table->date('due_date')->nullable(); // ✅ date d’échéance
+            $table->unsignedBigInteger('responsible_id')->nullable(); // ✅ responsable
+            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending'); // ✅ statut
+            $table->unsignedBigInteger('created_by')->nullable(); // qui a créé le projet ?
             $table->timestamps();
 
-            // clÃ© Ã©trangÃ¨re pour lâ€™utilisateur qui a crÃ©Ã©
+            // clé étrangère pour l’utilisateur qui a créé
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
         });
     }
@@ -37,9 +37,6 @@ return new class extends Migration
         Schema::dropIfExists('projects');
     }
 };
-
-
-
 
 
 

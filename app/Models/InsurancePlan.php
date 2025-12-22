@@ -11,15 +11,12 @@ class InsurancePlan extends Model
 
     protected $fillable = ['name', 'description', 'coverage_amount'];
 
-    // Un plan d'assurance peut Ãªtre attribuÃ© Ã  plusieurs employÃ©s
+    // Un plan d'assurance peut être attribué à plusieurs employés
     public function employeeInsurances()
     {
         return $this->hasMany(EmployeeInsurance::class);
     }
 }
-
-
-
 
 
 

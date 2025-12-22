@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->foreignId('recipient_id')->constrained('employees')->onDelete('cascade');
             $table->string('subject')->nullable();
             $table->text('body');
-            $table->string('attachment')->nullable(); // pour stocker le fichier uploadÃ©
+            $table->string('attachment')->nullable(); // pour stocker le fichier uploadé
             $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
@@ -24,9 +24,6 @@ return new class extends Migration {
         Schema::dropIfExists('messages');
     }
 };
-
-
-
 
 
 

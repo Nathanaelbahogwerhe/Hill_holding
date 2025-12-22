@@ -41,12 +41,9 @@ class DepartmentApiController extends Controller
     public function destroy(Department $department)
     {
         $department->delete();
-        return response()->json(['message' => 'DÃ©partement supprimÃ©'], 200);
+        return response()->json(['message' => 'Département supprimé'], 200);
     }
 }
-
-
-
 
 
 

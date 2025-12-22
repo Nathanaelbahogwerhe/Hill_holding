@@ -4,22 +4,23 @@
 
 @section('content')
 <div class="max-w-3xl mx-auto bg-white p-6 rounded shadow">
-    <h2 class="text-2xl font-bold mb-6">ðŸ‘¤ Mon Profil</h2>
+    <h2 class="text-2xl font-bold mb-6">👤 Mon Profil</h2>
 
-    {{-- Messages de succÃ¨s/erreurs --}}
+    {{-- Messages de succès/erreurs --}}
     @if(session('success'))
         <div class="bg-green-100 text-green-700 p-3 rounded mb-4">
             {{ session('success') }}
-        </div>
-    @endif
-    @if($errors->any())
-        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
-            <ul class="list-disc pl-5">
+        </<|fim_middle|><|fim_middle|><|fim_middle|>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>
+    @endif
+
+    @if($errors->any())
+        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+            <ul class="list-disc pl- <1>5">
     @endif
 
     {{-- Formulaire infos personnelles --}}
@@ -41,14 +42,14 @@
 
         <button type="submit"
                 class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            ðŸ’¾ Mettre Ã  jour
+            💾 Mettre Àjour
         </button>
     </form>
 
     <hr class="my-6">
 
     {{-- Formulaire mot de passe --}}
-    <h3 class="text-xl font-semibold mb-4">ðŸ”‘ Changer le mot de passe</h3>
+    <h3 class="text-xl font-semibold mb-4">🔐 Changer le mot de passe</h3>
     <form method="POST" action="{{ route('profile.password') }}" class="space-y-4">
         @csrf
         @method('PUT')
@@ -70,7 +71,7 @@
 
         <button type="submit"
                 class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            ðŸ”„ Modifier mot de passe
+             Modifier mot de passe
         </button>
     </form>
 </div>

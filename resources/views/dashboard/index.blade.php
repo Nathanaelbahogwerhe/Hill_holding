@@ -17,7 +17,7 @@
         $users = \App\Models\User::all();
     }
 
-    // exemples de mÃ©triques (Ã  remplacer par vraies queries dans controller si besoin)
+    // exemples de métriques (à remplacer par vraies queries dans controller si besoin)
     $totalUsers = $users->count();
     $totalAgences = $niveau === 'mere' ? \App\Models\Agence::count() : ($filiale->agences->count() ?? 0);
     $payrollsThisMonth = \App\Models\Payroll::whereMonth('month', now()->month)->count() ?? 0;
@@ -30,15 +30,15 @@
 
     <!-- Top widgets -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <x-card title="Utilisateurs" :icon="'ðŸ‘¥'">
+        <x-card title="Utilisateurs" :icon="'👥'">
             {{ number_format($totalUsers) }}
         </x-card>
 
-        <x-card title="Agences" :icon="'ðŸ¬'">
+        <x-card title="Agences" :icon="'🏬'">
             {{ number_format($totalAgences) }}
         </x-card>
 
-        <x-card title="Fiches paie (mois)" :icon="'ðŸ’µ'">
+        <x-card title="Fiches paie (mois)" :icon="'💵'">
             {{ number_format($payrollsThisMonth) }}
         </x-card>
     </div>
@@ -47,7 +47,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
             <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">ActivitÃ© â€” 30 derniers jours</h3>
+                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Activité — 30 derniers jours</h3>
                 <div class="text-xs text-[#9b9b9b]">visites & actions</div>
             </div>
             <div id="chart-activity" class="h-64"></div>
@@ -55,8 +55,8 @@
 
         <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
             <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Paie â€” rÃ©partition</h3>
-                <div class="text-xs text-[#9b9b9b]">salaire / primes / indemnitÃ©s</div>
+                <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Paie — répartition</h3>
+                <div class="text-xs text-[#9b9b9b]">salaire / primes / indemnités</div>
             </div>
             <div id="chart-payroll" class="h-64"></div>
         </div>
@@ -73,7 +73,7 @@
                             <div class="font-medium">{{ $f->name }} <span class="text-xs text-[#9b9b9b]">({{ $f->code }})</span></div>
                             <div class="text-xs mt-1">
                                 @forelse($f->agences as $a)
-                                    <span class="inline-block mr-2">ðŸ¢ {{ $a->name }}</span>
+                                    <span class="inline-block mr-2">🏢 {{ $a->name }}</span>
                                 @empty
                                     <span class="text-[#9b9b9b]">Aucune agence</span>
                                 @endforelse
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var optionsPayroll = {
         chart: { type: 'donut', height: 300 },
         series: [55, 25, 15, 5],
-        labels: ['Salaire de base','Primes','IndemnitÃ©s','Frais'],
+        labels: ['Salaire de base','Primes','Indemnités','Frais'],
         colors: ['#D4AF37','#B8860B','#E6C07A','#8B6914'],
         legend: { position: 'bottom', labels: { colors: '#d0d0d0' } },
         tooltip: { theme: 'dark' }
@@ -136,9 +136,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endpush
-
-
-
 
 
 

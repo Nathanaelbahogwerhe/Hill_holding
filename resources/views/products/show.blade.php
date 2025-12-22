@@ -1,29 +1,58 @@
 @extends('layouts.app')
 
-@section('title', 'DÃ©tails Produit')
+@section('title', 'Détails Produit')
 
 @section('content')
-<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-semibold mb-4">DÃ©tails du produit</h1>
-
-    <div class="space-y-2">
-        <p><strong>Nom :</strong> {{ $product->name }}</p>
-        <p><strong>CatÃ©gorie :</strong> {{ $product->category ?? '-' }}</p>
-        <p><strong>Fournisseur :</strong> {{ $product->supplier?->name ?? '-' }}</p>
-        <p><strong>Prix :</strong> {{ number_format($product->price, 2) }} {{ config('app.currency', 'USD') }}</p>
-        <p><strong>Stock :</strong> {{ $product->stock }}</p>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-blue-400">
+            📦 Détails Produit
+        </h1>
+        <div class="space-x-2">
+            <a href="{{ route('products.edit', $product->id) }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold">
+                 Éditer
+            </a>
+            <a href="{{ route('products.index') }}" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg">
+                 Retour
+            </a>
+        </div>
     </div>
 
-    <div class="flex justify-end mt-4 space-x-2">
-        <a href="{{ route('products.edit', $product) }}" class="bg-hh-green hover:bg-hh-green-dark text-white px-4 py-2 rounded">Modifier</a>
-        <a href="{{ route('products.index') }}" class="bg-hh-gray hover:bg-hh-gray-dark text-white px-4 py-2 rounded">Retour</a>
+    <!-- Details Card -->
+    <div class="bg-slate-900 rounded-lg shadow-xl p-8 border border-slate-700 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-blue-400 text-sm uppercase font-semibold mb-1">ID</p>
+                <p class="text-lg text-gray-100">{{ $product->id }}</p>
+            </div>
+            
+            <div>
+                <p class="text-blue-400 text-sm uppercase font-semibold mb-1">Nom</p>
+                <p class="text-lg text-gray-100">{{ $product->name ?? $product->first_name ?? 'N/A' }}</p>
+            </div>
+            
+            <div>
+                <p class="text-blue-400 text-sm uppercase font-semibold mb-1">Créé le</p>
+                <p class="text-lg text-gray-100">{{ $product->created_at?->format('d/m/Y H:i') ?? 'N/A' }}</p>
+            </div>
+            
+            <div>
+                <p class="text-blue-400 text-sm uppercase font-semibold mb-1">Mis à jour le</p>
+                <p class="text-lg text-gray-100">{{ $product->updated_at?->format('d/m/Y H:i') ?? 'N/A' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Button -->
+    <div class="bg-slate-900 rounded-lg shadow-xl p-6 border border-slate-700">
+        <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('Confirmer la suppression définitive?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition">
+                 Supprimer
+            </button>
+        </form>
     </div>
 </div>
 @endsection
-
-
-
-
-
-
-

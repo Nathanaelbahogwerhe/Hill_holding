@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth;
 class DashboardRedirectController extends Controller
 {
     /**
-     * Redirige l'utilisateur connectÃ© vers le dashboard correspondant
+     * Redirige l'utilisateur connecté vers le dashboard correspondant
      */
     public function redirect()
     {
         $user = Auth::user();
 
         if ($user->role === 'superadmin' || $user->role === 'admin') {
-            return redirect()->route('dashboard.HillHolding');
+            return redirect()->route('dashboard.novacore');
         }
 
         if ($user->filiale_id) {
@@ -30,9 +30,6 @@ class DashboardRedirectController extends Controller
         return redirect()->route('home');
     }
 }
-
-
-
 
 
 

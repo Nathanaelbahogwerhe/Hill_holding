@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->date('end_date');
             $table->decimal('total_revenue', 15, 2)->default(0);
             $table->decimal('total_expense', 15, 2)->default(0);
-            $table->decimal('net_result', 15, 2)->default(0); // revenu - dÃ©penses
+            $table->decimal('net_result', 15, 2)->default(0); // revenu - dépenses
             
             $table->foreignId('filiale_id')->nullable()->constrained('filiales')->onDelete('cascade');
             $table->foreignId('agence_id')->nullable()->constrained('agences')->onDelete('cascade');
@@ -27,9 +27,6 @@ return new class extends Migration {
         Schema::dropIfExists('financial_reports');
     }
 };
-
-
-
 
 
 

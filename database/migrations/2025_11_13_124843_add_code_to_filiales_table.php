@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('filiales', function (Blueprint $table) {
-            $table->string('code')->unique()->after('id'); // ou aprÃ¨s la colonne souhaitÃ©e
+            $table->string('code')->unique()->after('id'); // ou après la colonne souhaitée
         });
     }
 
@@ -23,9 +23,6 @@ return new class extends Migration
         });
     }
 };
-
-
-
 
 
 

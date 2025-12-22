@@ -6,19 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class HillHoldingAuthController extends Controller
+class novacoreAuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.HillHolding-login');
+        return view('auth.novacore-login');
     }
 
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('HillHolding')->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->route('HillHolding.dashboard');
+        if (Auth::guard('novacore')->attempt($credentials, $request->filled('remember'))) {
+            return redirect()->route('novacore.dashboard');
         }
 
         return back()->withErrors(['email' => 'Identifiants incorrects'])->withInput();
@@ -26,16 +26,13 @@ class HillHoldingAuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('HillHolding')->logout();
+        Auth::guard('novacore')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('HillHolding.login');
+        return redirect()->route('novacore.login');
     }
 }
-
-
-
 
 
 

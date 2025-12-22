@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', 'ðŸ’³ Transactions')
+@section('title', '💳 Transactions')
 
 @section('content')
 <div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6">
     <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">ðŸ’³ Transactions</h2>
+        <h2 class="text-xl font-semibold">💳 Transactions</h2>
         <a href="{{ route('transactions.create') }}" class="px-4 py-2 bg-hh-primary text-white rounded hover:bg-hh-primary-dark">
             Nouvelle Transaction
         </a>
@@ -15,7 +15,7 @@
         <thead class="bg-hh-gray-light dark:bg-hh-gray-darker uppercase text-gray-700 dark:text-gray-200">
             <tr>
                 <th class="px-4 py-2">#</th>
-                <th class="px-4 py-2">RÃ©fÃ©rence</th>
+                <th class="px-4 py-2">Référence</th>
                 <th class="px-4 py-2">Type</th>
                 <th class="px-4 py-2">Montant</th>
                 <th class="px-4 py-2">Date</th>
@@ -36,7 +36,7 @@
                 </td>
                 <td class="px-4 py-2">{{ number_format($tx->amount, 2, ',', ' ') }}</td>
                 <td class="px-4 py-2">{{ \Carbon\Carbon::parse($tx->transaction_date)->format('d/m/Y') }}</td>
-                <td class="px-4 py-2">{{ $tx->user->name ?? 'â€”' }}</td>
+                <td class="px-4 py-2">{{ $tx->user->name ?? '—' }}</td>
                 <td class="px-4 py-2 text-right flex justify-end gap-2">
                     <a href="{{ route('transactions.show', $tx) }}" class="text-blue-500 hover:text-blue-700" title="Voir">
                         <i class="fas fa-eye"></i>
@@ -54,16 +54,13 @@
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="text-center py-4 text-gray-500">Aucune transaction enregistrÃ©e.</td>
+                <td colspan="7" class="text-center py-4 text-gray-500">Aucune transaction enregistrée.</td>
             </tr>
             @endforelse
         </tbody>
     </table>
 </div>
 @endsection
-
-
-
 
 
 

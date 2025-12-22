@@ -19,9 +19,9 @@ return new class extends Migration {
             $table->foreignId('filiale_id')->nullable()->constrained('filiales')->onDelete('cascade');
             $table->foreignId('agence_id')->nullable()->constrained('agences')->onDelete('cascade');
 
-            // Suivi financier stockÃ©
+            // Suivi financier stocké
             $table->decimal('total_due', 15, 2)->default(0);   // Total des dettes
-            $table->decimal('total_paid', 15, 2)->default(0);  // Total payÃ©
+            $table->decimal('total_paid', 15, 2)->default(0);  // Total payé
             $table->decimal('balance', 15, 2)->default(0);     // Solde (total_due - total_paid)
 
             $table->enum('status', ['prospect', 'active', 'inactive'])->default('prospect');
@@ -40,9 +40,6 @@ return new class extends Migration {
         Schema::dropIfExists('clients');
     }
 };
-
-
-
 
 
 

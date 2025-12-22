@@ -10,14 +10,19 @@ class Expense extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
         'description',
         'amount',
         'date',
         'category',
         'filiale_id',
         'agence_id',
- ];
+        'attachment',
+    ];
+
+    protected $casts = [
+        'date' => 'date',
+        'amount' => 'decimal:2',
+    ];
     public function filiale() {
         return $this->belongsTo(Filiale::class);
     }
@@ -26,9 +31,6 @@ class Expense extends Model
         return $this->belongsTo(Agence::class);
     }
 }
-
-
-
 
 
 

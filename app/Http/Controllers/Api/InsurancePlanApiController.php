@@ -43,12 +43,9 @@ class InsurancePlanApiController extends Controller
     public function destroy(InsurancePlan $insurancePlan)
     {
         $insurancePlan->delete();
-        return response()->json(['message' => 'Plan supprimÃ©'], 200);
+        return response()->json(['message' => 'Plan supprimé'], 200);
     }
 }
-
-
-
 
 
 

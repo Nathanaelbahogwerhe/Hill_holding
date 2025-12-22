@@ -5,7 +5,7 @@
     <h1 class="text-center mb-5" style="color: gold;">Tableau de bord</h1>
 
     <div class="row g-4" id="dashboard-updates">
-        <!-- Les mises à jour s’afficheront ici dynamiquement -->
+        <!-- Les mises Àjour s’afficheront ici dynamiquement -->
     </div>
 </div>
 @endsection
@@ -13,7 +13,7 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Fonction de récupération des dernières mises à jour
+    // Fonction de récupération des dernières mises Àjour
     function fetchUpdates() {
         fetch("{{ route('dashboard.updates') }}")
             .then(response => response.json())
@@ -74,10 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 document.getElementById('dashboard-updates').innerHTML = html || `
                     <div class="text-center text-secondary">
-                        Aucune mise à jour récente.
+                        Aucune mise Àjour récente.
                     </div>`;
             })
-            .catch(err => console.error('Erreur lors du chargement des mises à jour:', err));
+            .catch(err => console.error('Erreur lors du chargement des mises Àjour:', err));
     }
 
     // Charger au démarrage

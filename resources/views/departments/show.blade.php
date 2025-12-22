@@ -1,107 +1,72 @@
 @extends('layouts.app')
-
-@section('title', 'DÃ©tails du dÃ©partement')
+@section('title', 'Détails Département')
 
 @section('content')
-<div class="max-w-5xl mx-auto bg-hh-card p-6 rounded shadow">
-
-    {{-- Titre + retour --}}
-    <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-semibold text-gray-800">
-            DÃ©partement : {{ $department->name }}
-        </h2>
-        <a href="{{ route('departments.index') }}" class="btn btn-secondary">
-            â† Retour
-        </a>
-    </div>
-
-    {{-- Informations gÃ©nÃ©rales --}}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div>
-            <h3 class="text-sm text-gray-500 uppercase">Nom du dÃ©partement</h3>
-            <p class="text-lg font-medium text-gray-900">
-                {{ $department->name }}
-            </p>
-        </div>
-
-        <div>
-            <h3 class="text-sm text-gray-500 uppercase">Filiale associÃ©e</h3>
-            <p class="text-lg font-medium text-gray-900">
-                {{ $department->filiale ? $department->filiale->name : 'â€” Aucune â€”' }}
-            </p>
-        </div>
-
-        <div>
-            <h3 class="text-sm text-gray-500 uppercase">CrÃ©Ã© le</h3>
-            <p class="text-gray-800">
-                {{ $department->created_at->format('d/m/Y H:i') }}
-            </p>
-        </div>
-
-        <div>
-            <h3 class="text-sm text-gray-500 uppercase">DerniÃ¨re modification</h3>
-            <p class="text-gray-800">
-                {{ $department->updated_at->format('d/m/Y H:i') }}
-            </p>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-[#D4AF37]">🏢 {{ $department->name }}</h1>
+        <div class="space-x-2">
+            <a href="{{ route('departments.edit', $department->id) }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold">✏️ Éditer</a>
+            <a href="{{ route('departments.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg">← Retour</a>
         </div>
     </div>
 
-    {{-- Liste des employÃ©s du dÃ©partement --}}
-    <div class="border-t border-gray-200 pt-6">
-        <h3 class="text-xl font-semibold mb-4">EmployÃ©s du dÃ©partement</h3>
-
-        @if($department->employees && $department->employees->count() > 0)
-            <div class="overflow-x-auto">
-                <table class="table w-full border border-gray-200">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="px-4 py-2 text-left">#</th>
-                            <th class="px-4 py-2 text-left">Nom</th>
-                            <th class="px-4 py-2 text-left">Poste</th>
-                            <th class="px-4 py-2 text-left">Email</th>
-                            <th class="px-4 py-2 text-left">Date d'embauche</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($department->employees as $index => $employee)
-                            <tr class="border-t">
-                                <td class="px-4 py-2">{{ $index + 1 }}</td>
-                                <td class="px-4 py-2 font-medium text-gray-900">{{ $employee->name }}</td>
-                                <td class="px-4 py-2">{{ $employee->position ?? 'â€”' }}</td>
-                                <td class="px-4 py-2">{{ $employee->email ?? 'â€”' }}</td>
-                                <td class="px-4 py-2">
-                                    {{ $employee->hired_at ? $employee->hired_at->format('d/m/Y') : 'â€”' }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-neutral-400 text-sm uppercase">Code</p>
+                <p class="text-lg font-semibold text-white">{{ $department->code ?? '—' }}</p>
             </div>
-        @else
-            <p class="text-gray-600 italic">Aucun employÃ© associÃ© Ã  ce dÃ©partement.</p>
-        @endif
+            <div>
+                <p class="text-neutral-400 text-sm uppercase">Filiale</p>
+                @if($department->filiale)
+                    <span class="inline-block bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-sm font-semibold">{{ $department->filiale->name }}</span>
+                @else
+                    <span class="inline-block bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-sm font-semibold">🏢 Maison Mère</span>
+                @endif
+            </div>
+            <div>
+                <p class="text-neutral-400 text-sm uppercase">Agence</p>
+                @if($department->agence)
+                    <span class="inline-block bg-green-900 text-green-200 px-3 py-1 rounded-full text-sm font-semibold">{{ $department->agence->name }}</span>
+                @else
+                    <span class="text-neutral-500">—</span>
+                @endif
+            </div>
+            <div>
+                <p class="text-neutral-400 text-sm uppercase">Nombre d'Employés</p>
+                <p class="text-2xl font-bold text-[#D4AF37]">{{ $department->employees->count() }}</p>
+            </div>
+        </div>
     </div>
 
-    {{-- Actions --}}
-    <div class="mt-8 flex gap-3">
-        <a href="{{ route('departments.edit', $department) }}" class="btn btn-primary">
-            Modifier
-        </a>
+    @if($department->employees->count() > 0)
+    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800">
+        <h2 class="text-2xl font-bold text-[#D4AF37] mb-6">👥 Employés ({{ $department->employees->count() }})</h2>
+        <div class="space-y-2">
+            @foreach($department->employees as $emp)
+            <div class="bg-neutral-900 p-3 rounded-lg flex justify-between items-center border border-neutral-800">
+                <div>
+                    <p class="text-white font-semibold">{{ $emp->first_name }} {{ $emp->last_name }}</p>
+                    <p class="text-neutral-400 text-xs">{{ $emp->position?->name ?? 'Poste non défini' }}</p>
+                </div>
+                <div class="flex gap-2 items-center">
+                    @if($emp->agence)
+                        <span class="bg-green-900 text-green-200 px-2 py-1 rounded text-xs font-semibold">{{ $emp->agence->name }}</span>
+                    @endif
+                    <a href="{{ route('employees.show', $emp->id) }}" class="text-[#D4AF37] hover:text-yellow-500 text-sm font-bold">Voir →</a>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
 
-        <form action="{{ route('departments.destroy', $department) }}" method="POST" onsubmit="return confirm('Confirmer la suppression de ce dÃ©partement ?');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-error text-white">
-                Supprimer
-            </button>
+    <div class="mt-8 pt-6 border-t border-neutral-700">
+        <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="inline" onsubmit="return confirm('Confirmer la suppression de ce département ?')">
+            @csrf @method('DELETE')
+            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition">🗑️ Supprimer</button>
         </form>
     </div>
 </div>
 @endsection
-
-
-
-
-
-
-

@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 class RoleController extends Controller
 {
     /**
-     * Affiche la liste des rÃ´les
+     * Affiche la liste des rôles
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
@@ -27,7 +27,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Enregistre un rÃ´le
+     * Enregistre un rôle
      */
     public function store(Request $request)
     {
@@ -42,11 +42,11 @@ class RoleController extends Controller
             $role->syncPermissions($request->permissions);
         }
 
-        return redirect()->route('roles.index')->with('success', 'RÃ´le crÃ©Ã© avec succÃ¨s.');
+        return redirect()->route('roles.index')->with('success', 'Rôle créé avec succès.');
     }
 
     /**
-     * Affiche un rÃ´le
+     * Affiche un rôle
      */
     public function show(Role $role)
     {
@@ -55,7 +55,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Formulaire dâ€™Ã©dition
+     * Formulaire d’édition
      */
     public function edit(Role $role)
     {
@@ -66,7 +66,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Met Ã  jour un rÃ´le
+     * Met à jour un rôle
      */
     public function update(Request $request, Role $role)
     {
@@ -83,21 +83,18 @@ class RoleController extends Controller
             $role->syncPermissions([]);
         }
 
-        return redirect()->route('roles.index')->with('success', 'RÃ´le mis Ã  jour avec succÃ¨s.');
+        return redirect()->route('roles.index')->with('success', 'Rôle mis à jour avec succès.');
     }
 
     /**
-     * Supprime un rÃ´le
+     * Supprime un rôle
      */
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index')->with('success', 'RÃ´le supprimÃ© avec succÃ¨s.');
+        return redirect()->route('roles.index')->with('success', 'Rôle supprimé avec succès.');
     }
 }
-
-
-
 
 
 

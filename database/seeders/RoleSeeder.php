@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
         Permission::query()->delete();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        // ðŸ”¹ DÃ©finition des rÃ´les
+        // 🔹 Définition des rôles
         $roles = [
             'Super Admin',
             'HR Manager',
@@ -29,7 +29,7 @@ class RoleSeeder extends Seeder
             Role::firstOrCreate(['name' => $role, 'guard_name' => 'web']);
         }
 
-        // ðŸ”¹ Toutes les permissions regroupÃ©es
+        // 🔹 Toutes les permissions regroupées
         $permissions = [
 
             // HR
@@ -46,28 +46,28 @@ class RoleSeeder extends Seeder
             'view budgets', 'create budgets', 'edit budgets', 'delete budgets',
             'view financial reports', 'generate reports',
 
-            // OpÃ©rations
+            // Opérations
             'view clients', 'create clients', 'edit clients', 'delete clients',
             'view projects', 'create projects', 'edit projects', 'delete projects',
             'view tasks', 'create tasks', 'edit tasks', 'delete tasks',
             'view contracts', 'create contracts', 'edit contracts', 'delete contracts',
 
-            // SystÃ¨me
+            // Système
             'view assets', 'edit settings',
             'view notifications', 'mark notifications as read',
         ];
 
-        // ðŸ”¸ CrÃ©ation effective avant assignation
+        // 🔸 Création effective avant assignation
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
         }
 
-        // ðŸ”’ Attribution des permissions aux rÃ´les
+        // 🔒 Attribution des permissions aux rôles
         $superAdmin = Role::where('name', 'Super Admin')->first();
         $superAdmin->givePermissionTo(Permission::all());
 
-        $rh = Role::where('name', 'HR Manager')->first();
-        $rh->givePermissionTo([
+        $hr = Role::where('name', 'HR Manager')->first();
+        $hr->givePermissionTo([
             'view employees', 'create employees', 'edit employees', 'delete employees',
             'view departments', 'create departments', 'edit departments', 'delete departments',
             'view leaves', 'create leaves', 'edit leaves', 'delete leaves',
@@ -103,12 +103,9 @@ class RoleSeeder extends Seeder
             'view notifications', 'mark notifications as read',
         ]);
 
-        $this->command->info('âœ… Tous les rÃ´les et permissions ont Ã©tÃ© recrÃ©Ã©s avec succÃ¨s.');
+        $this->command->info('✅ Tous les rôles et permissions ont été recréés avec succès.');
     }
 }
-
-
-
 
 
 

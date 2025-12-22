@@ -4,38 +4,43 @@ namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Revenue;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Revenue;
+use App\Models\Filiale;
+use App\Models\Agence;
 
 class RevenueController extends Controller
 {
     /**
-     * Afficher toutes les recettes selon le rÃ´le/hierarchie
+     * Afficher toutes les recettes selon le rôle/hierarchie
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $query = Revenue::query();
+        $query = Revenue::with(['filiale', 'agence']);
 
-        // HillHolding â†’ voir toutes les recettes
-        if ($user->hasRole('superadmin')) {
-            $revenues = $query->with('project', 'filiale', 'agency')->get();
+        if ($request->filled('search')) {
+            $query->where('description', 'like', '%' . $request->search . '%');
         }
-        // Filiale â†’ voir ses recettes et celles de ses agences
+
+        // Super admin : voir toutes les recettes
+        if ($user->hasRole('superadmin')) {
+            $revenues = $query->latest()->get();
+        }
+        // Filiale : voir ses recettes et celles de ses agences
         elseif ($user->filiale_id) {
             $revenues = $query->where('filiale_id', $user->filiale_id)
-                              ->orWhereHas('agency', function($q) use ($user) {
-                                  $q->where('filiale_id', $user->filiale_id);
-                              })
-                              ->with('project', 'filiale', 'agency')
+                              ->latest()
                               ->get();
         }
-        // Agence â†’ voir seulement ses recettes
-        elseif ($user->agency_id) {
-            $revenues = $query->where('agency_id', $user->agency_id)
-                              ->with('project', 'filiale', 'agency')
+        // Agence : voir seulement ses recettes
+        elseif ($user->agence_id) {
+            $revenues = $query->where('agence_id', $user->agence_id)
+                              ->latest()
                               ->get();
-        } else {
+        }
+        else {
             $revenues = collect();
         }
 
@@ -43,11 +48,21 @@ class RevenueController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
-        return view('finance.revenues.create');
+        $user = Auth::user();
+
+        $filiales = $user->filiale_id 
+            ? Filiale::where('id', $user->filiale_id)->get() 
+            : Filiale::all();
+
+        $agences = $user->filiale_id
+            ? Agence::where('filiale_id', $user->filiale_id)->get()
+            : Agence::all();
+
+        return view('finance.revenues.create', compact('filiales', 'agences'));
     }
 
     /**
@@ -56,18 +71,24 @@ class RevenueController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric',
-            'source' => 'required|string',
-            'project_id' => 'nullable|exists:projects,id',
-            'filiale_id' => 'nullable|exists:filiales,id',
-            'agency_id' => 'nullable|exists:agencies,id',
-            'description' => 'nullable|string',
+            'description' => 'required|string|max:255',
+            'amount'      => 'required|numeric|min:0',
+            'filiale_id'  => 'nullable|exists:filiales,id',
+            'agence_id'   => 'nullable|exists:agences,id',
+            'date'        => 'required|date',
+            'attachment'  => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
 
-        Revenue::create($request->all());
+        $data = $request->only(['description', 'amount', 'date', 'filiale_id', 'agence_id']);
+        
+        if ($request->hasFile('attachment')) {
+            $data['attachment'] = $request->file('attachment')->store('revenues/attachments', 'public');
+        }
+
+        Revenue::create($data);
 
         return redirect()->route('revenues.index')
-                         ->with('success', 'Recette ajoutÃ©e avec succÃ¨s.');
+                         ->with('success', 'Revenu créé avec succès.');
     }
 
     /**
@@ -79,31 +100,50 @@ class RevenueController extends Controller
     }
 
     /**
-     * Formulaire Ã©dition
+     * Formulaire édition
      */
     public function edit(Revenue $revenue)
     {
-        return view('finance.revenues.edit', compact('revenue'));
+        $user = Auth::user();
+
+        $filiales = $user->filiale_id 
+            ? Filiale::where('id', $user->filiale_id)->get() 
+            : Filiale::all();
+
+        $agences = $user->filiale_id
+            ? Agence::where('filiale_id', $user->filiale_id)->get()
+            : Agence::all();
+
+        return view('finance.revenues.edit', compact('revenue', 'filiales', 'agences'));
     }
 
     /**
-     * Mettre Ã  jour la recette
+     * Mettre à jour la recette
      */
     public function update(Request $request, Revenue $revenue)
     {
         $request->validate([
-            'amount' => 'required|numeric',
-            'source' => 'required|string',
-            'project_id' => 'nullable|exists:projects,id',
-            'filiale_id' => 'nullable|exists:filiales,id',
-            'agency_id' => 'nullable|exists:agencies,id',
-            'description' => 'nullable|string',
+            'description' => 'required|string|max:255',
+            'amount'      => 'required|numeric|min:0',
+            'filiale_id'  => 'nullable|exists:filiales,id',
+            'agence_id'   => 'nullable|exists:agences,id',
+            'date'        => 'required|date',
+            'attachment'  => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
 
-        $revenue->update($request->all());
+        $data = $request->only(['description', 'amount', 'date', 'filiale_id', 'agence_id']);
+        
+        if ($request->hasFile('attachment')) {
+            if ($revenue->attachment && Storage::disk('public')->exists($revenue->attachment)) {
+                Storage::disk('public')->delete($revenue->attachment);
+            }
+            $data['attachment'] = $request->file('attachment')->store('revenues/attachments', 'public');
+        }
 
-        return redirect()->route('revenues.index')
-                         ->with('success', 'Recette mise Ã  jour avec succÃ¨s.');
+        $revenue->update($data);
+
+        return redirect()->route('revenues.show', $revenue->id)
+                         ->with('success', 'Revenu mis à jour avec succès.');
     }
 
     /**
@@ -111,15 +151,12 @@ class RevenueController extends Controller
      */
     public function destroy(Revenue $revenue)
     {
+        if ($revenue->attachment && Storage::disk('public')->exists($revenue->attachment)) {
+            Storage::disk('public')->delete($revenue->attachment);
+        }
         $revenue->delete();
+
         return redirect()->route('revenues.index')
-                         ->with('success', 'Recette supprimÃ©e avec succÃ¨s.');
+                         ->with('success', 'Revenu supprimé avec succès.');
     }
 }
-
-
-
-
-
-
-

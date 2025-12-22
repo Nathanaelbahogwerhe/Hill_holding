@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('client_payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade'); // relation avec clients
+            $table->decimal('amount', 15, 2)->default(0); // montant du paiement
+            $table->date('payment_date')->nullable(); // date du paiement
+            $table->string('method')->nullable(); // mode de paiement
+            $table->text('notes')->nullable(); // notes éventuelles
             $table->timestamps();
         });
     }
@@ -25,10 +30,3 @@ return new class extends Migration
         Schema::dropIfExists('client_payments');
     }
 };
-
-
-
-
-
-
-

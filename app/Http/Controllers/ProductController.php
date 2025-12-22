@@ -28,7 +28,7 @@ class ProductController extends Controller
             'stock'       => 'required|integer|min:0',
         ]);
         Product::create($request->all());
-        return redirect()->route('products.index')->with('success', 'Produit ajoutÃ©');
+        return redirect()->route('products.index')->with('success', 'Produit ajouté');
     }
 
     public function show(Product $product)
@@ -51,18 +51,15 @@ class ProductController extends Controller
             'stock'       => 'required|integer|min:0',
         ]);
         $product->update($request->all());
-        return redirect()->route('products.index')->with('success', 'Produit modifiÃ©');
+        return redirect()->route('products.index')->with('success', 'Produit modifié');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Produit supprimÃ©');
+        return redirect()->route('products.index')->with('success', 'Produit supprimé');
     }
 }
-
-
-
 
 
 

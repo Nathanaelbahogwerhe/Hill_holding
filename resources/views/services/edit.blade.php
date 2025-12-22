@@ -1,40 +1,58 @@
 @extends('layouts.app')
 
-@section('title', 'Modifier Service')
+@section('title', 'Éditer Service')
 
 @section('content')
-<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
-    <h1 class="text-2xl font-semibold mb-4">Modifier le service</h1>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-blue-400">
+             Éditer Service
+        </h1>
+        <a href="{{ route('services.index') }}" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg">
+             Retour
+        </a>
+    </div>
 
-    <form action="{{ route('services.update', $service) }}" method="POST" class="space-y-4">
-        @csrf @method('PUT')
-        <div>
-            <label class="block font-medium">Nom</label>
-            <input type="text" name="name" value="{{ $service->name }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
+    <!-- Errors -->
+    @if ($errors->any())
+        <div class="bg-red-900 border border-red-700 text-red-100 p-4 rounded-lg mb-6">
+            <h3 class="font-bold mb-2"> Erreurs:</h3>
+            <ul class="list-disc pl-5 space-y-1">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
 
-        <div>
-            <label class="block font-medium">Description</label>
-            <textarea name="description" rows="3" class="w-full border rounded p-2 dark:bg-hh-gray-darker">{{ $service->description }}</textarea>
-        </div>
+    <!-- Form -->
+    <div class="bg-slate-900 rounded-lg shadow-xl p-8 border border-slate-700">
+        <form action="{{ route('services.update', $service->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2 font-semibold text-blue-400">Nom <span class="text-red-500">*</span></label>
+                    <input type="text" name="name" value="{{ $service->name }}" class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-600 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500" required>
+                </div>
 
-        <div>
-            <label class="block font-medium">Prix</label>
-            <input type="number" step="0.01" name="price" value="{{ $service->price }}" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
-        </div>
+                <div>
+                    <label class="block mb-2 font-semibold text-blue-400">Description</label>
+                    <input type="text" name="description" value="{{ $service->description ?? '' }}" class="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-600 text-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                </div>
+            </div>
 
-        <div class="flex justify-end">
-            <button type="submit" class="bg-hh-green hover:bg-hh-green-dark text-white px-4 py-2 rounded">
-                Mettre Ã  jour
-            </button>
-        </div>
-    </form>
+            <div class="flex gap-4 mt-8">
+                <button type="submit" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition">
+                     Mettre à jour
+                </button>
+                <a href="{{ route('services.index') }}" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold transition">
+                     Annuler
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
-
-
-
-
-
-
-

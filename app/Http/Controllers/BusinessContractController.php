@@ -66,6 +66,3 @@ class BusinessContractController extends Controller
 
 
 
-
-
-

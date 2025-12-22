@@ -11,20 +11,20 @@ use Illuminate\Support\Facades\Auth;
 class DepartmentController extends Controller
 {
     /**
-     * Afficher la liste des dÃ©partements
+     * Afficher la liste des départements
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $query = Department::query();
 
-        // ðŸ” Recherche
+        // 🔍 Recherche
         if ($request->filled('search')) {
             $search = trim($request->input('search'));
             $query->where('name', 'like', "%{$search}%");
         }
 
-        // ðŸŽšï¸ Filtrage selon le rÃ´le et la filiale de lâ€™utilisateur
+        // 🎚️ Filtrage selon le rôle et la filiale de l’utilisateur
         if ($user->hasRole('Super Admin')) {
             $departments = $query->orderBy('name')->paginate(10);
         } elseif (!empty($user->filiale_id)) {
@@ -32,7 +32,7 @@ class DepartmentController extends Controller
                                  ->orderBy('name')
                                  ->paginate(10);
         } else {
-            // Aucun accÃ¨s
+            // Aucun accès
             $departments = collect(); // tableau vide
         }
 
@@ -40,7 +40,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
@@ -50,11 +50,13 @@ class DepartmentController extends Controller
             ? Filiale::orderBy('name')->get()
             : Filiale::where('id', $user->filiale_id)->get();
 
-        return view('departments.create', compact('filiales'));
+        $agences = \App\Models\Agence::orderBy('name')->get();
+
+        return view('departments.create', compact('filiales', 'agences'));
     }
 
     /**
-     * Enregistrer un nouveau dÃ©partement
+     * Enregistrer un nouveau département
      */
     public function store(Request $request)
     {
@@ -62,30 +64,34 @@ class DepartmentController extends Controller
 
         $request->validate([
             'name'       => 'required|string|max:255',
+            'code'       => 'nullable|string|max:50',
             'filiale_id' => 'nullable|exists:filiales,id',
+            'agency_id'  => 'nullable|exists:agences,id',
         ]);
 
         $filialeId = $request->filiale_id ?? $user->filiale_id;
 
         $department = Department::create([
             'name'       => $request->name,
+            'code'       => $request->code,
             'filiale_id' => $filialeId,
+            'agency_id'  => $request->agency_id,
         ]);
 
-        // ðŸ”” Notification aux administrateurs
+        // 🔔 Notification aux administrateurs
         Notify::admins(
-            'Nouveau dÃ©partement crÃ©Ã©',
-            'Le dÃ©partement "' . e($department->name) . '" a Ã©tÃ© ajoutÃ©.',
+            'Nouveau département créé',
+            'Le département "' . e($department->name) . '" a été ajouté.',
             route('departments.index')
         );
 
         return redirect()
             ->route('departments.index')
-            ->with('success', 'DÃ©partement crÃ©Ã© avec succÃ¨s.');
+            ->with('success', 'Département créé avec succès.');
     }
 
     /**
-     * Afficher les dÃ©tails dâ€™un dÃ©partement
+     * Afficher les détails d’un département
      */
     public function show(Department $department)
     {
@@ -96,7 +102,7 @@ class DepartmentController extends Controller
     }
 
     /**
-     * Formulaire dâ€™Ã©dition
+     * Formulaire d’édition
      */
     public function edit(Department $department)
     {
@@ -106,11 +112,13 @@ class DepartmentController extends Controller
             ? Filiale::orderBy('name')->get()
             : Filiale::where('id', $user->filiale_id)->get();
 
-        return view('departments.edit', compact('department', 'filiales'));
+        $agences = \App\Models\Agence::orderBy('name')->get();
+
+        return view('departments.edit', compact('department', 'filiales', 'agences'));
     }
 
     /**
-     * Mettre Ã  jour un dÃ©partement
+     * Mettre à jour un département
      */
     public function update(Request $request, Department $department)
     {
@@ -118,23 +126,27 @@ class DepartmentController extends Controller
 
         $request->validate([
             'name'       => 'required|string|max:255',
+            'code'       => 'nullable|string|max:50',
             'filiale_id' => 'nullable|exists:filiales,id',
+            'agency_id'  => 'nullable|exists:agences,id',
         ]);
 
         $filialeId = $request->filiale_id ?? $user->filiale_id;
 
         $department->update([
             'name'       => $request->name,
+            'code'       => $request->code,
             'filiale_id' => $filialeId,
+            'agency_id'  => $request->agency_id,
         ]);
 
         return redirect()
             ->route('departments.index')
-            ->with('success', 'DÃ©partement mis Ã  jour avec succÃ¨s.');
+            ->with('success', 'Département mis à jour avec succès.');
     }
 
     /**
-     * Supprimer un dÃ©partement
+     * Supprimer un département
      */
     public function destroy(Department $department)
     {
@@ -142,12 +154,9 @@ class DepartmentController extends Controller
 
         return redirect()
             ->route('departments.index')
-            ->with('success', 'DÃ©partement supprimÃ© avec succÃ¨s.');
+            ->with('success', 'Département supprimé avec succès.');
     }
 }
-
-
-
 
 
 

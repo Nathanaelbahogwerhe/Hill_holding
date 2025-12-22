@@ -5,7 +5,7 @@
 @section('content')
 <div class="p-6">
 
-    <!-- ðŸ”¹ RÃ©sumÃ© des clients -->
+    <!-- ðŸ”¹ Résumé des clients -->
     <div class="grid grid-cols-4 gap-6 mb-6">
         <div class="bg-white shadow rounded-lg p-4">
             <h2 class="text-gray-500 text-sm">Total Clients</h2>
@@ -25,7 +25,7 @@
         </div>
     </div>
 
-    <!-- ðŸ”¹ EntÃªte et bouton Nouveau client -->
+    <!-- ðŸ”¹ Entàªte et bouton Nouveau client -->
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold text-gray-800">Liste des Clients</h1>
         <a href="{{ route('clients.create') }}" 
@@ -42,7 +42,7 @@
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">#</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Nom</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Email</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">TÃ©lÃ©phone</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Téléphone</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Total Due</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Balance</th>
                     <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
@@ -75,7 +75,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="px-4 py-3 text-center text-gray-500">Aucun client trouvÃ©.</td>
+                    <td colspan="7" class="px-4 py-3 text-center text-gray-500">Aucun client trouvé.</td>
                 </tr>
                 @endforelse
             </tbody>

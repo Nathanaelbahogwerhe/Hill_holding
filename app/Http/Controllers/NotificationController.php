@@ -32,12 +32,9 @@ class NotificationController extends Controller
             $notification->delete();
         }
 
-        return back()->with('success', 'Notification supprimÃ©e.');
+        return back()->with('success', 'Notification supprimée.');
     }
 }
-
-
-
 
 
 

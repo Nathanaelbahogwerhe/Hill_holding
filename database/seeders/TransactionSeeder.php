@@ -13,7 +13,7 @@ class TransactionSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             Transaction::create([
                 'filiale_id'        => 1,
-                'reference'         => strtoupper(Str::random(10)), // ðŸ”¹ GÃ©nÃ¨re une rÃ©fÃ©rence unique
+                'reference'         => strtoupper(Str::random(10)), // ðŸ”¹ Génère une référence unique
                 'type'              => $i % 2 === 0 ? 'income' : 'expense',
                 'amount'            => rand(1000, 500000),
                 'description'       => "Transaction example {$i}",

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <h1>Contact</h1>
-    <p>Envoyez-nous un message, nous vous rÃ©pondrons rapidement.</p>
+    <p>Envoyez-nous un message, nous vous répondrons rapidement.</p>
 
     {{-- Message de confirmation --}}
     @if(session('success'))

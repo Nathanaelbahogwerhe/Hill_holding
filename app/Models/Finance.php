@@ -21,6 +21,3 @@ class Finance extends Model
 
 
 
-
-
-

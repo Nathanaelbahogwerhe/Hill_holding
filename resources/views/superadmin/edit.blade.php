@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Ã‰diter SuperAdmin / HillHolding</h2>
+    <h2>Éditer SuperAdmin / novacore</h2>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -33,20 +33,17 @@
         </div>
 
         <div class="mb-3">
-            <label for="logo" class="form-label">Logo HillHolding</label>
+            <label for="logo" class="form-label">Logo novacore</label>
             <input type="file" name="logo" class="form-control">
             @if($superadmin->logo)
-                <img src="{{ asset('storage/'.$superadmin->logo) }}" alt="Logo HillHolding" class="mt-2" width="150">
+                <img src="{{ asset('storage/'.$superadmin->logo) }}" alt="Logo novacore" class="mt-2" width="150">
             @endif
         </div>
 
-        <button type="submit" class="btn btn-primary">Mettre Ã  jour</button>
+        <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>
 </div>
 @endsection
-
-
-
 
 
 

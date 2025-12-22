@@ -47,7 +47,7 @@ return new class extends Migration
             });
         }
 
-        // --- TÃ¢ches ---
+        // --- Tâches ---
         if (Schema::hasTable('tasks')) {
             Schema::table('tasks', function (Blueprint $tableBlueprint) {
                 if (!Schema::hasColumn('tasks', 'employee_id')) {
@@ -65,6 +65,18 @@ return new class extends Migration
                 if (!Schema::hasColumn('messages', 'recipient_id')) {
                     $tableBlueprint->foreignId('recipient_id')->nullable()->constrained('employees')->cascadeOnDelete();
                 }
+            });
+        }
+
+        // --- Employés ---
+        if (!Schema::hasTable('employees')) {
+            Schema::create('employees', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('filiale_id')->nullable()->constrained('filiales')->nullOnDelete();
+                $table->foreignId('agency_id')->nullable()->constrained('agences')->nullOnDelete();
+                $table->foreignId('department_id')->nullable()->constrained()->nullOnDelete();
+                $table->foreignId('position_id')->nullable()->constrained()->nullOnDelete();
+                $table->timestamps();
             });
         }
     }
@@ -107,7 +119,7 @@ return new class extends Migration
             });
         }
 
-        // --- TÃ¢ches ---
+        // --- Tâches ---
         if (Schema::hasTable('tasks')) {
             Schema::table('tasks', function (Blueprint $tableBlueprint) {
                 if (Schema::hasColumn('tasks', 'employee_id')) {
@@ -130,8 +142,10 @@ return new class extends Migration
                 }
             });
         }
+
+        // --- Employés ---
+        if (Schema::hasTable('employees')) {
+            Schema::dropIfExists('employees');
+        }
     }
 };
-
-
-

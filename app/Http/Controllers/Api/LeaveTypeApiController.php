@@ -41,12 +41,9 @@ class LeaveTypeApiController extends Controller
     public function destroy(LeaveType $leaveType)
     {
         $leaveType->delete();
-        return response()->json(['message' => 'Type de congÃ© supprimÃ©'], 200);
+        return response()->json(['message' => 'Type de congé supprimé'], 200);
     }
 }
-
-
-
 
 
 

@@ -9,15 +9,16 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // --- 1) Structure dâ€™organisation ---
+        // --- 1) Structure d’organisation ---
         $this->call([
             HillHoldingSeeder::class,
             FilialeSeeder::class,
             AgenceSeeder::class,
         ]);
 
-        // --- 2) RÃ´les & permissions ---
+        // --- 2) Rôles & permissions ---
         $this->call(RoleSeeder::class);
+        // $this->call(RolesAndPermissionsSeeder::class);
 
         // --- 3) Super Admin ---
         $superAdmin = User::firstOrCreate(
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $superAdmin->assignRole('Super Admin');
         $this->command->warn('âš¡ Super Admin : admin@hillholding.bi / password123');
 
-        // --- 4) Utilisateurs par rÃ´le ---
+        // --- 4) Utilisateurs par rôle ---
         $users = [
             [
                 'name' => 'HR Manager',
@@ -65,15 +66,15 @@ class DatabaseSeeder extends Seeder
             if (!$user->hasRole($data['role'])) {
                 $user->assignRole($data['role']);
             }
-            $this->command->info("ðŸ‘¤ {$data['role']} crÃ©Ã© : {$data['email']} / password123");
+            $this->command->info("ðŸ‘¤ {$data['role']} créé : {$data['email']} / password123");
         }
 
-        // --- 5) Autres seeders de donnÃ©es ---
+        // --- 5) Autres seeders de données ---
         $this->call([
             CentralizedSeeder::class,
             UserSeeder::class,
 
-            // DonnÃ©es RH
+            // Données RH
             EmployeeSeeder::class,
             DepartmentSeeder::class,
             TestEmployeeSeeder::class,
@@ -98,7 +99,7 @@ class DatabaseSeeder extends Seeder
             // Messagerie
             MessageSeeder::class,
 
-            // Projets & tÃ¢ches
+            // Projets & tâches
             ProjectSeeder::class,
             TaskSeeder::class,
         ]);

@@ -7,16 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-         Schema::create('filiales', function (Blueprint $table) {
+        Schema::create('filiales', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('logo')->nullable(); // ajouté directement ici
             $table->timestamps();
         });
-
-        Schema::table('filiales', function (Blueprint $table) {
-            $table->string('logo')->nullable()->after('name');
-        });
-
     }
 
     public function down(): void
@@ -24,11 +20,3 @@ return new class extends Migration {
         Schema::dropIfExists('filiales');
     }
 };
-
-
-
-
-
-
-
-

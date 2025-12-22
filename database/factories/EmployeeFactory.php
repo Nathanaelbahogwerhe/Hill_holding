@@ -17,7 +17,7 @@ class EmployeeFactory extends Factory
         return [
             'first_name'    => $this->faker->optional()->firstName, // parfois null
             'last_name'     => $this->faker->optional()->lastName,  // parfois null
-            // Correction : on ne dÃ©finit plus 'email' ici, il sera passÃ© par le seeder ou gÃ©nÃ©rÃ© aprÃ¨s crÃ©ation
+            // Correction : on ne définit plus 'email' ici, il sera passé par le seeder ou généré après création
             'department_id' => Department::inRandomOrder()->value('id'),
             'filiale_id'    => Filiale::inRandomOrder()->value('id'),
             'agency_id'     => Agence::inRandomOrder()->value('id'),

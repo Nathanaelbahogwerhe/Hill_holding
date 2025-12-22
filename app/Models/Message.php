@@ -18,7 +18,7 @@ class Message extends Model
         'is_read',
     ];
 
-    // ðŸ” Relations
+    // 🔁 Relations
     public function sender()
     {
         return $this->belongsTo(Employee::class, 'sender_id');
@@ -29,15 +29,12 @@ class Message extends Model
         return $this->belongsTo(Employee::class, 'recipient_id');
     }
 
-    // ðŸ” Helper : savoir si le message a une piÃ¨ce jointe
+    // 🔍 Helper : savoir si le message a une pièce jointe
     public function hasAttachment(): bool
     {
         return !empty($this->attachment);
     }
 }
-
-
-
 
 
 

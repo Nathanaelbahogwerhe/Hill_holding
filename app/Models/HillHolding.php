@@ -13,4 +13,10 @@ class HillHolding extends Model
         'name',
         'logo',
     ];
+
+    // HillHolding est la maison mere et a plusieurs filiales
+    public function filiales()
+    {
+        return $this->hasMany(Filiale::class);
+    }
 }

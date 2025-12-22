@@ -45,12 +45,9 @@ class PayrollApiController extends Controller
     public function destroy(Payroll $payroll)
     {
         $payroll->delete();
-        return response()->json(['message' => 'Paie supprimÃ©e'], 200);
+        return response()->json(['message' => 'Paie supprimée'], 200);
     }
 }
-
-
-
 
 
 

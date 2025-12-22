@@ -12,14 +12,14 @@ class MessageController extends Controller
 {
     public function __construct()
     {
-        // âœ… Protection de la suppression par permission (si tu utilises Spatie)
+        // ✅ Protection de la suppression par permission (si tu utilises Spatie)
         if (method_exists($this, 'middleware')) {
             $this->middleware('permission:manage messaging')->only(['destroy']);
         }
     }
 
     /**
-     * ðŸ”¹ Retourne l'employÃ© actuellement connectÃ©
+     * 🔹 Retourne l'employé actuellement connecté
      */
     protected function currentEmployee(): ?Employee
     {
@@ -31,7 +31,7 @@ class MessageController extends Controller
     }
 
     /**
-     * ðŸ”¹ Liste des messages (envoyÃ©s et reÃ§us)
+     * 🔹 Liste des messages (envoyés et reçus)
      */
     public function index()
     {
@@ -55,7 +55,7 @@ class MessageController extends Controller
     }
 
     /**
-     * ðŸ”¹ Formulaire de crÃ©ation
+     * 🔹 Formulaire de création
      */
     public function create()
     {
@@ -64,13 +64,13 @@ class MessageController extends Controller
     }
 
     /**
-     * ðŸ”¹ Envoi dâ€™un message
+     * 🔹 Envoi d’un message
      */
     public function store(Request $request)
     {
         $employee = $this->currentEmployee();
         if (! $employee) {
-            return redirect()->back()->with('error', 'Votre compte nâ€™est pas liÃ© Ã  un employÃ©.');
+            return redirect()->back()->with('error', 'Votre compte n’est pas lié à un employé.');
         }
 
         $validated = $request->validate([
@@ -94,26 +94,26 @@ class MessageController extends Controller
             'is_read' => false,
         ]);
 
-        // ðŸ”” Envoi de la notification au destinataire
+        // 🔔 Envoi de la notification au destinataire
         $message = Message::find($message->id);
         $message->recipient->notify(new \App\Notifications\NewMessageNotification($message));
 
-        return redirect()->route('messages.index')->with('success', 'Message envoyÃ© avec succÃ¨s.');
+        return redirect()->route('messages.index')->with('success', 'Message envoyé avec succès.');
     }
 
     /**
-     * ðŸ”¹ Lecture dâ€™un message
+     * 🔹 Lecture d’un message
      */
     public function show(Message $message)
     {
         $employee = $this->currentEmployee();
 
-        // ðŸ”¹ Marquer comme lu le message
+        // 🔹 Marquer comme lu le message
         if ($employee && $message->recipient_id == $employee->id && ! $message->is_read) {
             $message->update(['is_read' => true]);
         }
 
-        // ðŸ”¹ Marquer comme lue la notification associÃ©e
+        // 🔹 Marquer comme lue la notification associée
         if ($employee) {
             $employee->unreadNotifications
                 ->where('data.message_id', $message->id)
@@ -127,13 +127,13 @@ class MessageController extends Controller
     }
 
     /**
-     * ðŸ”¹ RÃ©pondre Ã  un message
+     * 🔹 Répondre à un message
      */
     public function reply(Request $request, Message $message)
     {
         $employee = $this->currentEmployee();
         if (! $employee) {
-            return redirect()->back()->with('error', 'Aucun employÃ© liÃ©.');
+            return redirect()->back()->with('error', 'Aucun employé lié.');
         }
 
         $validated = $request->validate([
@@ -155,13 +155,13 @@ class MessageController extends Controller
             'is_read' => false,
         ]);
 
-        return redirect()->route('messages.show', $message)->with('success', 'RÃ©ponse envoyÃ©e avec succÃ¨s.');
+        return redirect()->route('messages.show', $message)->with('success', 'Réponse envoyée avec succès.');
 
         
     }
 
     /**
-     * ðŸ”¹ Suppression dâ€™un message
+     * 🔹 Suppression d’un message
      */
     public function destroy(Message $message)
     {
@@ -171,12 +171,9 @@ class MessageController extends Controller
 
         $message->delete();
 
-        return redirect()->route('messages.index')->with('success', 'Message supprimÃ© avec succÃ¨s.');
+        return redirect()->route('messages.index')->with('success', 'Message supprimé avec succès.');
     }
 }
-
-
-
 
 
 

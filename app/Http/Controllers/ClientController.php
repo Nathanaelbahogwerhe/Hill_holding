@@ -25,23 +25,28 @@ class ClientController extends Controller
     // FORMULAIRE DE CREATION
     public function create()
     {
-        return view('clients.create');
+        $filiales = \App\Models\Filiale::orderBy('name')->get();
+        $agences = \App\Models\Agence::orderBy('name')->get();
+        return view('clients.create', compact('filiales', 'agences'));
     }
 
     // ENREGISTRER
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'required|email|unique:clients',
-            'phone'   => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
+            'name'           => 'required|string|max:255',
+            'email'          => 'required|email|unique:clients',
+            'phone'          => 'nullable|string|max:20',
+            'contact_person' => 'nullable|string|max:255',
+            'address'        => 'nullable|string|max:255',
+            'filiale_id'     => 'nullable|exists:filiales,id',
+            'agence_id'      => 'nullable|exists:agences,id',
         ]);
 
         Client::create($data);
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client crÃ©Ã© avec succÃ¨s.');
+            ->with('success', 'Client créé avec succès.');
     }
 
     // AFFICHER UN CLIENT
@@ -55,23 +60,28 @@ class ClientController extends Controller
     // FORMULAIRE EDITION
     public function edit(Client $client)
     {
-        return view('clients.edit', compact('client'));
+        $filiales = \App\Models\Filiale::orderBy('name')->get();
+        $agences = \App\Models\Agence::orderBy('name')->get();
+        return view('clients.edit', compact('client', 'filiales', 'agences'));
     }
 
-    // METTRE Ã€ JOUR
+    // METTRE À JOUR
     public function update(Request $request, Client $client)
     {
         $data = $request->validate([
-            'name'    => 'sometimes|string|max:255',
-            'email'   => 'sometimes|email|unique:clients,email,' . $client->id,
-            'phone'   => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
+            'name'           => 'sometimes|string|max:255',
+            'email'          => 'sometimes|email|unique:clients,email,' . $client->id,
+            'phone'          => 'nullable|string|max:20',
+            'contact_person' => 'nullable|string|max:255',
+            'address'        => 'nullable|string|max:255',
+            'filiale_id'     => 'nullable|exists:filiales,id',
+            'agence_id'      => 'nullable|exists:agences,id',
         ]);
 
         $client->update($data);
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client mis Ã  jour avec succÃ¨s.');
+            ->with('success', 'Client mis à jour avec succès.');
     }
 
     // SUPPRIMER
@@ -80,9 +90,6 @@ class ClientController extends Controller
         $client->delete();
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client supprimÃ© avec succÃ¨s.');
+            ->with('success', 'Client supprimé avec succès.');
     }
 }
-
-
-

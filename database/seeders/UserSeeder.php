@@ -13,14 +13,14 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // RÃ©cupÃ©ration des rÃ´les
+        // Récupération des rôles
         $superAdminRole = Role::where('name', 'Super Admin')->first();
         $rhRole         = Role::where('name', 'RH Manager')->first();
         $financeRole    = Role::where('name', 'Finance Manager')->first();
         $opsRole        = Role::where('name', 'Operations Manager')->first();
         $employeeRole   = Role::where('name', 'Employee')->first();
 
-        // Maison mÃ¨re
+        // Maison mère
         $superAdmin = User::updateOrCreate(
             ['email' => 'admin@hillholding.com'],
             [
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
         );
         $financeRwanda->assignRole($financeRole);
 
-        // OpÃ©rations RDC
+        // Opérations RDC
         $filialeRDC = Filiale::where('code', 'HH-RDC')->first();
         $agenceRDC1 = Agence::where('code', 'AG-RDC-01')->first();
 
@@ -77,13 +77,13 @@ class UserSeeder extends Seeder
         );
         $opsRDC->assignRole($opsRole);
 
-        // EmployÃ© standard Goma
+        // Employé standard Goma
         $agenceGoma = Agence::where('code', 'AG-RDC-02')->first();
 
         $employeeGoma = User::updateOrCreate(
             ['email' => 'employe.goma@hillholding.com'],
             [
-                'name' => 'EmployÃ© Goma',
+                'name' => 'Employé Goma',
                 'password' => Hash::make('password'),
                 'filiale_id' => $filialeRDC->id,
                 'agence_id' => $agenceGoma->id,

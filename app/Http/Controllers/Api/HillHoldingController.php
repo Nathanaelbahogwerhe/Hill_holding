@@ -10,7 +10,7 @@ class HillHoldingController extends Controller
     public function welcome()
     {
         return response()->json([
-            'message' => 'Bienvenue sur lâ€™API Hill Holding !'
+            'message' => 'Bienvenue sur l’API Hill Holding !'
         ]);
     }
 }

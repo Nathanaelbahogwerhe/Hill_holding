@@ -14,10 +14,10 @@ class CentralizedSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->command->info("âš¡ DÃ©but du seeding centralisÃ©...");
+        $this->command->info("âš¡ Début du seeding centralisé...");
 
         // -------------------------------
-        // 1) DÃ©finir les filiales avec leurs agences
+        // 1) Définir les filiales avec leurs agences
         // -------------------------------
         $filialesData = [
             'HH-BI' => [
@@ -51,7 +51,7 @@ class CentralizedSeeder extends Seeder
         ];
 
         // -------------------------------
-        // 2) CrÃ©ation Filiales et Agences
+        // 2) Création Filiales et Agences
         // -------------------------------
         foreach ($filialesData as $code => $fData) {
             $filiale = Filiale::updateOrCreate(
@@ -71,10 +71,10 @@ class CentralizedSeeder extends Seeder
                 );
             }
         }
-        $this->command->info("âœ… Filiales et agences crÃ©Ã©es automatiquement.");
+        $this->command->info("âœ… Filiales et agences créées automatiquement.");
 
         // -------------------------------
-        // 3) RÃ´les et permissions
+        // 3) Rôles et permissions
         // -------------------------------
         $roles = ['Super Admin', 'RH Manager', 'Finance Manager', 'Operations Manager', 'Employee'];
         foreach ($roles as $roleName) {
@@ -93,28 +93,28 @@ class CentralizedSeeder extends Seeder
             'view revenues','create revenues','edit revenues','delete revenues',
             'view budgets','create budgets','edit budgets','delete budgets',
             'view financial reports','generate reports',
-            // OpÃ©rations
+            // Opérations
             'view clients','create clients','edit clients','delete clients',
             'view projects','create projects','edit projects','delete projects',
             'view tasks','create tasks','edit tasks','delete tasks',
             'view contracts','create contracts','edit contracts','delete contracts',
-            // SystÃ¨me
+            // Système
             'view assets','edit settings',
             'view notifications','mark notifications as read',
         ];
         foreach ($permissions as $perm) {
             Permission::firstOrCreate(['name' => $perm, 'guard_name' => 'web']);
         }
-        $this->command->info("âœ… RÃ´les et permissions crÃ©Ã©s.");
+        $this->command->info("âœ… Rôles et permissions créés.");
 
         // -------------------------------
-        // 4) CrÃ©ation des utilisateurs automatiquement
+        // 4) Création des utilisateurs automatiquement
         // -------------------------------
         $usersData = [
             ['email'=>'admin@hillholding.com','name'=>'Super Admin','role'=>'Super Admin','filiale'=>null,'agence'=>null],
         ];
 
-        // GÃ©nÃ©rer automatiquement un utilisateur RH, Finance, Ops et Employee pour chaque agence
+        // Générer automatiquement un utilisateur RH, Finance, Ops et Employee pour chaque agence
         foreach ($filialesData as $fCode => $fData) {
             foreach ($fData['agences'] as $aData) {
                 $usersData[] = ['email'=>"rh.{$aData['code']}@HillHolding.com",'name'=>"RH {$aData['name']}",'role'=>'RH Manager','filiale'=>$fCode,'agence'=>$aData['code']];
@@ -145,7 +145,7 @@ class CentralizedSeeder extends Seeder
             $user->assignRole($role);
         }
 
-        $this->command->info("âœ… Utilisateurs gÃ©nÃ©rÃ©s automatiquement pour toutes les filiales et agences !");
+        $this->command->info("âœ… Utilisateurs générés automatiquement pour toutes les filiales et agences !");
     }
 }
 

@@ -19,7 +19,12 @@ class InvoiceController extends Controller
             'amount'    => 'required|numeric',
             'status'    => 'required|string|in:pending,paid,cancelled',
             'due_date'  => 'required|date',
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
+
+        if ($request->hasFile('attachment')) {
+            $data['attachment'] = $request->file('attachment')->store('invoices/attachments', 'public');
+        }
 
         return Invoice::create($data);
     }
@@ -36,7 +41,15 @@ class InvoiceController extends Controller
             'amount'    => 'sometimes|numeric',
             'status'    => 'sometimes|string|in:pending,paid,cancelled',
             'due_date'  => 'sometimes|date',
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:10240',
         ]);
+
+        if ($request->hasFile('attachment')) {
+            if ($invoice->attachment && \Storage::disk('public')->exists($invoice->attachment)) {
+                \Storage::disk('public')->delete($invoice->attachment);
+            }
+            $data['attachment'] = $request->file('attachment')->store('invoices/attachments', 'public');
+        }
 
         $invoice->update($data);
 
@@ -45,13 +58,13 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
+        if ($invoice->attachment && \Storage::disk('public')->exists($invoice->attachment)) {
+            \Storage::disk('public')->delete($invoice->attachment);
+        }
         $invoice->delete();
-        return response()->json(['message' => 'Facture supprimÃ©e avec succÃ¨s']);
+        return response()->json(['message' => 'Facture supprimée avec succès']);
     }
 }
-
-
-
 
 
 

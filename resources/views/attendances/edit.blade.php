@@ -1,58 +1,74 @@
 @extends('layouts.app')
-@section('title', 'Ã‰diter prÃ©sence')
+@section('title', 'Modifier Présence')
 
 @section('content')
-<div class="max-w-xl mx-auto bg-hh-card p-6 rounded shadow">
-    <h2 class="text-lg font-semibold mb-4">Ã‰diter le pointage</h2>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-[#D4AF37]">✏️ Modifier Présence</h1>
+        <a href="{{ route('attendances.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg">← Retour</a>
+    </div>
 
-    @if($errors->any())
-        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded">
-            <ul class="list-disc list-inside">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+    @if ($errors->any())
+        <div class="bg-red-900 border border-red-700 text-red-100 p-4 rounded-lg mb-6">
+            <h3 class="font-bold mb-2">❌ Erreurs:</h3>
+            <ul class="list-disc pl-5">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
         </div>
     @endif
 
-    <form action="{{ route('attendances.update', $attendance) }}" method="POST">
-        @csrf
-        @method('PUT')
+    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800">
+        <form action="{{ route('attendances.update', $attendance->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Employé</label>
+                    <input type="text" value="{{ $attendance->employee?->first_name }} {{ $attendance->employee?->last_name }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-400" disabled>
+                </div>
 
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">EmployÃ©</label>
-            <select name="employee_id" class="input input-bordered w-full" required>
-                @foreach($employees as $employee)
-                    <option value="{{ $employee->id }}" {{ $attendance->employee_id==$employee->id ? 'selected':'' }}>
-                        {{ $employee->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Filiale</label>
+                    <input type="text" value="{{ $attendance->employee?->filiale?->name ?? 'Maison Mère' }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-neutral-400" disabled>
+                </div>
 
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">Date</label>
-            <input type="date" name="date" value="{{ old('date', $attendance->date->format('Y-m-d')) }}" class="input input-bordered w-full" required>
-        </div>
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Date <span class="text-red-500">*</span></label>
+                    <input type="date" name="attendance_date" value="{{ $attendance->attendance_date?->format('Y-m-d') }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]" required>
+                </div>
 
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">Heure arrivÃ©e</label>
-            <input type="time" name="check_in" value="{{ old('check_in', $attendance->check_in) }}" class="input input-bordered w-full" required>
-        </div>
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Heure d'arrivée</label>
+                    <input type="time" name="check_in" value="{{ $attendance->check_in }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                </div>
 
-        <div class="mb-4">
-            <label class="block mb-1 font-semibold">Heure dÃ©part</label>
-            <input type="time" name="check_out" value="{{ old('check_out', $attendance->check_out) }}" class="input input-bordered w-full">
-        </div>
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Heure de départ</label>
+                    <input type="time" name="check_out" value="{{ $attendance->check_out }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                </div>
 
-        <button type="submit" class="btn btn-primary mt-2">Mettre Ã  jour</button>
-    </form>
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Statut <span class="text-red-500">*</span></label>
+                    <select name="status" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]" required>
+                        <option value="present" {{ $attendance->status == 'present' ? 'selected' : '' }}>✅ Présent</option>
+                        <option value="absent" {{ $attendance->status == 'absent' ? 'selected' : '' }}>❌ Absent</option>
+                        <option value="late" {{ $attendance->status == 'late' ? 'selected' : '' }}>⏳ En retard</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">📎 Justificatif</label>
+                    @if($attendance->attachment)
+                        <p class="text-neutral-300 mb-2">📄 Fichier actuel: <a href="{{ Storage::url($attendance->attachment) }}" target="_blank" class="text-[#D4AF37] hover:underline">{{ basename($attendance->attachment) }}</a></p>
+                    @endif
+                    <input type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37] file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-[#D4AF37] file:text-black file:font-semibold hover:file:bg-yellow-500">
+                    <p class="text-neutral-400 text-sm mt-1">Formats acceptés: PDF, DOC, DOCX, JPG, PNG (Max: 10MB)</p>
+                </div>
+            </div>
+
+            <div class="flex gap-4 mt-8">
+                <button type="submit" class="px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-bold transition">✅ Mettre à jour</button>
+                <a href="{{ route('attendances.index') }}" class="px-6 py-3 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold transition">❌ Annuler</a>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
-
-
-
-
-
-
-

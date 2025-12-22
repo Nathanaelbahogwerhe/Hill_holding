@@ -1,101 +1,344 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="max-w-7xl mx-auto bg-kc-card text-white rounded-2xl shadow-lg border border-kc-border p-6 mt-8">
+@section('title', 'Employés')
 
-    {{-- En-tÃªte --}}
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-3xl font-bold text-kc-primary">
-            ðŸ‘¥ Liste des EmployÃ©s
-        </h1>
-        <a href="{{ route('employees.create') }}" 
-           class="bg-kc-primary hover:bg-blue-600 text-black font-semibold px-5 py-2 rounded-lg shadow-md transition">
-            âž• Nouvel EmployÃ©
+@section('content')
+<div class="px-6 py-6">
+    <!-- Header avec gradient -->
+    <div class="mb-8">
+        <h2 class="text-5xl font-bold mb-2 bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">
+            👥 Gestion des Employés
+        </h2>
+        <p class="text-neutral-400">Gérez votre équipe et les informations des collaborateurs</p>
+    </div>
+
+    <!-- Cartes de statistiques -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <!-- Total Employés -->
+        <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-gradient-to-r from-[#D4AF37] to-yellow-500 rounded-xl">
+                    <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="text-4xl font-bold bg-gradient-to-r from-[#D4AF37] to-yellow-500 bg-clip-text text-transparent mb-2">
+                {{ $employees->total() }}
+            </div>
+            <div class="text-neutral-400 text-sm">Total des employés</div>
+        </div>
+
+        <!-- Par Filiale -->
+        <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+            </div>
+            <div class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-blue-500 bg-clip-text text-transparent mb-2">
+                {{ \App\Models\Filiale::count() }}
+            </div>
+            <div class="text-neutral-400 text-sm">Filiales actives</div>
+        </div>
+
+        <!-- Par Département -->
+        <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+            </div>
+            <div class="text-4xl font-bold bg-gradient-to-r from-purple-400 to-purple-500 bg-clip-text text-transparent mb-2">
+                {{ \App\Models\Department::count() }}
+            </div>
+            <div class="text-neutral-400 text-sm">Départements</div>
+        </div>
+
+        <!-- Par Agence -->
+        <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-6 shadow-2xl hover:scale-105 transition-transform duration-300">
+            <div class="flex items-center justify-between mb-4">
+                <div class="p-3 bg-gradient-to-r from-green-500 to-green-600 rounded-xl">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div class="text-4xl font-bold bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent mb-2">
+                {{ \App\Models\Agence::count() }}
+            </div>
+            <div class="text-neutral-400 text-sm">Agences</div>
+        </div>
+    </div>
+
+    <!-- Filtres et Recherche -->
+    <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl p-6 shadow-2xl mb-6">
+        <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- Recherche -->
+            <div>
+                <label class="block text-[#D4AF37] font-semibold mb-2 text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    Rechercher
+                </label>
+                <input type="text" 
+                       name="search" 
+                       value="{{ request('search') }}" 
+                       placeholder="Nom ou email..."
+                       class="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all">
+            </div>
+
+            <!-- Filiale -->
+            <div>
+                <label class="block text-[#D4AF37] font-semibold mb-2 text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    Filiale
+                </label>
+                <select name="filiale"
+                        class="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all">
+                    <option value="">Toutes les filiales</option>
+                    @foreach(\App\Models\Filiale::orderBy('name')->get() as $f)
+                        <option value="{{ $f->id }}" {{ request('filiale') == $f->id ? 'selected' : '' }}>
+                            {{ $f->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Agence -->
+            <div>
+                <label class="block text-[#D4AF37] font-semibold mb-2 text-sm flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    Agence
+                </label>
+                <select name="agency"
+                        class="w-full px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all">
+                    <option value="">Toutes les agences</option>
+                    @foreach(\App\Models\Agence::orderBy('name')->get() as $a)
+                        <option value="{{ $a->id }}" {{ request('agency') == $a->id ? 'selected' : '' }}>
+                            {{ $a->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Bouton Filtrer -->
+            <div class="flex items-end">
+                <button type="submit"
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-2 rounded-xl bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                    </svg>
+                    Filtrer
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Bouton Ajouter -->
+    <div class="mb-6">
+        <a href="{{ route('employees.create') }}"
+           class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black font-bold shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Ajouter un employé
         </a>
     </div>
 
-    {{-- Barre de recherche --}}
-    <form method="GET" action="{{ route('employees.index') }}" class="mb-6">
-        <div class="flex items-center bg-gray-900 rounded-lg overflow-hidden border border-kc-border">
-            <input type="text" name="search" value="{{ request('search') }}" 
-                   placeholder="ðŸ” Rechercher un employÃ© (nom, email...)"
-                   class="w-full bg-gray-900 text-white px-4 py-2 focus:outline-none">
-            <button type="submit" class="bg-kc-primary hover:bg-blue-600 text-black px-4 py-2 font-semibold">
-                Rechercher
-            </button>
+    @if(session('success'))
+        <div class="px-6 py-4 mb-6 bg-gradient-to-r from-green-900/50 to-green-800/30 border border-green-500 text-green-200 rounded-xl flex items-center gap-3 animate-fadeIn">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {{ session('success') }}
         </div>
-    </form>
+    @endif
 
-    {{-- Tableau des employÃ©s --}}
-    <div class="overflow-x-auto rounded-xl border border-kc-border">
-        <table class="min-w-full divide-y divide-gray-800">
-            <thead class="bg-gray-900 text-kc-primary uppercase text-sm">
-                <tr>
-                    <th class="px-4 py-3 text-left">Nom complet</th>
-                    <th class="px-4 py-3 text-left">Email</th>
-                    <th class="px-4 py-3 text-left">DÃ©partement</th>
-                    <th class="px-4 py-3 text-left">Filiale</th>
-                    <th class="px-4 py-3 text-left">Agence</th>
-                    <th class="px-4 py-3 text-right">Salaire</th>
-                    <th class="px-4 py-3 text-center">Actions</th>
+    <!-- Table des Employés -->
+    <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl shadow-2xl overflow-hidden">
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gradient-to-r from-[#D4AF37]/20 via-yellow-500/20 to-[#D4AF37]/20 border-b border-[#D4AF37]/30">
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Employé</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Email</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Filiale</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Agence</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Département</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Poste</th>
+                    <th class="p-4 text-left text-[#D4AF37] font-bold">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-800 text-sm">
-                @forelse ($employees as $employee)
-                    <tr class="hover:bg-gray-800 transition">
-                        <td class="px-4 py-3 font-semibold text-white">
-                            {{ $employee->first_name }} {{ $employee->last_name }}
+
+            <tbody class="divide-y divide-neutral-800">
+                @forelse($employees as $emp)
+                    <tr class="hover:bg-neutral-800/50 transition-colors duration-200">
+                        <td class="p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#D4AF37] to-yellow-500 flex items-center justify-center text-black font-bold shadow-lg">
+                                    {{ strtoupper(substr($emp->first_name, 0, 1)) }}{{ strtoupper(substr($emp->last_name, 0, 1)) }}
+                                </div>
+                                <div>
+                                    <div class="text-white font-semibold">
+                                        {{ $emp->first_name }} {{ $emp->last_name }}
+                                    </div>
+                                    <div class="text-xs text-neutral-400">
+                                        ID: #{{ $emp->id }}
+                                    </div>
+                                </div>
+                            </div>
                         </td>
-                        <td class="px-4 py-3 text-gray-300">
-                            {{ $employee->email ?? $employee->generated_email }}
+                        <td class="p-4">
+                            <div class="text-white">{{ $emp->email ?? '—' }}</div>
                         </td>
-                        <td class="px-4 py-3">{{ $employee->department->name ?? 'â€”' }}</td>
-                        <td class="px-4 py-3">{{ $employee->filiale->name ?? 'â€”' }}</td>
-                        <td class="px-4 py-3">{{ $employee->agence->name ?? 'â€”' }}</td>
-                        <td class="px-4 py-3 text-right">
-                            {{ number_format($employee->basic_salary, 0, ',', ' ') }} FBu
+                        <td class="p-4">
+                            @if($emp->filiale)
+                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                    {{ $emp->filiale->name }}
+                                </span>
+                            @else
+                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                    Maison Mère
+                                </span>
+                            @endif
                         </td>
-                        <td class="px-4 py-3 text-center flex justify-center gap-2">
-                            <a href="{{ route('employees.show', $employee->id) }}" 
-                               class="bg-gray-800 hover:bg-kc-primary text-white px-3 py-1 rounded-md transition">
-                                ðŸ‘ï¸
-                            </a>
-                            <a href="{{ route('employees.edit', $employee->id) }}" 
-                               class="bg-kc-primary hover:bg-blue-600 text-black px-3 py-1 rounded-md transition">
-                                âœï¸
-                            </a>
-                            <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" 
-                                  onsubmit="return confirm('Confirmer la suppression de cet employÃ© ?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" 
-                                        class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md transition">
-                                    ðŸ—‘
-                                </button>
-                            </form>
+                        <td class="p-4">
+                            <div class="text-neutral-300">{{ $emp->agence?->name ?? '—' }}</div>
+                        </td>
+                        <td class="p-4">
+                            @if($emp->department)
+                                <span class="px-3 py-1 rounded-lg bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm">
+                                    {{ $emp->department->name }}
+                                </span>
+                            @else
+                                <span class="text-neutral-500">—</span>
+                            @endif
+                        </td>
+                        <td class="p-4">
+                            <div class="text-neutral-300">{{ $emp->position?->name ?? '—' }}</div>
+                        </td>
+
+                        <td class="p-4">
+                            <div class="flex gap-2">
+                                <a href="{{ route('employees.show', $emp->id) }}"
+                                   class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-200"
+                                   title="Voir">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </a>
+
+                                <a href="{{ route('employees.edit', $emp->id) }}"
+                                   class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white rounded-xl text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-200"
+                                   title="Modifier">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </a>
+
+                                <form action="{{ route('employees.destroy', $emp->id) }}" method="POST"
+                                      onsubmit="return confirm('Supprimer cet employé ?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="inline-flex items-center gap-1 px-3 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl text-sm font-semibold shadow-lg hover:scale-105 transition-all duration-200"
+                                            title="Supprimer">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center py-6 text-gray-400">
-                            Aucun employÃ© trouvÃ©.
+                        <td colspan="7" class="px-4 py-16 text-center">
+                            <div class="flex flex-col items-center gap-4">
+                                <svg class="w-16 h-16 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <div class="text-neutral-400 text-lg">Aucun employé trouvé</div>
+                                <a href="{{ route('employees.create') }}"
+                                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black font-bold shadow-lg hover:scale-105 transition-all duration-300">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Ajouter votre premier employé
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 @endforelse
             </tbody>
+
         </table>
     </div>
 
-    {{-- Pagination --}}
+    <!-- Pagination -->
     <div class="mt-6">
-        {{ $employees->links('pagination::tailwind') }}
+        <div class="flex justify-between items-center">
+            <div class="text-neutral-400">
+                Affichage de {{ $employees->firstItem() ?? 0 }} à {{ $employees->lastItem() ?? 0 }} sur {{ $employees->total() }} employés
+            </div>
+            <div class="pagination-custom">
+                {{ $employees->withQueryString()->links() }}
+            </div>
+        </div>
     </div>
+
 </div>
+
+<style>
+@keyframes gradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.pagination-custom nav {
+    @apply flex gap-2;
+}
+
+.pagination-custom nav a,
+.pagination-custom nav span {
+    @apply px-4 py-2 rounded-xl border transition-all duration-200;
+}
+
+.pagination-custom nav a {
+    @apply border-neutral-700 bg-neutral-900 text-white hover:border-[#D4AF37] hover:bg-[#D4AF37]/20 hover:scale-105;
+}
+
+.pagination-custom nav span[aria-current="page"] {
+    @apply border-[#D4AF37] bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-black font-bold;
+}
+
+.pagination-custom nav span[aria-disabled="true"] {
+    @apply border-neutral-800 bg-neutral-900 text-neutral-600 cursor-not-allowed;
+}
+</style>
 @endsection
-
-
-
-
-
-
-

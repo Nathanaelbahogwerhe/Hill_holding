@@ -31,6 +31,3 @@ class PasswordController extends Controller
 
 
 
-
-
-

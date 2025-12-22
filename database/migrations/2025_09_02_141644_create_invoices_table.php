@@ -10,13 +10,13 @@ return new class extends Migration {
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             
-            // RÃ©fÃ©rence au client
+            // Référence au client
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
             
-            // RÃ©fÃ©rence Ã  lâ€™agence (facultatif)
+            // Référence à l’agence (facultatif)
             $table->foreignId('agency_id')->nullable()->constrained('agences')->onDelete('set null');
             
-            // RÃ©fÃ©rence Ã  lâ€™utilisateur qui a crÃ©Ã© la facture (facultatif)
+            // Référence à l’utilisateur qui a créé la facture (facultatif)
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
 
             // Informations de la facture
@@ -26,7 +26,7 @@ return new class extends Migration {
 
             $table->decimal('amount', 12, 2); // Montant total
 
-            // Statut limitÃ© Ã  certaines valeurs
+            // Statut limité à certaines valeurs
             $table->enum('status', ['pending', 'paid', 'canceled'])->default('pending');
 
             $table->timestamps();
@@ -38,6 +38,3 @@ return new class extends Migration {
         Schema::dropIfExists('invoices');
     }
 };
-
-
-

@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        $filiales = Filiale::orderBy('name')->get(); // âœ… AjoutÃ©
+        $filiales = Filiale::orderBy('name')->get(); // ✅ Ajouté
         return view('users.create', compact('roles', 'permissions', 'filiales'));
     }
 
@@ -32,7 +32,7 @@ class UserController extends Controller
             'password'    => 'required|min:6|confirmed',
             'roles'       => 'array',
             'permissions' => 'array',
-            'filiale_id'  => 'nullable|exists:filiales,id', // âœ… validation filiale
+            'filiale_id'  => 'nullable|exists:filiales,id', // ✅ validation filiale
         ]);
 
         $user = User::create([
@@ -51,14 +51,14 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')
-            ->with('success', 'Utilisateur crÃ©Ã© avec succÃ¨s âœ…');
+            ->with('success', 'Utilisateur créé avec succès ✅');
     }
 
     public function edit(User $user)
     {
         $roles = Role::all();
         $permissions = Permission::all();
-        $filiales = Filiale::orderBy('name')->get(); // âœ… AjoutÃ©
+        $filiales = Filiale::orderBy('name')->get(); // ✅ Ajouté
         $userRoles = $user->roles->pluck('id')->toArray();
         $userPermissions = $user->permissions->pluck('id')->toArray();
 
@@ -74,7 +74,7 @@ class UserController extends Controller
             'email'       => 'required|email|unique:users,email,' . $user->id,
             'roles'       => 'array',
             'permissions' => 'array',
-            'filiale_id'  => 'nullable|exists:filiales,id', // âœ… validation filiale
+            'filiale_id'  => 'nullable|exists:filiales,id', // ✅ validation filiale
         ]);
 
         $user->update([
@@ -91,14 +91,14 @@ class UserController extends Controller
         $user->syncPermissions($request->permissions ?? []);
 
         return redirect()->route('users.index')
-            ->with('success', 'Utilisateur mis Ã  jour avec succÃ¨s âœ…');
+            ->with('success', 'Utilisateur mis à jour avec succès ✅');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('users.index')
-            ->with('success', 'Utilisateur supprimÃ© avec succÃ¨s ðŸ—‘ï¸');
+            ->with('success', 'Utilisateur supprimé avec succès 🗑️');
     }
 
     public function show(User $user)
@@ -107,9 +107,6 @@ class UserController extends Controller
         return view('users.show', compact('user', 'filiales'));
     }
 }
-
-
-
 
 
 

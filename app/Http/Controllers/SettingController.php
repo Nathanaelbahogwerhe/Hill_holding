@@ -2,70 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Liste tous les paramètres
      */
     public function index()
     {
-        //
+        $settings = Setting::latest()->paginate(10);
+        return view('settings.index', compact('settings'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Formulaire de création
      */
     public function create()
     {
-        //
+        return view('settings.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Enregistre un nouveau paramètre
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'key'   => 'required|string|max:255',
+            'value' => 'required|string|max:255',
+        ]);
+
+        Setting::create($validated);
+
+        return redirect()->route('settings.index')->with('success', 'Paramètre ajouté ✅');
     }
 
     /**
-     * Display the specified resource.
+     * Formulaire d’édition
      */
-    public function show(string $id)
+    public function edit(Setting $setting)
     {
-        //
+        return view('settings.edit', compact('setting'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Met à jour un paramètre
      */
-    public function edit(string $id)
+    public function update(Request $request, Setting $setting)
     {
-        //
+        $validated = $request->validate([
+            'key'   => 'required|string|max:255',
+            'value' => 'required|string|max:255',
+        ]);
+
+        $setting->update($validated);
+
+        return redirect()->route('settings.index')->with('success', 'Paramètre mis à jour ✏️');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Supprime un paramètre
      */
-    public function update(Request $request, string $id)
+    public function destroy(Setting $setting)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $setting->delete();
+        return redirect()->route('settings.index')->with('success', 'Paramètre supprimé ❌');
     }
 }
-
-
-
-
-
-
-

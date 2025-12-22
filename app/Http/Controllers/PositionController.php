@@ -18,11 +18,12 @@ class PositionController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
-        return view('positions.create');
+        $filiales = \App\Models\Filiale::orderBy('name')->get();
+        return view('positions.create', compact('filiales'));
     }
 
     /**
@@ -32,41 +33,50 @@ class PositionController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:positions,name',
+            'description' => 'nullable|string',
+            'filiale_id' => 'nullable|exists:filiales,id',
         ]);
 
         $position = Position::create([
             'name' => $request->name,
+            'description' => $request->description,
+            'filiale_id' => $request->filiale_id,
         ]);
 
         ActivityLogger::log('positions', 'create', 'Ajout d\'un nouveau poste : ' . $position->name);
 
-        return redirect()->route('positions.index')->with('success', 'Poste ajoutÃ© avec succÃ¨s.');
+        return redirect()->route('positions.index')->with('success', 'Poste ajouté avec succès.');
     }
 
     /**
-     * Formulaire dâ€™Ã©dition
+     * Formulaire d’édition
      */
     public function edit(Position $position)
     {
-        return view('positions.edit', compact('position'));
+        $filiales = \App\Models\Filiale::orderBy('name')->get();
+        return view('positions.edit', compact('position', 'filiales'));
     }
 
     /**
-     * Mettre Ã  jour un poste
+     * Mettre à jour un poste
      */
     public function update(Request $request, Position $position)
     {
         $request->validate([
             'name' => 'required|string|max:255|unique:positions,name,' . $position->id,
+            'description' => 'nullable|string',
+            'filiale_id' => 'nullable|exists:filiales,id',
         ]);
 
         $position->update([
             'name' => $request->name,
+            'description' => $request->description,
+            'filiale_id' => $request->filiale_id,
         ]);
 
-        ActivityLogger::log('positions', 'update', 'Mise Ã  jour du poste : ' . $position->name);
+        ActivityLogger::log('positions', 'update', 'Mise à jour du poste : ' . $position->name);
 
-        return redirect()->route('positions.index')->with('success', 'Poste mis Ã  jour avec succÃ¨s.');
+        return redirect()->route('positions.index')->with('success', 'Poste mis à jour avec succès.');
     }
 
     /**
@@ -77,12 +87,9 @@ class PositionController extends Controller
         ActivityLogger::log('positions', 'delete', 'Suppression du poste : ' . $position->name);
         $position->delete();
 
-        return redirect()->route('positions.index')->with('success', 'Poste supprimÃ© avec succÃ¨s.');
+        return redirect()->route('positions.index')->with('success', 'Poste supprimé avec succès.');
     }
 }
-
-
-
 
 
 

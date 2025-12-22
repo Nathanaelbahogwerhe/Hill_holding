@@ -1,34 +1,68 @@
 @extends('layouts.app')
+@section('title', 'Créer un Rôle')
 
 @section('content')
-<div class="p-6">
-    <h1 class="text-xl font-bold mb-4">Créer un rôle</h1>
+<div class="max-w-4xl mx-auto space-y-6">
+    {{-- Back Button --}}
+    <div>
+        <a href="{{ route('admin.roles.index') }}" class="inline-flex items-center gap-2 text-hh-gold hover:text-hh-gold/80 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Retour aux rôles
+        </a>
+    </div>
 
-    <form action="{{ route('roles.store') }}" method="POST" class="space-y-4">
-        @csrf
+    {{-- Form --}}
+    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+        <h2 class="text-xl font-semibold mb-6">Créer un nouveau rôle</h2>
 
-        <div>
-            <label for="name" class="block text-sm font-medium">Nom du rôle</label>
-            <input type="text" name="name" id="name" class="mt-1 w-full border rounded p-2"
-                   value="{{ old('name') }}" required>
-        </div>
+        <form action="{{ route('admin.roles.store') }}" method="POST" class="space-y-6">
+            @csrf
 
-        <div>
-            <h2 class="text-md font-semibold mb-2">Autorisations</h2>
-            <div class="grid grid-cols-2 gap-2">
-                @foreach($permissions as $permission)
-                    <label class="flex items-center space-x-2">
-                        <input type="checkbox" name="permissions[]" value="{{ $permission->id }}">
-                        <span>{{ $permission->name }}</span>
-                    </label>
-                @endforeach
+            {{-- Role Name --}}
+            <div>
+                <label for="name" class="block text-sm font-medium text-hh-muted mb-2">
+                    Nom du rôle <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="name" id="name" value="{{ old('name') }}" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('name') border-red-500 @enderror" placeholder="Ex: Manager Opérations">
+                @error('name')
+                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
             </div>
-        </div>
 
-        <div class="flex items-center gap-2">
-            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded">Créer</button>
-            <a href="{{ route('roles.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded">Annuler</a>
-        </div>
-    </form>
+            {{-- Permissions --}}
+            <div>
+                <label class="block text-sm font-medium text-hh-muted mb-3">
+                    Permissions <span class="text-xs text-hh-muted">(Sélectionnez une ou plusieurs)</span>
+                </label>
+                <div class="bg-hh-dark/50 rounded-lg p-4 border border-hh-border max-h-96 overflow-y-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        @forelse($permissions as $permission)
+                        <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-hh-dark/50 cursor-pointer transition">
+                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }} class="w-4 h-4 rounded border-hh-border bg-hh-dark text-hh-gold focus:ring-2 focus:ring-hh-gold">
+                            <span class="text-sm text-hh-light">{{ $permission->name }}</span>
+                        </label>
+                        @empty
+                        <p class="text-sm text-hh-muted col-span-2">Aucune permission disponible</p>
+                        @endforelse
+                    </div>
+                </div>
+                @error('permissions')
+                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- Actions --}}
+            <div class="flex justify-end gap-4 pt-6">
+                <a href="{{ route('admin.roles.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-lg hover:bg-hh-dark/50 transition">
+                    Annuler
+                </a>
+                <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition">
+                    Créer le rôle
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection

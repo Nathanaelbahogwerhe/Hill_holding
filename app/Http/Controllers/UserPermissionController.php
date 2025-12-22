@@ -23,12 +23,9 @@ class UserPermissionController extends Controller
 
         $user->syncPermissions($request->permissions);
 
-        return redirect()->route('users.index')->with('success', 'Permissions mises Ã  jour âœ…');
+        return redirect()->route('users.index')->with('success', 'Permissions mises à jour ✅');
     }
 }
-
-
-
 
 
 

@@ -3,68 +3,85 @@
 @section('title', 'Nouveau Revenu')
 
 @section('content')
-<div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6 max-w-3xl mx-auto">
-    <h2 class="text-xl font-semibold mb-4">âž• Ajouter un Revenu</h2>
+<div class="max-w-3xl mx-auto py-6">
 
-    <form action="{{ route('revenues.store') }}" method="POST">
-        @csrf
+    <div class="bg-hh-card p-6 rounded-xl shadow border border-hh-border">
+        <h2 class="text-xl font-semibold text-hh-gold mb-4">➕ Nouveau Revenu</h2>
 
-        <div class="mb-4">
-            <label for="title" class="block font-medium mb-1">Titre</label>
-            <input type="text" name="title" id="title" value="{{ old('title') }}" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary">
-            @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+        <form action="{{ route('revenues.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+            @csrf
 
-        <div class="mb-4">
-            <label for="description" class="block font-medium mb-1">Description</label>
-            <textarea name="description" id="description" rows="4" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary">{{ old('description') }}</textarea>
-            @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <div>
+                <label class="hh-label">Description *</label>
+                <input type="text" name="description" value="{{ old('description') }}" class="hh-input" required
+                       placeholder="Ex: Vente de produits">
+                @error('description')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label for="amount" class="block font-medium mb-1">Montant</label>
-            <input type="number" name="amount" id="amount" value="{{ old('amount') }}" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary" step="0.01">
-            @error('amount') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <div>
+                <label class="hh-label">Montant (FBu) *</label>
+                <input type="number" step="0.01" name="amount" value="{{ old('amount') }}" class="hh-input" required min="0"
+                       placeholder="Ex: 100000">
+                @error('amount')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label for="date" class="block font-medium mb-1">Date</label>
-            <input type="date" name="date" id="date" value="{{ old('date') }}" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary">
-            @error('date') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <div>
+                <label class="hh-label">Date *</label>
+                <input type="date" name="date" value="{{ old('date', date('Y-m-d')) }}" class="hh-input" required>
+                @error('date')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label for="filiale_id" class="block font-medium mb-1">Filiale</label>
-            <select name="filiale_id" id="filiale_id" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
-                @foreach($filiales as $filiale)
-                    <option value="{{ $filiale->id }}" {{ old('filiale_id') == $filiale->id ? 'selected' : '' }}>{{ $filiale->name }}</option>
-                @endforeach
-            </select>
-            @error('filiale_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <div>
+                <label class="hh-label">Filiale</label>
+                <select name="filiale_id" class="hh-input">
+                    <option value="">— Sélectionner —</option>
+                    @foreach($filiales as $filiale)
+                        <option value="{{ $filiale->id }}" @selected(old('filiale_id')==$filiale->id)>{{ $filiale->name }}</option>
+                    @endforeach
+                </select>
+                @error('filiale_id')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="mb-4">
-            <label for="agence_id" class="block font-medium mb-1">Agence</label>
-            <select name="agence_id" id="agence_id" class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
-                @foreach($agences as $agence)
-                    <option value="{{ $agence->id }}" {{ old('agence_id') == $agence->id ? 'selected' : '' }}>{{ $agence->name }}</option>
-                @endforeach
-            </select>
-            @error('agence_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-        </div>
+            <div>
+                <label class="hh-label">Agence</label>
+                <select name="agence_id" class="hh-input">
+                    <option value="">— Sélectionner —</option>
+                    @foreach($agences as $agence)
+                        <option value="{{ $agence->id }}" @selected(old('agence_id')==$agence->id)>{{ $agence->name }}</option>
+                    @endforeach
+                </select>
+                @error('agence_id')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <div class="flex justify-end gap-2">
-            <a href="{{ route('revenues.index') }}" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Annuler</a>
-            <button type="submit" class="px-4 py-2 bg-hh-primary text-white rounded hover:bg-hh-primary-dark">Enregistrer</button>
-        </div>
-    </form>
+            <div>
+                <label class="hh-label">Pièce Jointe (optionnel)</label>
+                <input type="file" name="attachment" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
+                       class="hh-input text-gray-300">
+                <p class="text-xs text-gray-400 mt-1">Formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (max 10MB)</p>
+                @error('attachment')
+                    <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <a href="{{ route('revenues.index') }}" class="hh-btn-secondary">Annuler</a>
+                <button type="submit" class="hh-btn-primary">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+
 </div>
 @endsection
-
-
-
 
 
 

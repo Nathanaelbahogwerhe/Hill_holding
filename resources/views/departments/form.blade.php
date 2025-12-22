@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="p-6 max-w-lg mx-auto bg-white shadow rounded">
-    <h1 class="text-2xl font-bold mb-4">{{ isset($department) ? 'Modifier le dÃ©partement' : 'Ajouter un dÃ©partement' }}</h1>
+    <h1 class="text-2xl font-bold mb-4">{{ isset($department) ? 'Modifier le département' : 'Ajouter un département' }}</h1>
 
     <form action="{{ isset($department) ? route('departments.update', $department) : route('departments.store') }}" method="POST">
         @csrf
@@ -17,7 +17,7 @@
         <div class="mb-4">
             <label class="block mb-1 font-semibold">Filiale</label>
             <select name="filiale_id" class="w-full border px-3 py-2 rounded" required>
-                <option value="">SÃ©lectionner</option>
+                <option value="">Sélectionner</option>
                 @foreach($filiales as $filiale)
                     <option value="{{ $filiale->id }}" {{ (old('filiale_id', $department->filiale_id ?? '') == $filiale->id) ? 'selected' : '' }}>
                         {{ $filiale->name }}
@@ -28,14 +28,11 @@
         </div>
 
         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            {{ isset($department) ? 'Mettre Ã  jour' : 'Ajouter' }}
+            {{ isset($department) ? 'Mettre à jour' : 'Ajouter' }}
         </button>
     </form>
 </div>
 @endsection
-
-
-
 
 
 

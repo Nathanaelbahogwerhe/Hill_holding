@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->foreignId('insurance_plan_id')->constrained()->onDelete('cascade');
             $table->string('insurance_provider')->nullable();
-            $table->string('policy_number'); // <-- AjoutÃ©, obligatoire
+            $table->string('policy_number'); // <-- Ajouté, obligatoire
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();
@@ -25,9 +25,6 @@ return new class extends Migration
         Schema::dropIfExists('employee_insurances');
     }
 };
-
-
-
 
 
 

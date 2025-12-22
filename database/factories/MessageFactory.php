@@ -12,11 +12,11 @@ class MessageFactory extends Factory
 
     public function definition()
     {
-        // RÃ©cupÃ¨re tous les employÃ©s pour choisir un destinataire alÃ©atoire
+        // Récupère tous les employés pour choisir un destinataire aléatoire
         $recipient = Employee::inRandomOrder()->first();
 
         return [
-            'sender_id' => null, // sera dÃ©fini dans le seeder
+            'sender_id' => null, // sera défini dans le seeder
             'recipient_id' => $recipient ? $recipient->id : null,
             'subject' => $this->faker->sentence(3),
             'body' => $this->faker->paragraph(),
@@ -25,7 +25,7 @@ class MessageFactory extends Factory
     }
 
     /**
-     * DÃ©finir un destinataire spÃ©cifique
+     * Définir un destinataire spécifique
      */
     public function to(Employee $employee)
     {

@@ -31,7 +31,7 @@
             <select name="status" class="w-full border rounded px-3 py-2" required>
                 <option value="pending">En attente</option>
                 <option value="partial">Partiel</option>
-                <option value="paid">PayÃ©</option>
+                <option value="paid">Payé</option>
             </select>
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <div>
-            <label class="block font-semibold">DÃ©tails</label>
+            <label class="block font-semibold">Détails</label>
             <textarea name="details" class="w-full border rounded px-3 py-2"></textarea>
         </div>
 

@@ -10,12 +10,12 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a></li>
-                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> ParamÃ¨tres</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Paramètres</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> DÃ©connexion</button>
+                            <button type="submit" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Déconnexion</button>
                         </form>
                     </li>
                 </ul>

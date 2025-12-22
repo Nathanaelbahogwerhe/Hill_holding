@@ -11,13 +11,13 @@ class BudgetSeeder extends Seeder
     public function run(): void
     {
         // S'assurer que la filiale existe
-        $filiale = Filiale::firstOrCreate(['id' => 1], ['name' => 'Maison mÃ¨re']);
+        $filiale = Filiale::firstOrCreate(['id' => 1], ['name' => 'Maison mère']);
 
         $budgets = [
             [
                 'title' => 'Budget Marketing 2025',
                 'amount' => 10000,
-                'description' => 'Campagnes et publicitÃ©s',
+                'description' => 'Campagnes et publicités',
                 'start_date' => now()->startOfYear(),
                 'end_date' => now()->endOfYear(),
                 'filiale_id' => $filiale->id,

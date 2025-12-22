@@ -8,24 +8,24 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // âœ… Ajouter role
+            // ✅ Ajouter role
             if (!Schema::hasColumn('users', 'role')) {
                 $table->string('role')->default('user')->after('password');
             }
 
-            // âœ… Ajouter filiale_id
+            // ✅ Ajouter filiale_id
             if (!Schema::hasColumn('users', 'filiale_id')) {
                 $table->unsignedBigInteger('filiale_id')->nullable()->after('role');
                 $table->foreign('filiale_id')->references('id')->on('filiales')->nullOnDelete();
             }
 
-            // âœ… Ajouter agence_id
+            // ✅ Ajouter agence_id
             if (!Schema::hasColumn('users', 'agence_id')) {
                 $table->unsignedBigInteger('agence_id')->nullable()->after('filiale_id');
                 $table->foreign('agence_id')->references('id')->on('agences')->nullOnDelete();
             }
 
-            // âœ… Ajouter logo
+            // ✅ Ajouter logo
             if (!Schema::hasColumn('users', 'logo')) {
                 $table->string('logo')->nullable()->after('agence_id');
             }
@@ -52,9 +52,6 @@ return new class extends Migration {
         });
     }
 };
-
-
-
 
 
 

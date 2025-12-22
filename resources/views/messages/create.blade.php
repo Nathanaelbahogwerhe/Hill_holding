@@ -10,7 +10,7 @@
         <div class="mb-4">
             <label class="block mb-2">Destinataire</label>
             <select name="recipient_id" class="w-full bg-gray-800 rounded p-2" required>
-                <option value="">-- SÃ©lectionner --</option>
+                <option value="">-- Sélectionner --</option>
                 @foreach($recipients as $recipient)
                     <option value="{{ $recipient->id }}">{{ $recipient->first_name }} {{ $recipient->last_name }}</option>
                 @endforeach
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mb-6">
-            <label class="block mb-2">ðŸ“Ž PiÃ¨ce jointe (optionnel)</label>
+            <label class="block mb-2">ðŸ“Ž Pièce jointe (optionnel)</label>
             <input type="file" name="attachment" class="w-full text-gray-300">
             @error('attachment') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>

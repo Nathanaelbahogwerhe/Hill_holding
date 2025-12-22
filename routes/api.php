@@ -19,12 +19,16 @@ use App\Http\Controllers\MessageController;
 // Auth publiques
 Route::post('/auth/login',  [AuthController::class, 'login']);
 
-// ProtÃ©gÃ©es par Sanctum
+// Protégées par Sanctum
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me',     [AuthController::class, 'me']);
     Route::post('/auth/logout',[AuthController::class, 'logout']);
 
     Route::apiResource('employees', EmployeeApiController::class);
+
+    // Endpoint for downloading private documents via API (authenticated)
+    Route::get('employees/{employee}/document', [EmployeeApiController::class, 'downloadDocument'])
+        ->name('api.employees.document');
     Route::apiResource('departments', DepartmentApiController::class);
     Route::apiResource('filiales', FilialeApiController::class);
     Route::apiResource('leave-types', LeaveTypeApiController::class);

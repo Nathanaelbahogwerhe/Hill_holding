@@ -11,7 +11,7 @@
 @section('title', 'Dashboard Agence : ' . $agence->name)
 
 @section('content')
-<h2 class="mb-4">ðŸ¢ Agence : {{ $agence->name }}</h2>
+<h2 class="mb-4">🏢 Agence : {{ $agence->name }}</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -29,9 +29,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

@@ -12,14 +12,14 @@ class EmployeeSeeder extends Seeder
 {
     public function run(): void
     {
-        // Exemple : rÃ©cupÃ©rons un dÃ©partement pour associer les employÃ©s
-        $department = Department::first() ?? Department::create(['name' => 'GÃ©nÃ©ral']);
+        // Exemple : récupérons un département pour associer les employés
+        $department = Department::first() ?? Department::create(['name' => 'Général']);
 
-        // RÃ©cupÃ©rons une filiale et une agence existante
+        // Récupérons une filiale et une agence existante
         $filiale = Filiale::first();
         $agence  = Agence::first();
 
-        // 1) EmployÃ© HillHolding (pas de filiale, pas dâ€™agence)
+        // 1) Employé HillHolding (pas de filiale, pas d’agence)
         Employee::updateOrCreate(
             ['email' => 'alice@hillholding.com'],
             [
@@ -31,7 +31,7 @@ class EmployeeSeeder extends Seeder
             ]
         );
 
-        // 2) EmployÃ© Filiale (liÃ© uniquement Ã  une filiale)
+        // 2) Employé Filiale (lié uniquement à  une filiale)
         if ($filiale) {
             Employee::updateOrCreate(
                 ['email' => 'jean@' . strtolower($filiale->name) . '.com'],
@@ -45,7 +45,7 @@ class EmployeeSeeder extends Seeder
             );
         }
 
-        // 3) EmployÃ© Agence (liÃ© Ã  une filiale ET une agence)
+        // 3) Employé Agence (lié à  une filiale ET une agence)
         if ($filiale && $agence) {
             Employee::updateOrCreate(
                 ['email' => 'eric@' . strtolower($agence->name) . '.com'],
@@ -59,7 +59,7 @@ class EmployeeSeeder extends Seeder
             );
         }
 
-        $this->command->info('ðŸ‘¥ EmployÃ©s de test crÃ©Ã©s avec succÃ¨s.');
+        $this->command->info('ðŸ‘¥ Employés de test créés avec succès.');
     }
 }
 

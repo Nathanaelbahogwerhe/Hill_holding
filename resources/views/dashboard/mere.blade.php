@@ -7,10 +7,10 @@
     $users = \App\Models\User::all();
 @endphp
 
-@section('title', 'Dashboard Maison MÃ¨re')
+@section('title', 'Dashboard Maison Mère')
 
 @section('content')
-<h2 class="mb-4">ðŸ¢ Maison MÃ¨re</h2>
+<h2 class="mb-4">🏢 Maison Mère</h2>
 
 <div class="row">
     <div class="col-md-6">
@@ -38,9 +38,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

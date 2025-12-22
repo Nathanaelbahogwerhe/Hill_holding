@@ -1,60 +1,69 @@
-@extends('layouts.app')
-@section('title', 'Assurances des employÃ©s')
+﻿@extends('layouts.app')
+@section('title', 'Assurances')
 
 @section('content')
-<div class="max-w-7xl mx-auto bg-hh-card p-6 rounded shadow">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-semibold">Gestion des assurances</h1>
-        <a href="{{ route('employee_insurances.create') }}" class="btn btn-primary flex items-center space-x-2">
-            <span>Nouvelle assurance</span>
+<div class="max-w-7xl mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-[#D4AF37]">🛡️ Assurances Employés</h1>
+        <a href="{{ route('employee_insurances.create') }}" class="px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-bold transition">
+            ➕ Ajouter
         </a>
     </div>
 
-    <table class="w-full table-auto border border-gray-700 rounded shadow">
-        <thead class="bg-gray-800">
-            <tr>
-                <th class="px-4 py-2 text-left text-hh-gold">EmployÃ©</th>
-                <th class="px-4 py-2 text-left text-hh-gold">Type dâ€™assurance</th>
-                <th class="px-4 py-2 text-left text-hh-gold">NumÃ©ro de police</th>
-                <th class="px-4 py-2 text-left text-hh-gold">Date dÃ©but</th>
-                <th class="px-4 py-2 text-left text-hh-gold">Date fin</th>
-                <th class="px-4 py-2 text-left text-hh-gold">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($insurances as $insurance)
-            <tr class="border-t border-gray-700">
-                <td class="px-4 py-2">{{ $insurance->employee->name }}</td>
-                <td class="px-4 py-2">{{ $insurance->type }}</td>
-                <td class="px-4 py-2">{{ $insurance->policy_number }}</td>
-                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($insurance->start_date)->translatedFormat('d F Y') }}</td>
-                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($insurance->end_date)->translatedFormat('d F Y') }}</td>
-                <td class="px-4 py-2 space-x-2">
-                    <a href="{{ route('employee_insurances.show', $insurance) }}" class="text-blue-600 hover:underline">Voir</a>
-                    <a href="{{ route('employee_insurances.edit', $insurance) }}" class="text-green-600 hover:underline">Ã‰diter</a>
-                    <form action="{{ route('employee_insurances.destroy', $insurance) }}" method="POST" class="inline">
-                        @csrf @method('DELETE')
-                        <button type="submit" onclick="return confirm('Supprimer cette assurance ?')" class="text-red-600 hover:underline">Supprimer</button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="6" class="px-4 py-2 text-center text-gray-400">Aucune assurance trouvÃ©e.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    @if (session('success'))
+        <div class="bg-[#D4AF37] bg-opacity-20 border border-[#D4AF37] text-[#D4AF37] p-4 rounded-lg mb-6">✅ {{ session('success') }}</div>
+    @endif
 
-    <div class="mt-4">
-        {{ $insurances->links() }}
+    <div class="bg-black rounded-lg shadow-xl overflow-hidden border border-neutral-800">
+        <table class="w-full">
+            <thead class="bg-[#D4AF37]">
+                <tr>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Employé</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Filiale</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Plan d'Assurance</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Date Début</th>
+                    <th class="px-6 py-4 text-left text-sm font-bold text-black">Statut</th>
+                    <th class="px-6 py-4 text-right text-sm font-bold text-black">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-800">
+                @forelse($insurances as $insurance)
+                    <tr class="hover:bg-neutral-900 transition">
+                        <td class="px-6 py-4 text-sm font-semibold text-white">
+                            {{ $insurance->employee?->first_name }} {{ $insurance->employee?->last_name }}
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="bg-[#D4AF37] bg-opacity-20 text-[#D4AF37] px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ $insurance->employee?->filiale?->name ?? '—' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs font-semibold">
+                                {{ $insurance->insurancePlan?->name ?? '—' }}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-neutral-300">{{ optional($insurance->start_date)->format('d/m/Y') ?? '—' }}</td>
+                        <td class="px-6 py-4 text-sm">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-900 text-green-200">
+                                Actif
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-right text-sm space-x-2">
+                            <a href="{{ route('employee_insurances.show', $insurance->id) }}" class="inline-block px-3 py-1 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded font-semibold transition">👁️</a>
+                            <a href="{{ route('employee_insurances.edit', $insurance->id) }}" class="inline-block px-3 py-1 bg-neutral-700 hover:bg-neutral-600 text-white rounded font-semibold transition">✏️</a>
+                            <form action="{{ route('employee_insurances.destroy', $insurance->id) }}" method="POST" class="inline" onsubmit="return confirm('Confirmer?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded font-semibold transition">🗑️</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-neutral-500">Aucune assurance trouvée</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection
-
-
-
-
-
-
-

@@ -30,7 +30,7 @@ class PerformanceController extends Controller
 
         Performance::create($request->all());
 
-        return redirect()->route('performances.index')->with('success', 'Ã‰valuation enregistrÃ©e avec succÃ¨s.');
+        return redirect()->route('performances.index')->with('success', 'Évaluation enregistrée avec succès.');
     }
 
     public function show(Performance $performance)
@@ -54,18 +54,15 @@ class PerformanceController extends Controller
 
         $performance->update($request->all());
 
-        return redirect()->route('performances.index')->with('success', 'Ã‰valuation mise Ã  jour avec succÃ¨s.');
+        return redirect()->route('performances.index')->with('success', 'Évaluation mise à jour avec succès.');
     }
 
     public function destroy(Performance $performance)
     {
         $performance->delete();
-        return redirect()->route('performances.index')->with('success', 'Ã‰valuation supprimÃ©e avec succÃ¨s.');
+        return redirect()->route('performances.index')->with('success', 'Évaluation supprimée avec succès.');
     }
 }
-
-
-
 
 
 

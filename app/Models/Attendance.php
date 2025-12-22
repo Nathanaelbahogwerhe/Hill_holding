@@ -12,9 +12,11 @@ class Attendance extends Model
     protected $fillable = [
         'employee_id',
         'date',
+        'attendance_date',
         'check_in',
         'check_out',
         'status',
+        'attachment',
     ];
 
     public function employee()
@@ -22,9 +24,6 @@ class Attendance extends Model
         return $this->belongsTo(Employee::class);
     }
 }
-
-
-
 
 
 

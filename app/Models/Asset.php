@@ -23,6 +23,3 @@ class Asset extends Model
 
 
 
-
-
-

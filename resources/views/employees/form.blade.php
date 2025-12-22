@@ -23,7 +23,7 @@
     </div>
 
     <div>
-        <label class="block text-sm font-medium text-gray-700">TÃ©lÃ©phone</label>
+        <label class="block text-sm font-medium text-gray-700">Téléphone</label>
         <input type="text" name="phone" value="{{ $phone }}" class="mt-1 block w-full border rounded p-2">
         @error('phone') <div class="text-red-600 text-sm mt-1">{{ $message }}</div> @enderror
     </div>
@@ -31,7 +31,7 @@
     <div>
         <label class="block text-sm font-medium text-gray-700">Poste</label>
         <select name="position_id" class="mt-1 block w-full border rounded p-2">
-            <option value="">â€” SÃ©lectionner â€”</option>
+            <option value="">— Sélectionner —</option>
             @foreach($positions ?? [] as $position)
                 <option value="{{ $position->id }}" @selected($positionId == $position->id)>{{ $position->name }}</option>
             @endforeach
@@ -40,9 +40,9 @@
     </div>
 
     <div>
-        <label class="block text-sm font-medium text-gray-700">DÃ©partement</label>
+        <label class="block text-sm font-medium text-gray-700">Département</label>
         <select name="department_id" class="mt-1 block w-full border rounded p-2">
-            <option value="">â€” SÃ©lectionner â€”</option>
+            <option value="">— Sélectionner —</option>
             @foreach($departments ?? [] as $dept)
                 <option value="{{ $dept->id }}" @selected($departmentId == $dept->id)>{{ $dept->name }}</option>
             @endforeach
@@ -53,7 +53,7 @@
     <div>
         <label class="block text-sm font-medium text-gray-700">Filiale</label>
         <select name="filiale_id" class="mt-1 block w-full border rounded p-2">
-            <option value="">â€” SÃ©lectionner â€”</option>
+            <option value="">— Sélectionner —</option>
             @foreach($filiales ?? [] as $f)
                 <option value="{{ $f->id }}" @selected($filialeId == $f->id)>{{ $f->name }}</option>
             @endforeach
@@ -64,7 +64,7 @@
     <div>
         <label class="block text-sm font-medium text-gray-700">Agence</label>
         <select name="agency_id" class="mt-1 block w-full border rounded p-2">
-            <option value="">â€” SÃ©lectionner â€”</option>
+            <option value="">— Sélectionner —</option>
             @foreach($agences ?? [] as $a)
                 <option value="{{ $a->id }}" @selected($agencyId == $a->id)>{{ $a->name }}</option>
             @endforeach
@@ -77,9 +77,6 @@
         <input type="text" name="address" value="{{ old('address', data_get($employee, 'address')) }}" class="mt-1 block w-full border rounded p-2">
     </div>
 </div>
-
-
-
 
 
 

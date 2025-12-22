@@ -47,12 +47,9 @@ class AssetApiController extends Controller
     public function destroy(Asset $asset)
     {
         $asset->delete();
-        return response()->json(['message' => 'Actif supprimÃ©'], 200);
+        return response()->json(['message' => 'Actif supprimé'], 200);
     }
 }
-
-
-
 
 
 

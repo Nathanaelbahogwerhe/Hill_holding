@@ -18,7 +18,7 @@
                 <th class="p-2">#</th>
                 <th class="p-2">Fournisseur</th>
                 <th class="p-2">Produit</th>
-                <th class="p-2">QuantitÃ©</th>
+                <th class="p-2">Quantité</th>
                 <th class="p-2">Montant total</th>
                 <th class="p-2">Date</th>
                 <th class="p-2 text-right">Actions</th>
@@ -49,9 +49,6 @@
     </table>
 </div>
 @endsection
-
-
-
 
 
 

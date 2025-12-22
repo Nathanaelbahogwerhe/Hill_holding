@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->date('transaction_date');
             $table->string('category')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('user_id')->nullable(); // qui a enregistrÃ©
+            $table->unsignedBigInteger('user_id')->nullable(); // qui a enregistré
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
@@ -25,9 +25,6 @@ return new class extends Migration {
         Schema::dropIfExists('transactions');
     }
 };
-
-
-
 
 
 

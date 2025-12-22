@@ -37,6 +37,3 @@ class AgenceAuthController extends Controller
 
 
 
-
-
-

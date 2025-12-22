@@ -24,7 +24,14 @@ class FilialeSeeder extends Seeder
                 'email' => 'contact@HillHolding.rw',
                 'telephone' => '+250 123 456 789',
             ],
-            // Tu peux ajouter dâ€™autres filiales ici
+            [
+                'code' => 'HH-SH',
+                'name' => 'Shama',
+                'adresse' => 'Bujumbura, Burundi',
+                'email' => 'contact@shama.bi',
+                'telephone' => '+257 123 456 789',
+            ],
+            // Tu peux ajouter d’autres filiales ici
         ];
 
         foreach ($filiales as $data) {

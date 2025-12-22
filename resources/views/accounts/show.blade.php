@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'DÃ©tails du compte')
+@section('title', 'Détails du compte')
 
 @section('content')
 <div class="p-6 max-w-4xl mx-auto">
@@ -10,7 +10,7 @@
         <ul class="space-y-2 text-gray-700">
             <li><strong>Type :</strong> {{ ucfirst($account->type) }}</li>
             <li><strong>Solde :</strong> {{ number_format($account->balance, 0, ',', ' ') }} FBU</li>
-            <li><strong>Date de crÃ©ation :</strong> {{ $account->created_at->format('d/m/Y') }}</li>
+            <li><strong>Date de création :</strong> {{ $account->created_at->format('d/m/Y') }}</li>
         </ul>
 
         <div class="mt-6 flex justify-between">
@@ -24,9 +24,6 @@
     </div>
 </div>
 @endsection
-
-
-
 
 
 

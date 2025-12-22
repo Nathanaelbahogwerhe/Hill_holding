@@ -9,7 +9,7 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        // CrÃ©ation de l'utilisateur Super Admin
+        // Création de l'utilisateur Super Admin
         $superAdmin = User::firstOrCreate(
             ['email' => 'admin@hillholding.bi'],
             [
@@ -18,10 +18,10 @@ class AdminUserSeeder extends Seeder
             ]
         );
 
-        // Assigner le rÃ´le "Super Admin"
+        // Assigner le rôle "Super Admin"
         $superAdmin->assignRole('Super Admin');
 
-        $this->command->warn('âš¡ Super Admin crÃ©Ã© : admin@hillholding.bi / password123');
+        $this->command->warn('âš¡ Super Admin créé : admin@hillholding.bi / password123');
     }
 }
 

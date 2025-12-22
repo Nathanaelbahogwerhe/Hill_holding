@@ -3,7 +3,7 @@
 <div class="bg-hh-card p-4 rounded-lg shadow">
     <h4 class="text-lg font-semibold mb-3">Utilisateurs</h4>
     @if($users->isEmpty())
-        <p class="text-sm text-hh-muted">Aucun utilisateur trouvÃ©.</p>
+        <p class="text-sm text-hh-muted">Aucun utilisateur trouvé.</p>
     @else
         <ul class="list-disc pl-5 space-y-1">
             @foreach($users as $user)
@@ -12,9 +12,6 @@
         </ul>
     @endif
 </div>
-
-
-
 
 
 

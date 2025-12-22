@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'ðŸ’³ Nouvelle Transaction')
+@section('title', '💳 Nouvelle Transaction')
 
 @section('content')
 <div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6 max-w-3xl mx-auto">
-    <h2 class="text-xl font-semibold mb-4">ðŸ’³ Nouvelle Transaction</h2>
+    <h2 class="text-xl font-semibold mb-4">💳 Nouvelle Transaction</h2>
 
     <form action="{{ route('transactions.store') }}" method="POST" class="space-y-4">
         @csrf
         <div>
-            <label class="block font-medium mb-1" for="reference">RÃ©fÃ©rence</label>
+            <label class="block font-medium mb-1" for="reference">Référence</label>
             <input type="text" name="reference" id="reference" value="{{ old('reference') }}"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
             @error('reference') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -18,8 +18,8 @@
         <div>
             <label class="block font-medium mb-1" for="type">Type</label>
             <select name="type" id="type" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
-                <option value="expense" {{ old('type') === 'expense' ? 'selected' : '' }}>DÃ©pense</option>
+                <option value="">— Sélectionner —</option>
+                <option value="expense" {{ old('type') === 'expense' ? 'selected' : '' }}>Dépense</option>
                 <option value="revenue" {{ old('type') === 'revenue' ? 'selected' : '' }}>Revenu</option>
             </select>
             @error('type') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -40,7 +40,7 @@
         </div>
 
         <div>
-            <label class="block font-medium mb-1" for="category">CatÃ©gorie</label>
+            <label class="block font-medium mb-1" for="category">Catégorie</label>
             <input type="text" name="category" id="category" value="{{ old('category') }}"
                    class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
             @error('category') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
@@ -56,7 +56,7 @@
         <div>
             <label class="block font-medium mb-1" for="user_id">Utilisateur</label>
             <select name="user_id" id="user_id" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hh-primary">
-                <option value="">â€” SÃ©lectionner â€”</option>
+                <option value="">— Sélectionner —</option>
                 @foreach($users as $user)
                     <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
                 @endforeach
@@ -71,9 +71,6 @@
     </form>
 </div>
 @endsection
-
-
-
 
 
 

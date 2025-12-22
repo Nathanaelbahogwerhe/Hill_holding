@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class LeaveTypeController extends Controller
 {
     /**
-     * Affiche la liste des types de congÃ©s.
+     * Affiche la liste des types de congés.
      */
     public function index()
     {
@@ -17,7 +17,7 @@ class LeaveTypeController extends Controller
     }
 
     /**
-     * Affiche le formulaire de crÃ©ation dâ€™un type de congÃ©.
+     * Affiche le formulaire de création d’un type de congé.
      */
     public function create()
     {
@@ -25,7 +25,7 @@ class LeaveTypeController extends Controller
     }
 
     /**
-     * Enregistre un nouveau type de congÃ©.
+     * Enregistre un nouveau type de congé.
      */
     public function store(Request $request)
     {
@@ -38,11 +38,11 @@ class LeaveTypeController extends Controller
         LeaveType::create($validated);
 
         return redirect()->route('leave_types.index')
-            ->with('success', 'Type de congÃ© crÃ©Ã© avec succÃ¨s.');
+            ->with('success', 'Type de congé créé avec succès.');
     }
 
     /**
-     * Affiche les dÃ©tails dâ€™un type de congÃ©.
+     * Affiche les détails d’un type de congé.
      */
     public function show(LeaveType $leaveType)
     {
@@ -50,7 +50,7 @@ class LeaveTypeController extends Controller
     }
 
     /**
-     * Affiche le formulaire dâ€™Ã©dition dâ€™un type de congÃ©.
+     * Affiche le formulaire d’édition d’un type de congé.
      */
     public function edit(LeaveType $leaveType)
     {
@@ -58,7 +58,7 @@ class LeaveTypeController extends Controller
     }
 
     /**
-     * Met Ã  jour un type de congÃ©.
+     * Met à jour un type de congé.
      */
     public function update(Request $request, LeaveType $leaveType)
     {
@@ -71,23 +71,20 @@ class LeaveTypeController extends Controller
         $leaveType->update($validated);
 
         return redirect()->route('leave_types.index')
-            ->with('success', 'Type de congÃ© mis Ã  jour avec succÃ¨s.');
+            ->with('success', 'Type de congé mis à jour avec succès.');
     }
 
     /**
-     * Supprime un type de congÃ©.
+     * Supprime un type de congé.
      */
     public function destroy(LeaveType $leaveType)
     {
         $leaveType->delete();
 
         return redirect()->route('leave_types.index')
-            ->with('success', 'Type de congÃ© supprimÃ© avec succÃ¨s.');
+            ->with('success', 'Type de congé supprimé avec succès.');
     }
 }
-
-
-
 
 
 

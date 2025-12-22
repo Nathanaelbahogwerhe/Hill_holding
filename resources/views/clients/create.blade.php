@@ -3,34 +3,107 @@
 @section('title', 'Ajouter un Client')
 
 @section('content')
-<div class="p-6">
-    <h1 class="text-2xl font-semibold mb-6 text-gray-800">Ajouter un client</h1>
+<div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold text-[#D4AF37]">👥 Ajouter un Client</h1>
+        <a href="{{ route('clients.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg">← Retour</a>
+    </div>
 
-    <form action="{{ route('clients.store') }}" method="POST" class="bg-white shadow-md rounded-lg p-6 space-y-4">
-        @csrf
-        <div>
-            <label class="block text-sm font-medium text-gray-700">Nom</label>
-            <input type="text" name="nom" class="w-full border-gray-300 rounded-lg mt-1" required>
+    @if ($errors->any())
+        <div class="bg-red-900 border border-red-700 text-red-100 p-4 rounded-lg mb-6">
+            <h3 class="font-bold mb-2">❌ Erreurs:</h3>
+            <ul class="list-disc pl-5">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
         </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700">Email</label>
-            <input type="email" name="email" class="w-full border-gray-300 rounded-lg mt-1" required>
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700">TÃ©lÃ©phone</label>
-            <input type="text" name="telephone" class="w-full border-gray-300 rounded-lg mt-1">
-        </div>
-        <div>
-            <label class="block text-sm font-medium text-gray-700">Adresse</label>
-            <textarea name="adresse" rows="3" class="w-full border-gray-300 rounded-lg mt-1"></textarea>
-        </div>
+    @endif
 
-        <div class="flex justify-end">
-            <a href="{{ route('clients.index') }}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg mr-3">Annuler</a>
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Enregistrer</button>
-        </div>
-    </form>
+    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800">
+        <form action="{{ route('clients.store') }}" method="POST">
+            @csrf
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Nom <span class="text-red-500">*</span></label>
+                    <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]" required>
+                </div>
+
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Email <span class="text-red-500">*</span></label>
+                    <input type="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]" required>
+                </div>
+
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Téléphone</label>
+                    <input type="text" name="phone" value="{{ old('phone') }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                </div>
+
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Personne de contact</label>
+                    <input type="text" name="contact_person" value="{{ old('contact_person') }}" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                </div>
+
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Filiale</label>
+                    <select name="filiale_id" id="filiale_id" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                        <option value="">-- Maison Mère --</option>
+                        @foreach($filiales as $filiale)
+                            <option value="{{ $filiale->id }}" {{ old('filiale_id') == $filiale->id ? 'selected' : '' }}>{{ $filiale->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Agence</label>
+                    <select name="agence_id" id="agence_id" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">
+                        <option value="">-- Sélectionner --</option>
+                        @foreach($agences as $agence)
+                            <option value="{{ $agence->id }}" data-filiale="{{ $agence->filiale_id }}" {{ old('agence_id') == $agence->id ? 'selected' : '' }}>
+                                {{ $agence->name }} ({{ $agence->filiale?->name ?? 'N/A' }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block mb-2 font-semibold text-[#D4AF37]">Adresse</label>
+                    <textarea name="address" rows="3" class="w-full px-4 py-2 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:border-[#D4AF37]">{{ old('address') }}</textarea>
+                </div>
+            </div>
+
+            <div class="flex gap-4 mt-8">
+                <button type="submit" class="px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-bold transition">✅ Créer</button>
+                <a href="{{ route('clients.index') }}" class="px-6 py-3 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold transition">❌ Annuler</a>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script>
+// Filtrer les agences par filiale sélectionnée
+document.getElementById('filiale_id').addEventListener('change', function() {
+    const filialeId = this.value;
+    const agencySelect = document.getElementById('agence_id');
+    const options = agencySelect.querySelectorAll('option');
+    
+    options.forEach(option => {
+        if (option.value === '') {
+            option.style.display = 'block';
+            return;
+        }
+        
+        const agencyFiliale = option.getAttribute('data-filiale');
+        if (!filialeId || agencyFiliale === filialeId) {
+            option.style.display = 'block';
+        } else {
+            option.style.display = 'none';
+        }
+    });
+});
+
+// Filtrer au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    const event = new Event('change');
+    document.getElementById('filiale_id').dispatchEvent(event);
+});
+</script>
 @endsection
 
 

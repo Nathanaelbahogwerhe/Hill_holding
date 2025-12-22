@@ -1,5 +1,4 @@
 <?php
-<?php
 
 namespace App\Models;
 
@@ -18,9 +17,6 @@ class Product extends Model
         'stock',
     ];
 }
-
-
-
 
 
 

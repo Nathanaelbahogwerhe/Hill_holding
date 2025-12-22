@@ -18,9 +18,9 @@
                 <th class="px-4 py-2">Nom</th>
                 <th class="px-4 py-2">Responsable</th>
                 <th class="px-4 py-2">Statut</th>
-                <th class="px-4 py-2">DÃ©but</th>
-                <th class="px-4 py-2">Fin prÃ©vue</th>
-                <th class="px-4 py-2">Ã‰chÃ©ance</th>
+                <th class="px-4 py-2">Début</th>
+                <th class="px-4 py-2">Fin prévue</th>
+                <th class="px-4 py-2">Échéance</th>
                 <th class="px-4 py-2 text-right">Actions</th>
             </tr>
         </thead>
@@ -29,17 +29,17 @@
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-2">{{ $loop->iteration }}</td>
                     <td class="px-4 py-2 font-medium">{{ $project->name }}</td>
-                    <td class="px-4 py-2">{{ $project->responsible->name ?? 'â€”' }}</td>
+                    <td class="px-4 py-2">{{ $project->responsible->name ?? '—' }}</td>
                     <td class="px-4 py-2">
                         <span class="px-2 py-1 text-xs rounded font-medium
                             {{ $project->status === 'En cours' ? 'bg-yellow-100 text-yellow-700' :
-                               ($project->status === 'TerminÃ©' ? 'bg-green-100 text-green-700' : 
+                               ($project->status === 'Terminé' ? 'bg-green-100 text-green-700' : 
                                'bg-gray-100 text-gray-700') }}">
                             {{ $project->status }}
                         </span>
                     </td>
-                    <td class="px-4 py-2">{{ $project->start_date?->format('d/m/Y') ?? 'â€”' }}</td>
-                    <td class="px-4 py-2">{{ $project->due_date?->format('d/m/Y') ?? 'â€”' }}</td>
+                    <td class="px-4 py-2">{{ $project->start_date?->format('d/m/Y') ?? '—' }}</td>
+                    <td class="px-4 py-2">{{ $project->due_date?->format('d/m/Y') ?? '—' }}</td>
                     <td class="px-4 py-2 text-right space-x-2">
                         <a href="{{ route('projects.show', $project) }}" class="text-blue-500 hover:text-blue-700">Voir</a>
                         <a href="{{ route('projects.edit', $project) }}" class="text-yellow-500 hover:text-yellow-700">Modifier</a>
@@ -51,7 +51,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center py-4 text-gray-500">Aucun projet enregistrÃ©.</td>
+                    <td colspan="7" class="text-center py-4 text-gray-500">Aucun projet enregistré.</td>
                 </tr>
             @endforelse
         </tbody>

@@ -34,7 +34,7 @@
             <select name="status" class="w-full border rounded px-3 py-2" required>
                 <option value="pending" {{ $clientPayment->status == 'pending' ? 'selected' : '' }}>En attente</option>
                 <option value="partial" {{ $clientPayment->status == 'partial' ? 'selected' : '' }}>Partiel</option>
-                <option value="paid" {{ $clientPayment->status == 'paid' ? 'selected' : '' }}>PayÃ©</option>
+                <option value="paid" {{ $clientPayment->status == 'paid' ? 'selected' : '' }}>Payé</option>
             </select>
         </div>
 
@@ -44,12 +44,12 @@
         </div>
 
         <div>
-            <label class="block font-semibold">DÃ©tails</label>
+            <label class="block font-semibold">Détails</label>
             <textarea name="details" class="w-full border rounded px-3 py-2">{{ $clientPayment->details }}</textarea>
         </div>
 
         <div class="flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Mettre Ã  jour</button>
+            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Mettre à  jour</button>
         </div>
     </form>
 </div>

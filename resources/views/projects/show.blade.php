@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'DÃ©tails du projet')
+@section('title', 'Détails du projet')
 
 @section('content')
 <div class="bg-hh-card rounded-lg shadow p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">ðŸ“‹ {{ $project->name }}</h2>
 
     <div class="space-y-3">
-        <div><strong>Responsable :</strong> {{ $project->responsible->name ?? 'â€”' }}</div>
+        <div><strong>Responsable :</strong> {{ $project->responsible->name ?? '—' }}</div>
         <div><strong>Statut :</strong> {{ $project->status }}</div>
-        <div><strong>Date de dÃ©but :</strong> {{ $project->start_date?->format('d/m/Y') ?? 'â€”' }}</div>
-        <div><strong>Date de fin prÃ©vue :</strong> {{ $project->end_date?->format('d/m/Y') ?? 'â€”' }}</div>
-        <div><strong>Date dâ€™Ã©chÃ©ance :</strong> {{ $project->due_date?->format('d/m/Y') ?? 'â€”' }}</div>
+        <div><strong>Date de début :</strong> {{ $project->start_date?->format('d/m/Y') ?? '—' }}</div>
+        <div><strong>Date de fin prévue :</strong> {{ $project->end_date?->format('d/m/Y') ?? '—' }}</div>
+        <div><strong>Date d’échéance :</strong> {{ $project->due_date?->format('d/m/Y') ?? '—' }}</div>
         <div><strong>Description :</strong></div>
-        <div class="border p-3 rounded bg-hh-gray-light">{{ $project->description ?? 'â€”' }}</div>
-        <div><strong>DÃ©tails :</strong></div>
-        <div class="border p-3 rounded bg-hh-gray-light">{{ $project->details ?? 'â€”' }}</div>
+        <div class="border p-3 rounded bg-hh-gray-light">{{ $project->description ?? '—' }}</div>
+        <div><strong>Détails :</strong></div>
+        <div class="border p-3 rounded bg-hh-gray-light">{{ $project->details ?? '—' }}</div>
     </div>
 
     <div class="mt-4 flex justify-end space-x-2">

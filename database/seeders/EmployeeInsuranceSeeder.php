@@ -11,7 +11,7 @@ class EmployeeInsuranceSeeder extends Seeder
 {
     public function run(): void
     {
-        // Supprime les anciennes donnÃ©es
+        // Supprime les anciennes données
         DB::table('employee_insurances')->truncate();
 
         $employeeInsurances = [

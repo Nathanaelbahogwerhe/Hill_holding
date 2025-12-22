@@ -1,0 +1,58 @@
+:root {
+    --hh-black: #0A0A0A;
+    --hh-gold: #c89b5a;
+    --hh-gold-light: #d4af37;
+}
+
+/* Font globale */
+body {
+    background-color: var(--hh-black);
+    color: var(--hh-gold-light);
+    font-family: "Inter", sans-serif;
+}
+
+/* Liens */
+a {
+    color: var(--hh-gold-light);
+}
+
+a:hover {
+    color: var(--hh-gold);
+}
+
+/* Boutons */
+.btn-gold {
+    background-color: var(--hh-gold);
+    color: var(--hh-black);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: 600;
+}
+
+.btn-gold:hover {
+    background-color: var(--hh-gold-light);
+}
+
+/* Inputs/forms */
+input, select, textarea {
+    background-color: #111;
+    border: 1px solid var(--hh-gold);
+    color: var(--hh-gold-light);
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--hh-gold-light);
+    outline: none;
+}
+
+/* Navbar Blade Breeze */
+.navbar {
+    background-color: var(--hh-black);
+    color: var(--hh-gold-light);
+    border-bottom: 1px solid var(--hh-gold);
+}
+
+/* Titles */
+h1, h2, h3, h4 {
+    color: var(--hh-gold-light);
+}

@@ -28,9 +28,9 @@ class NewMessageNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('ðŸ“© Nouveau message reÃ§u')
+            ->subject('📩 Nouveau message reçu')
             ->greeting('Bonjour ' . $notifiable->first_name . ',')
-            ->line('Vous avez reÃ§u un nouveau message de ' . $this->message->sender->full_name . '.')
+            ->line('Vous avez reçu un nouveau message de ' . $this->message->sender->full_name . '.')
             ->line('Sujet : ' . $this->message->subject)
             ->action('Lire le message', url(route('messages.show', $this->message->id)))
             ->line('Merci de votre collaboration.');
@@ -45,9 +45,6 @@ class NewMessageNotification extends Notification implements ShouldQueue
         ];
     }
 }
-
-
-
 
 
 

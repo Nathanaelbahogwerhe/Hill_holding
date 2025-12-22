@@ -17,7 +17,7 @@ class AssetController extends Controller
     }
 
     /**
-     * Formulaire de crÃ©ation
+     * Formulaire de création
      */
     public function create()
     {
@@ -40,7 +40,7 @@ class AssetController extends Controller
 
         Asset::create($validated);
 
-        return redirect()->route('assets.index')->with('success', 'Actif ajoutÃ© avec succÃ¨s âœ…');
+        return redirect()->route('assets.index')->with('success', 'Actif ajouté avec succès ✅');
     }
 
     /**
@@ -52,7 +52,7 @@ class AssetController extends Controller
     }
 
     /**
-     * Formulaire dâ€™Ã©dition
+     * Formulaire d’édition
      */
     public function edit(Asset $asset)
     {
@@ -60,7 +60,7 @@ class AssetController extends Controller
     }
 
     /**
-     * Met Ã  jour un asset
+     * Met à jour un asset
      */
     public function update(Request $request, Asset $asset)
     {
@@ -75,7 +75,7 @@ class AssetController extends Controller
 
         $asset->update($validated);
 
-        return redirect()->route('assets.index')->with('success', 'Actif mis Ã  jour avec succÃ¨s âœï¸');
+        return redirect()->route('assets.index')->with('success', 'Actif mis à jour avec succès ✏️');
     }
 
     /**
@@ -84,12 +84,9 @@ class AssetController extends Controller
     public function destroy(Asset $asset)
     {
         $asset->delete();
-        return redirect()->route('assets.index')->with('success', 'Actif supprimÃ© âŒ');
+        return redirect()->route('assets.index')->with('success', 'Actif supprimé ❌');
     }
 }
-
-
-
 
 
 

@@ -19,6 +19,3 @@ class AppLayout extends Component
 
 
 
-
-
-

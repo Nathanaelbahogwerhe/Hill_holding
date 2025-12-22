@@ -13,27 +13,59 @@ class Project extends Model
         'name',
         'description',
         'status',
-        'responsible_id',  // AjoutÃ© pour la relation responsable
+        'responsible_id',  // Ajouté pour la relation responsable
         'start_date',
         'due_date',
         'details',
     ];
 
-    // ðŸ”— Un projet a plusieurs tÃ¢ches
+    // 🔗 Un projet a plusieurs tâches
     public function tasks()
     {
         return $this->hasMany(Task::class);
     }
 
-    // ðŸ”— Relation vers l'utilisateur responsable
+    // 🔗 Relation vers l'utilisateur responsable
     public function responsible()
     {
         return $this->belongsTo(User::class, 'responsible_id');
     }
+
+    public function employees()
+    {
+        return $this->belongsToMany(Employee::class, 'employee_project')->withTimestamps();
+    }
+
+    public function filiale()
+    {
+        return $this->belongsTo(Filiale::class);
+    }
+
+    public function agence()
+    {
+        return $this->belongsTo(Agence::class);
+    }
+
+    public function evaluations()
+    {
+        return $this->morphMany(Evaluation::class, 'evaluable');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    public function dailyOperations()
+    {
+        return $this->hasMany(DailyOperation::class);
+    }
 }
-
-
-
 
 
 

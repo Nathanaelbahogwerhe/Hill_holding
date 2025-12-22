@@ -21,20 +21,11 @@ class Agence extends Model
         return $this->hasMany(User::class);
     }
 
-    // ðŸ”¹ Ajouter cette relation
     public function employees()
     {
         return $this->hasMany(Employee::class);
     }
-
-    public function clients()
-    {
-        return $this->hasMany(Client::class);
-    }
 }
-
-
-
 
 
 

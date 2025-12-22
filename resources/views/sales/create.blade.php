@@ -21,7 +21,7 @@
         <div>
             <label class="block font-medium">Produit ou Service</label>
             <select name="item_id" class="w-full border rounded p-2 dark:bg-hh-gray-darker">
-                <option value="">-- Choisir un Ã©lÃ©ment --</option>
+                <option value="">-- Choisir un élément --</option>
                 <optgroup label="Produits">
                     @foreach ($products as $product)
                         <option value="product-{{ $product->id }}">{{ $product->name }}</option>
@@ -36,7 +36,7 @@
         </div>
 
         <div>
-            <label class="block font-medium">QuantitÃ©</label>
+            <label class="block font-medium">Quantité</label>
             <input type="number" name="quantity" class="w-full border rounded p-2 dark:bg-hh-gray-darker" required>
         </div>
 
@@ -58,9 +58,6 @@
     </form>
 </div>
 @endsection
-
-
-
 
 
 

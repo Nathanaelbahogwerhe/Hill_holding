@@ -13,7 +13,7 @@ class PositionSeeder extends Seeder
             'Directeur',
             'Manager',
             'Responsable RH',
-            'DÃ©veloppeur',
+            'Développeur',
             'Designer',
             'Comptable',
             'Assistant',

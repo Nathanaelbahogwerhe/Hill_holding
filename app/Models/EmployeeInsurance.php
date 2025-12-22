@@ -7,25 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeInsurance extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'employee_id',
+        'insurance_plan_id',
+        'start_date',
+        'end_date',
+        'status',
+    ];
 
-    protected $fillable = ['employee_id', 'insurance_plan_id', 'start_date', 'end_date'];
-
-    // Lâ€™assurance appartient Ã  un employÃ©
     public function employee()
     {
         return $this->belongsTo(Employee::class);
     }
 
-    // Lâ€™assurance est liÃ©e Ã  un plan
     public function insurancePlan()
     {
         return $this->belongsTo(InsurancePlan::class);
     }
 }
-
-
-
 
 
 
