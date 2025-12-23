@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Gestion des Permissions')
 
 @section('content')
@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-bold text-hh-light">Gestion des Permissions</h1>
             <p class="text-sm text-hh-muted mt-1">Créer et gérer les permissions du système</p>
         </div>
-        <a href="{{ route('admin.permissions.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition flex items-center gap-2">
+        <a href="{{ route('admin.permissions.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -19,7 +19,7 @@
 
     {{-- Success Message --}}
     @if (session('success'))
-    <div class="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+    <div class="bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/300/10 border border-green-500/20 rounded-xl p-4">
         <div class="flex gap-3">
             <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -30,7 +30,7 @@
     @endif
 
     {{-- Permissions Table --}}
-    <div class="bg-hh-card rounded-lg border border-hh-border overflow-hidden">
+    <div class="bg-hh-card rounded-xl border border-hh-border overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-hh-dark/50 border-b border-hh-border">

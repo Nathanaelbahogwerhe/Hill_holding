@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Liste des Clients')
 
@@ -7,19 +7,19 @@
 
     <!-- ðŸ”¹ Résumé des clients -->
     <div class="grid grid-cols-4 gap-6 mb-6">
-        <div class="bg-white shadow rounded-lg p-4">
+        <div class="bg-white shadow rounded-xl p-4">
             <h2 class="text-gray-500 text-sm">Total Clients</h2>
             <p class="text-2xl font-semibold text-gray-800">{{ $summary['total_clients'] }}</p>
         </div>
-        <div class="bg-white shadow rounded-lg p-4">
+        <div class="bg-white shadow rounded-xl p-4">
             <h2 class="text-gray-500 text-sm">Total Due</h2>
             <p class="text-2xl font-semibold text-gray-800">{{ number_format($summary['total_due'], 2) }}</p>
         </div>
-        <div class="bg-white shadow rounded-lg p-4">
+        <div class="bg-white shadow rounded-xl p-4">
             <h2 class="text-gray-500 text-sm">Total Paid</h2>
             <p class="text-2xl font-semibold text-gray-800">{{ number_format($summary['total_paid'], 2) }}</p>
         </div>
-        <div class="bg-white shadow rounded-lg p-4">
+        <div class="bg-white shadow rounded-xl p-4">
             <h2 class="text-gray-500 text-sm">Total Balance</h2>
             <p class="text-2xl font-semibold text-gray-800">{{ number_format($summary['total_balance'], 2) }}</p>
         </div>
@@ -29,23 +29,23 @@
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold text-gray-800">Liste des Clients</h1>
         <a href="{{ route('clients.create') }}" 
-           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center">
+           class="bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 flex items-center">
            <i class="fa fa-user-plus text-yellow-500 mr-2"></i> Nouveau client
         </a>
     </div>
 
     <!-- ðŸ”¹ Tableau des clients -->
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-white shadow-md rounded-xl overflow-hidden">
         <table class="min-w-full border border-gray-200">
             <thead class="bg-gray-100">
                 <tr>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">#</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Nom</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Email</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Téléphone</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Total Due</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Balance</th>
-                    <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">Actions</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">#</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Nom</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Email</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Téléphone</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Total Due</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Balance</th>
+                    <th class="px-4 py-3 text-left text-sm font-medium text-neutral-400">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +58,7 @@
                     <td class="px-4 py-3">{{ number_format($client->total_due, 2) }}</td>
                     <td class="px-4 py-3">{{ number_format($client->balance, 2) }}</td>
                     <td class="px-4 py-3 flex space-x-3">
-                        <a href="{{ route('clients.show', $client->id) }}" class="text-blue-600 hover:text-blue-800">
+                        <a href="{{ route('clients.show', $client->id) }}" class="text-white hover:text-blue-800">
                             <i class="fa fa-eye"></i>
                         </a>
                         <a href="{{ route('clients.edit', $client->id) }}" class="text-yellow-500 hover:text-yellow-700">

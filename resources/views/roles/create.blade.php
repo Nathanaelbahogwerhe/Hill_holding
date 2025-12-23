@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Créer un Rôle')
 
 @section('content')
@@ -14,7 +14,7 @@
     </div>
 
     {{-- Form --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-6 border border-hh-border">
         <h2 class="text-xl font-semibold mb-6">Créer un nouveau rôle</h2>
 
         <form action="{{ route('admin.roles.store') }}" method="POST" class="space-y-6">
@@ -25,7 +25,7 @@
                 <label for="name" class="block text-sm font-medium text-hh-muted mb-2">
                     Nom du rôle <span class="text-red-500">*</span>
                 </label>
-                <input type="text" name="name" id="name" value="{{ old('name') }}" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('name') border-red-500 @enderror" placeholder="Ex: Manager Opérations">
+                <input type="text" name="name" id="name" value="{{ old('name') }}" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('name') border-red-500 @enderror" placeholder="Ex: Manager Opérations">
                 @error('name')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -36,10 +36,10 @@
                 <label class="block text-sm font-medium text-hh-muted mb-3">
                     Permissions <span class="text-xs text-hh-muted">(Sélectionnez une ou plusieurs)</span>
                 </label>
-                <div class="bg-hh-dark/50 rounded-lg p-4 border border-hh-border max-h-96 overflow-y-auto">
+                <div class="bg-hh-dark/50 rounded-xl p-4 border border-hh-border max-h-96 overflow-y-auto">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         @forelse($permissions as $permission)
-                        <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-hh-dark/50 cursor-pointer transition">
+                        <label class="flex items-center gap-3 p-3 rounded-xl hover:bg-hh-dark/50 cursor-pointer transition">
                             <input type="checkbox" name="permissions[]" value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions', [])) ? 'checked' : '' }} class="w-4 h-4 rounded border-hh-border bg-hh-dark text-hh-gold focus:ring-2 focus:ring-hh-gold">
                             <span class="text-sm text-hh-light">{{ $permission->name }}</span>
                         </label>
@@ -55,10 +55,10 @@
 
             {{-- Actions --}}
             <div class="flex justify-end gap-4 pt-6">
-                <a href="{{ route('admin.roles.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-lg hover:bg-hh-dark/50 transition">
+                <a href="{{ route('admin.roles.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-xl hover:bg-hh-dark/50 transition">
                     Annuler
                 </a>
-                <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition">
+                <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition">
                     Créer le rôle
                 </button>
             </div>

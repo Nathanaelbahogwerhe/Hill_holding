@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Contrats Fournisseurs</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Contrats Fournisseurs</h1>
         <a href="{{ route('supplier_contracts.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouveau Contrat
         </a>
@@ -11,26 +11,26 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Actifs</p>
-            <p class="text-2xl font-bold text-green-600">{{ $stats['actif'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Actifs</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['actif'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Expirés</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Expirés</p>
             <p class="text-2xl font-bold text-red-600">{{ $stats['expire'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Résiliés</p>
-            <p class="text-2xl font-bold text-gray-600">{{ $stats['resilie'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Résiliés</p>
+            <p class="text-2xl font-bold text-neutral-400">{{ $stats['resilie'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Expire Bientôt</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Expire Bientôt</p>
             <p class="text-2xl font-bold text-orange-600">{{ $stats['expire_soon'] ?? 0 }}</p>
         </div>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -47,7 +47,7 @@
                 @forelse($supplierContracts as $contract)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('supplier_contracts.show', $contract) }}" class="text-blue-600 hover:underline">{{ $contract->reference }}</a>
+                        <a href="{{ route('supplier_contracts.show', $contract) }}" class="text-white hover:underline">{{ $contract->reference }}</a>
                     </td>
                     <td class="px-6 py-4">{{ $contract->supplier->nom }}</td>
                     <td class="px-6 py-4">{{ Str::limit($contract->objet, 40) }}</td>
@@ -61,7 +61,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ $contract->date_fin->format('d/m/Y') }}</td>
                     <td class="px-6 py-4">
                         <span class="px-2 py-1 text-xs rounded 
-                            @if($contract->statut === 'actif') bg-green-100 text-green-800
+                            @if($contract->statut === 'actif') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
                             @elseif($contract->statut === 'expire') bg-red-100 text-red-800
                             @else bg-gray-100 text-gray-800
                             @endif">
@@ -69,7 +69,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('supplier_contracts.show', $contract) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('supplier_contracts.show', $contract) }}" class="text-white hover:underline">Voir</a>
                     </td>
                 </tr>
                 @empty

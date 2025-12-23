@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Gestion des Rôles')
 
 @section('content')
@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-bold text-hh-light">Gestion des Rôles</h1>
             <p class="text-sm text-hh-muted mt-1">Créer et gérer les rôles et permissions</p>
         </div>
-        <a href="{{ route('admin.roles.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition flex items-center gap-2">
+        <a href="{{ route('admin.roles.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -18,7 +18,7 @@
     </div>
 
     {{-- Roles Table --}}
-    <div class="bg-hh-card rounded-lg border border-hh-border overflow-hidden">
+    <div class="bg-hh-card rounded-xl border border-hh-border overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead class="bg-hh-dark/50 border-b border-hh-border">
@@ -39,7 +39,7 @@
                         <td class="px-6 py-4">
                             <div class="flex flex-wrap gap-1">
                                 @forelse($role->permissions->take(3) as $permission)
-                                <span class="px-2 py-1 text-xs font-medium rounded bg-blue-500/20 text-blue-500">
+                                <span class="px-2 py-1 text-xs font-medium rounded bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/300/20 text-blue-500">
                                     {{ $permission->name }}
                                 </span>
                                 @empty

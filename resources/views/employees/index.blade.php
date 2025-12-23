@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Employés')
 
@@ -203,11 +203,11 @@
                         </td>
                         <td class="p-4">
                             @if($emp->filiale)
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     {{ $emp->filiale->name }}
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
                                     Maison Mère
                                 </span>
                             @endif
@@ -217,7 +217,7 @@
                         </td>
                         <td class="p-4">
                             @if($emp->department)
-                                <span class="px-3 py-1 rounded-lg bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm">
+                                <span class="px-3 py-1 rounded-xl bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm">
                                     {{ $emp->department->name }}
                                 </span>
                             @else

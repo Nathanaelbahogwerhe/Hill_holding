@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Agences')
 
@@ -176,7 +176,7 @@
                             </div>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-neutral-800 text-neutral-300 text-sm font-mono">
+                            <span class="px-3 py-1 rounded-xl bg-neutral-800 text-neutral-300 text-sm font-mono">
                                 {{ $ag->code ?? '—' }}
                             </span>
                         </td>
@@ -195,17 +195,17 @@
                         </td>
                         <td class="p-4">
                             @if($ag->filiale)
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     {{ $ag->filiale->name }}
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
                                     Maison Mère
                                 </span>
                             @endif
                         </td>
                         <td class="p-4">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-800 rounded-lg">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-800 rounded-xl">
                                 <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>

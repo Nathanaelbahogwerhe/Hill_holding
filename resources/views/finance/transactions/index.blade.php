@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', '💳 Transactions')
 
 @section('content')
-<div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6">
+<div class="bg-hh-card dark:bg-hh-gray-dark rounded-xl shadow p-6">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">💳 Transactions</h2>
         <a href="{{ route('transactions.create') }}" class="px-4 py-2 bg-hh-primary text-white rounded hover:bg-hh-primary-dark">
@@ -12,7 +12,7 @@
     </div>
 
     <table class="min-w-full text-sm text-left">
-        <thead class="bg-hh-gray-light dark:bg-hh-gray-darker uppercase text-gray-700 dark:text-gray-200">
+        <thead class="bg-hh-gray-light dark:bg-hh-gray-darker uppercase text-[#D4AF37] dark:text-gray-200">
             <tr>
                 <th class="px-4 py-2">#</th>
                 <th class="px-4 py-2">Référence</th>

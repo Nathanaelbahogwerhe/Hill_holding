@@ -131,11 +131,11 @@
                         </td>
                         <td class="p-4">
                             @if($att->employee?->filiale)
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     {{ $att->employee->filiale->name }}
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
                                     Maison Mère
                                 </span>
                             @endif
@@ -147,7 +147,7 @@
                             <div class="text-neutral-300">{{ optional($att->date)->format('d/m/Y') ?? '—' }}</div>
                         </td>
                         <td class="p-4">
-                            <div class="inline-flex items-center gap-1 px-3 py-1 bg-green-900/30 border border-green-500/50 rounded-lg">
+                            <div class="inline-flex items-center gap-1 px-3 py-1 bg-green-900/30 border border-green-500/50 rounded-xl">
                                 <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                                 </svg>
@@ -156,7 +156,7 @@
                         </td>
                         <td class="p-4">
                             @if($att->check_out)
-                                <div class="inline-flex items-center gap-1 px-3 py-1 bg-red-900/30 border border-red-500/50 rounded-lg">
+                                <div class="inline-flex items-center gap-1 px-3 py-1 bg-red-900/30 border border-red-500/50 rounded-xl">
                                     <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -168,21 +168,21 @@
                         </td>
                         <td class="p-4">
                             @if($att->status === 'present')
-                                <span class="px-3 py-1 rounded-lg bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Présent
                                 </span>
                             @elseif($att->status === 'absent')
-                                <span class="px-3 py-1 rounded-lg bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Absent
                                 </span>
                             @elseif($att->status === 'late')
-                                <span class="px-3 py-1 rounded-lg bg-amber-900/30 border border-amber-500/50 text-amber-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-amber-900/30 border border-amber-500/50 text-amber-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>

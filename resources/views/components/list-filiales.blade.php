@@ -1,6 +1,6 @@
-@props(['filiales'])
+﻿@props(['filiales'])
 
-<div class="bg-hh-card p-4 rounded-lg shadow">
+<div class="bg-hh-card p-4 rounded-xl shadow">
     <h4 class="text-lg font-semibold mb-3">Filiales et Agences</h4>
     @if($filiales->isEmpty())
         <p class="text-sm text-hh-muted">Aucune filiale trouvée.</p>

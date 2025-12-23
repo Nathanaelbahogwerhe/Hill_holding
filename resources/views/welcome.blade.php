@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -18,7 +18,7 @@
             <a href="#contact" class="hover:text-yellow-500 transition">Contact</a>
         </nav>
         <div class="space-x-3">
-            <a href="/login" class="bg-yellow-600 hover:bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold">Connexion</a>
+            <a href="/login" class="bg-yellow-600 hover:bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black px-4 py-2 rounded-xl font-semibold">Connexion</a>
         </div>
     </header>
 
@@ -31,10 +31,10 @@
             Une solution unique pour superviser toutes vos filiales, vos finances et vos opérations en temps réel.
         </p>
         <div class="space-x-4">
-            <a href="#features" class="bg-yellow-600 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg font-semibold">
+            <a href="#features" class="bg-yellow-600 hover:bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black px-6 py-3 rounded-xl font-semibold">
                 Découvrir
             </a>
-            <a href="/demo" class="border border-yellow-600 hover:bg-yellow-600 hover:text-black px-6 py-3 rounded-lg font-semibold">
+            <a href="/demo" class="border border-yellow-600 hover:bg-yellow-600 hover:text-black px-6 py-3 rounded-xl font-semibold">
                 Essayer la démo
             </a>
         </div>

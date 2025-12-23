@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-lg shadow-md p-6">
+<div class="px-6 py-6">
+    <div class="max-w-5xl mx-auto">
+        <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl shadow-2xl p-8">
             <h1 class="text-2xl font-bold mb-6">Nouvelle Évaluation</h1>
 
             <form action="{{ route('evaluations.store') }}" method="POST">
@@ -12,8 +12,8 @@
                 <div class="space-y-6">
                     <!-- Type d'évaluation -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Type d'Évaluation *</label>
-                        <select name="type" id="evaluation_type" class="w-full border border-gray-300 rounded-lg px-3 py-2" required>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Type d'Évaluation *</label>
+                        <select name="type" id="evaluation_type" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" required>
                             <option value="">Sélectionner</option>
                             <option value="projet" {{ old('type', $type) == 'projet' ? 'selected' : '' }}>Projet</option>
                             <option value="tâche" {{ old('type', $type) == 'tâche' ? 'selected' : '' }}>Tâche</option>
@@ -27,8 +27,8 @@
 
                     <!-- Sélection Projet -->
                     <div id="projet_select" style="display: {{ old('type', $type) == 'projet' ? 'block' : 'none' }}">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Projet *</label>
-                        <select name="project_id" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Projet *</label>
+                        <select name="project_id" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                             <option value="">Sélectionner un projet</option>
                             @foreach($projects as $project)
                                 <option value="{{ $project->id }}" {{ old('evaluable_id') == $project->id ? 'selected' : '' }}>
@@ -41,8 +41,8 @@
 
                     <!-- Sélection Tâche -->
                     <div id="tache_select" style="display: {{ old('type', $type) == 'tâche' ? 'block' : 'none' }}">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Tâche *</label>
-                        <select name="task_id" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Tâche *</label>
+                        <select name="task_id" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                             <option value="">Sélectionner une tâche</option>
                             @foreach($tasks as $task)
                                 <option value="{{ $task->id }}" {{ old('evaluable_id') == $task->id ? 'selected' : '' }}>
@@ -55,8 +55,8 @@
 
                     <!-- Sélection Employé -->
                     <div id="employe_select" style="display: {{ old('type', $type) == 'employé' ? 'block' : 'none' }}">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Employé *</label>
-                        <select name="evaluated_user_id" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Employé *</label>
+                        <select name="evaluated_user_id" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                             <option value="">Sélectionner un employé</option>
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}" {{ old('evaluated_user_id') == $user->id ? 'selected' : '' }}>
@@ -69,9 +69,9 @@
 
                     <!-- Note -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Note (0-100) *</label>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Note (0-100) *</label>
                         <input type="number" name="note" value="{{ old('note') }}" min="0" max="100" 
-                               class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
+                               class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" required>
                         <p class="text-xs text-gray-500 mt-1">0 = Très faible, 100 = Excellent</p>
                         @error('note')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -80,9 +80,9 @@
 
                     <!-- Commentaires -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Commentaires</label>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Commentaires</label>
                         <textarea name="commentaires" rows="4" 
-                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" 
+                                  class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" 
                                   placeholder="Vos commentaires généraux...">{{ old('commentaires') }}</textarea>
                         @error('commentaires')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -91,9 +91,9 @@
 
                     <!-- Points Forts -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Points Forts</label>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Points Forts</label>
                         <textarea name="points_forts" rows="3" 
-                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500" 
+                                  class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 focus:ring-2 focus:ring-green-500" 
                                   placeholder="Les aspects positifs...">{{ old('points_forts') }}</textarea>
                         @error('points_forts')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -102,9 +102,9 @@
 
                     <!-- Points d'Amélioration -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Points d'Amélioration</label>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Points d'Amélioration</label>
                         <textarea name="points_amelioration" rows="3" 
-                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500" 
+                                  class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 focus:ring-2 focus:ring-orange-500" 
                                   placeholder="Les aspects à améliorer...">{{ old('points_amelioration') }}</textarea>
                         @error('points_amelioration')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -113,9 +113,9 @@
 
                     <!-- Recommandations -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Recommandations</label>
+                        <label class="block text-sm font-medium text-[#D4AF37] mb-2">Recommandations</label>
                         <textarea name="recommandations" rows="3" 
-                                  class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" 
+                                  class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20" 
                                   placeholder="Vos recommandations...">{{ old('recommandations') }}</textarea>
                         @error('recommandations')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
@@ -126,11 +126,11 @@
                 <!-- Boutons -->
                 <div class="flex justify-end space-x-3 mt-6">
                     <a href="{{ route('evaluations.index') }}" 
-                       class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                       class="px-4 py-2 border border-neutral-700 rounded-xl hover:bg-gray-50">
                         Annuler
                     </a>
                     <button type="submit" 
-                            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                            class="px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-[#D4AF37]/50">
                         Créer
                     </button>
                 </div>

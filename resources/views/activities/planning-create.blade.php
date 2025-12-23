@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Créer un Tableau de Planification')
 
@@ -47,8 +47,8 @@
                         <label class="block text-sm font-semibold text-neutral-700 mb-3">Mois à planifier *</label>
                         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
                             @foreach(['Janvier' => 1, 'Février' => 2, 'Mars' => 3, 'Avril' => 4, 'Mai' => 5, 'Juin' => 6, 'Juillet' => 7, 'Août' => 8, 'Septembre' => 9, 'Octobre' => 10, 'Novembre' => 11, 'Décembre' => 12] as $name => $num)
-                            <label class="flex items-center gap-2 p-3 bg-neutral-50 rounded-lg hover:bg-blue-50 cursor-pointer transition-all border-2 border-transparent hover:border-blue-500">
-                                <input type="checkbox" name="months[]" value="{{ $num }}" class="month-checkbox w-4 h-4 text-blue-600 border-neutral-300 rounded focus:ring-blue-500">
+                            <label class="flex items-center gap-2 p-3 bg-neutral-50 rounded-xl hover:bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/30 cursor-pointer transition-all border-2 border-transparent hover:border-blue-500">
+                                <input type="checkbox" name="months[]" value="{{ $num }}" class="month-checkbox w-4 h-4 text-white border-neutral-300 rounded focus:ring-blue-500">
                                 <span class="text-sm font-medium text-neutral-700">{{ $name }}</span>
                             </label>
                             @endforeach
@@ -104,11 +104,11 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 max-h-96 overflow-y-auto custom-scrollbar p-2">
                         @foreach($departments as $department)
-                        <label class="flex items-center gap-3 p-4 bg-white border-2 border-neutral-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all cursor-pointer"
+                        <label class="flex items-center gap-3 p-4 bg-white border-2 border-neutral-200 rounded-xl hover:border-purple-500 hover:bg-gradient-to-br from-purple-900/50 to-purple-800/50 border border-purple-500/30 transition-all cursor-pointer"
                                data-filiale="{{ $department->filiale_id }}" data-agence="{{ $department->agence_id }}">
-                            <input type="checkbox" name="departments[]" value="{{ $department->id }}" class="department-checkbox w-5 h-5 text-purple-600 border-neutral-300 rounded focus:ring-purple-500">
+                            <input type="checkbox" name="departments[]" value="{{ $department->id }}" class="department-checkbox w-5 h-5 text-white border-neutral-300 rounded focus:ring-purple-500">
                             <div class="flex items-center gap-2 flex-1 min-w-0">
-                                <div class="h-10 w-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <div class="h-10 w-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                     </svg>
@@ -138,7 +138,7 @@
                                 <span>3. Activités à planifier</span>
                                 <p class="text-sm text-neutral-500 font-normal">Définissez les activités types</p>
                             </div>
-                            <button type="button" onclick="addActivity()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-all flex items-center gap-2">
+                            <button type="button" onclick="addActivity()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-semibold transition-all flex items-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                                 </svg>
@@ -161,12 +161,12 @@
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Titre de l'activité *</label>
-                                    <input type="text" name="activities[INDEX][titre]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Ex: Réunion d'équipe mensuelle" required>
+                                    <input type="text" name="activities[INDEX][titre]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Ex: Réunion d'équipe mensuelle" required>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Type *</label>
-                                    <select name="activities[INDEX][type]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" required>
+                                    <select name="activities[INDEX][type]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" required>
                                         <option value="réunion">📋 Réunion</option>
                                         <option value="formation">🎓 Formation</option>
                                         <option value="mission">🚀 Mission</option>
@@ -177,22 +177,22 @@
 
                                 <div class="md:col-span-3">
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Description</label>
-                                    <textarea name="activities[INDEX][description]" rows="2" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Description de l'activité..."></textarea>
+                                    <textarea name="activities[INDEX][description]" rows="2" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Description de l'activité..."></textarea>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Heure</label>
-                                    <input type="time" name="activities[INDEX][heure_debut]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
+                                    <input type="time" name="activities[INDEX][heure_debut]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Lieu</label>
-                                    <input type="text" name="activities[INDEX][lieu]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Ex: Salle de réunion A">
+                                    <input type="text" name="activities[INDEX][lieu]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50" placeholder="Ex: Salle de réunion A">
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-semibold text-neutral-700 mb-2">Statut</label>
-                                    <select name="activities[INDEX][statut]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
+                                    <select name="activities[INDEX][statut]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
                                         <option value="planifiée" selected>📅 Planifiée</option>
                                         <option value="en_cours">⏳ En cours</option>
                                         <option value="terminée">✅ Terminée</option>
@@ -201,7 +201,7 @@
 
                                 <div class="md:col-span-3 pt-4 border-t border-neutral-300">
                                     <label class="block text-sm font-semibold text-neutral-700 mb-3">👤 Responsable RH (Optionnel)</label>
-                                    <select name="activities[INDEX][responsible_id]" class="w-full border-neutral-300 rounded-lg shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
+                                    <select name="activities[INDEX][responsible_id]" class="w-full border-neutral-300 rounded-xl shadow-sm focus:border-green-500 focus:ring focus:ring-green-500 focus:ring-opacity-50">
                                         <option value="">Aucun responsable assigné</option>
                                         @foreach($employees as $employee)
                                             <option value="{{ $employee->user_id }}">
@@ -213,11 +213,11 @@
 
                                 <div class="md:col-span-3">
                                     <label class="block text-sm font-semibold text-neutral-700 mb-3">👥 Participants RH (Optionnel)</label>
-                                    <div class="max-h-32 overflow-y-auto custom-scrollbar border border-neutral-300 rounded-lg p-3 bg-neutral-50">
+                                    <div class="max-h-32 overflow-y-auto custom-scrollbar border border-neutral-300 rounded-xl p-3 bg-neutral-50">
                                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                                             @foreach($employees as $employee)
-                                            <label class="flex items-center gap-2 p-2 bg-white rounded hover:bg-green-50 cursor-pointer transition-all">
-                                                <input type="checkbox" name="activities[INDEX][participants][]" value="{{ $employee->user_id }}" class="w-4 h-4 text-green-600 border-neutral-300 rounded focus:ring-green-500">
+                                            <label class="flex items-center gap-2 p-2 bg-white rounded hover:bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/30 cursor-pointer transition-all">
+                                                <input type="checkbox" name="activities[INDEX][participants][]" value="{{ $employee->user_id }}" class="w-4 h-4 text-white border-neutral-300 rounded focus:ring-green-500">
                                                 <span class="text-sm text-neutral-700">{{ $employee->nom }} {{ $employee->prenom }}</span>
                                             </label>
                                             @endforeach
@@ -244,10 +244,10 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-96 overflow-y-auto custom-scrollbar p-2">
                         @foreach($departments as $department)
-                        <label class="flex items-center gap-3 p-4 bg-white border-2 border-neutral-200 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-all cursor-pointer">
-                            <input type="checkbox" name="departments[]" value="{{ $department->id }}" class="department-checkbox w-5 h-5 text-purple-600 border-neutral-300 rounded focus:ring-purple-500">
+                        <label class="flex items-center gap-3 p-4 bg-white border-2 border-neutral-200 rounded-xl hover:border-purple-500 hover:bg-gradient-to-br from-purple-900/50 to-purple-800/50 border border-purple-500/30 transition-all cursor-pointer">
+                            <input type="checkbox" name="departments[]" value="{{ $department->id }}" class="department-checkbox w-5 h-5 text-white border-neutral-300 rounded focus:ring-purple-500">
                             <div class="flex items-center gap-3 flex-1">
-                                <div class="h-10 w-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <div class="h-10 w-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                     </svg>

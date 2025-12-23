@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Modifier Paramètre Système')
 
 @section('content')
@@ -14,7 +14,7 @@
     </div>
 
     {{-- Form --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-6 border border-hh-border">
         <h2 class="text-xl font-semibold mb-6">Modifier le paramètre: {{ $systemSetting->key }}</h2>
 
         <form method="POST" action="{{ route('admin.system-settings.update', $systemSetting) }}" class="space-y-6">
@@ -26,7 +26,7 @@
                 <label for="category" class="block text-sm font-medium text-hh-muted mb-2">
                     Catégorie <span class="text-red-500">*</span>
                 </label>
-                <select id="category" name="category" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('category') border-red-500 @enderror">
+                <select id="category" name="category" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('category') border-red-500 @enderror">
                     <option value="">Sélectionner une catégorie</option>
                     <option value="general" {{ old('category', $systemSetting->category) == 'general' ? 'selected' : '' }}>Général</option>
                     <option value="email" {{ old('category', $systemSetting->category) == 'email' ? 'selected' : '' }}>Email</option>
@@ -45,7 +45,7 @@
                 <label for="key" class="block text-sm font-medium text-hh-muted mb-2">
                     Clé <span class="text-red-500">*</span>
                 </label>
-                <input type="text" id="key" name="key" value="{{ old('key', $systemSetting->key) }}" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('key') border-red-500 @enderror">
+                <input type="text" id="key" name="key" value="{{ old('key', $systemSetting->key) }}" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('key') border-red-500 @enderror">
                 @error('key')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -56,7 +56,7 @@
                 <label for="type" class="block text-sm font-medium text-hh-muted mb-2">
                     Type <span class="text-red-500">*</span>
                 </label>
-                <select id="type" name="type" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('type') border-red-500 @enderror">
+                <select id="type" name="type" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('type') border-red-500 @enderror">
                     <option value="text" {{ old('type', $systemSetting->type) == 'text' ? 'selected' : '' }}>Texte</option>
                     <option value="boolean" {{ old('type', $systemSetting->type) == 'boolean' ? 'selected' : '' }}>Booléen (Oui/Non)</option>
                     <option value="number" {{ old('type', $systemSetting->type) == 'number' ? 'selected' : '' }}>Nombre</option>
@@ -72,7 +72,7 @@
                 <label for="value" class="block text-sm font-medium text-hh-muted mb-2">
                     Valeur <span class="text-red-500">*</span>
                 </label>
-                <textarea id="value" name="value" rows="3" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('value') border-red-500 @enderror">{{ old('value', is_array($systemSetting->value) ? json_encode($systemSetting->value, JSON_PRETTY_PRINT) : $systemSetting->value) }}</textarea>
+                <textarea id="value" name="value" rows="3" required class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('value') border-red-500 @enderror">{{ old('value', is_array($systemSetting->value) ? json_encode($systemSetting->value, JSON_PRETTY_PRINT) : $systemSetting->value) }}</textarea>
                 @error('value')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -83,7 +83,7 @@
                 <label for="description" class="block text-sm font-medium text-hh-muted mb-2">
                     Description
                 </label>
-                <textarea id="description" name="description" rows="2" class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('description') border-red-500 @enderror">{{ old('description', $systemSetting->description) }}</textarea>
+                <textarea id="description" name="description" rows="2" class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold @error('description') border-red-500 @enderror">{{ old('description', $systemSetting->description) }}</textarea>
                 @error('description')
                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                 @enderror
@@ -99,10 +99,10 @@
 
             {{-- Actions --}}
             <div class="flex justify-end gap-4 pt-6">
-                <a href="{{ route('admin.system-settings.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-lg hover:bg-hh-dark/50 transition">
+                <a href="{{ route('admin.system-settings.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-xl hover:bg-hh-dark/50 transition">
                     Annuler
                 </a>
-                <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition">
+                <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition">
                     Enregistrer
                 </button>
             </div>

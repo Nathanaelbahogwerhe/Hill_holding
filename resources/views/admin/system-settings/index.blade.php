@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Paramètres Système')
 
 @section('content')
@@ -9,7 +9,7 @@
             <h1 class="text-2xl font-bold text-hh-light">Paramètres Système</h1>
             <p class="text-sm text-hh-muted mt-1">Gérer les paramètres de configuration de l'application</p>
         </div>
-        <a href="{{ route('admin.system-settings.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition flex items-center gap-2">
+        <a href="{{ route('admin.system-settings.create') }}" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
@@ -18,7 +18,7 @@
     </div>
 
     {{-- Maintenance Mode Toggle --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-6 border border-hh-border">
         <div class="flex items-center justify-between">
             <div>
                 <h3 class="text-lg font-semibold flex items-center gap-2">
@@ -31,7 +31,7 @@
             </div>
             <form method="POST" action="{{ route('admin.system-settings.maintenance.toggle') }}">
                 @csrf
-                <button type="submit" class="px-6 py-3 {{ app()->isDownForMaintenance() ? 'bg-green-600 hover:bg-green-700' : 'bg-orange-600 hover:bg-orange-700' }} text-white rounded-lg transition flex items-center gap-2">
+                <button type="submit" class="px-6 py-3 {{ app()->isDownForMaintenance() ? 'bg-green-600 hover:bg-green-700' : 'bg-orange-600 hover:bg-orange-700' }} text-white rounded-xl transition flex items-center gap-2">
                     @if(app()->isDownForMaintenance())
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -49,23 +49,23 @@
     </div>
 
     {{-- Filters --}}
-    <div class="bg-hh-card rounded-lg p-4 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-4 border border-hh-border">
         <form method="GET" action="{{ route('admin.system-settings.index') }}" class="flex gap-4">
             <div class="flex-1">
-                <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher par clé ou description..." class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Rechercher par clé ou description..." class="w-full px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold">
             </div>
             <div>
-                <select name="category" class="px-4 py-2 bg-hh-dark border border-hh-border rounded-lg text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold">
+                <select name="category" class="px-4 py-2 bg-hh-dark border border-hh-border rounded-xl text-hh-light focus:outline-none focus:ring-2 focus:ring-hh-gold">
                     <option value="">Toutes les catégories</option>
                     @foreach($categories as $cat)
                     <option value="{{ $cat }}" {{ request('category') == $cat ? 'selected' : '' }}>{{ ucfirst($cat) }}</option>
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition">
+            <button type="submit" class="px-6 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition">
                 Filtrer
             </button>
-            <a href="{{ route('admin.system-settings.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-lg hover:bg-hh-dark/50 transition">
+            <a href="{{ route('admin.system-settings.index') }}" class="px-6 py-2 bg-hh-dark border border-hh-border rounded-xl hover:bg-hh-dark/50 transition">
                 Réinitialiser
             </a>
         </form>
@@ -73,7 +73,7 @@
 
     {{-- Settings by Category --}}
     @foreach($settingsByCategory as $category => $settings)
-    <div class="bg-hh-card rounded-lg border border-hh-border overflow-hidden">
+    <div class="bg-hh-card rounded-xl border border-hh-border overflow-hidden">
         <div class="px-6 py-4 bg-hh-dark/50 border-b border-hh-border">
             <h3 class="text-lg font-semibold">{{ ucfirst($category) }}</h3>
         </div>
@@ -99,7 +99,7 @@
                         <td class="px-6 py-4">
                             <div class="text-sm text-hh-light max-w-xs">
                                 @if($setting->type === 'boolean')
-                                <span class="px-2 py-1 text-xs font-medium rounded-full {{ $setting->value ? 'bg-green-500/20 text-green-500' : 'bg-red-500/20 text-red-500' }}">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full {{ $setting->value ? 'bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/300/20 text-green-500' : 'bg-red-500/20 text-red-500' }}">
                                     {{ $setting->value ? 'Oui' : 'Non' }}
                                 </span>
                                 @elseif($setting->type === 'json')
@@ -155,7 +155,7 @@
     @endforeach
 
     {{-- Stats --}}
-    <div class="bg-hh-card rounded-lg p-4 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-4 border border-hh-border">
         <p class="text-sm text-hh-muted">
             Total: <span class="font-semibold text-hh-light">{{ $totalCount }}</span> paramètre(s) | 
             <span class="font-semibold text-hh-light">{{ $settingsByCategory->count() }}</span> catégorie(s)

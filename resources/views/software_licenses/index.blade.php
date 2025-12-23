@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Licences Logiciels</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Licences Logiciels</h1>
         <a href="{{ route('software_licenses.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouvelle Licence
         </a>
@@ -11,26 +11,26 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-lg shadow p-4">
+        <div class="bg-white rounded-xl shadow p-4">
             <div class="text-sm text-gray-500">Total</div>
-            <div class="text-2xl font-bold">{{ $stats['total'] }}</div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ $stats['total'] }}</div>
         </div>
-        <div class="bg-green-50 rounded-lg shadow p-4">
-            <div class="text-sm text-green-600">Active</div>
-            <div class="text-2xl font-bold text-green-600">{{ $stats['active'] }}</div>
+        <div class="bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/30 rounded-xl shadow p-4">
+            <div class="text-sm text-white">Active</div>
+            <div class="text-2xl font-bold text-white">{{ $stats['active'] }}</div>
         </div>
-        <div class="bg-orange-50 rounded-lg shadow p-4">
+        <div class="bg-orange-50 rounded-xl shadow p-4">
             <div class="text-sm text-orange-600">Expire Bientôt</div>
             <div class="text-2xl font-bold text-orange-600">{{ $stats['expire_soon'] }}</div>
         </div>
-        <div class="bg-red-50 rounded-lg shadow p-4">
+        <div class="bg-red-50 rounded-xl shadow p-4">
             <div class="text-sm text-red-600">Expirée</div>
             <div class="text-2xl font-bold text-red-600">{{ $stats['expiree'] }}</div>
         </div>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -47,7 +47,7 @@
                 @forelse($licenses as $license)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('software_licenses.show', $license) }}" class="text-blue-600 hover:underline font-mono">{{ $license->numero }}</a>
+                        <a href="{{ route('software_licenses.show', $license) }}" class="text-white hover:underline font-mono">{{ $license->numero }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <div class="font-medium">{{ $license->nom_logiciel }}</div>
@@ -59,7 +59,7 @@
                         <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">{{ ucfirst($license->type) }}</span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="{{ $license->postes_disponibles > 0 ? 'text-green-600' : 'text-red-600' }} font-medium">
+                        <span class="{{ $license->postes_disponibles > 0 ? 'text-white' : 'text-red-600' }} font-medium">
                             {{ $license->postes_utilises }}/{{ $license->nombre_postes }}
                         </span>
                     </td>
@@ -78,7 +78,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('software_licenses.show', $license) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('software_licenses.show', $license) }}" class="text-white hover:underline">Voir</a>
                     </td>
                 </tr>
                 @empty

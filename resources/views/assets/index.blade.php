@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Gestion des Actifs')
 
@@ -129,7 +129,7 @@
                             </div>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-purple-600/30 to-purple-700/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-purple-600/30 to-purple-700/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
                                 {{ $asset->category }}
                             </span>
                         </td>
@@ -146,7 +146,7 @@
                                 ];
                                 $status = $statusConfig[$asset->status] ?? $statusConfig['inactive'];
                             @endphp
-                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-gradient-to-r {{ $status['color'] }} text-white text-sm font-semibold shadow-lg">
+                            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-gradient-to-r {{ $status['color'] }} text-white text-sm font-semibold shadow-lg">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $status['icon'] }}" />
                                 </svg>

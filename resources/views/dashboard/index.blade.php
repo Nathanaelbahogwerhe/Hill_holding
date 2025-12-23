@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @php
     $user = auth()->user();
@@ -45,7 +45,7 @@
 
     <!-- Charts row -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+        <div class="bg-[#0f0f10] border border-black/30 rounded-xl p-4">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Activité — 30 derniers jours</h3>
                 <div class="text-xs text-[#9b9b9b]">visites & actions</div>
@@ -53,7 +53,7 @@
             <div id="chart-activity" class="h-64"></div>
         </div>
 
-        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+        <div class="bg-[#0f0f10] border border-black/30 rounded-xl p-4">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-sm font-semibold" style="color:var(--hh-gold)">Paie — répartition</h3>
                 <div class="text-xs text-[#9b9b9b]">salaire / primes / indemnités</div>
@@ -65,7 +65,7 @@
     <!-- Listes -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         @if($niveau === 'mere')
-            <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+            <div class="bg-[#0f0f10] border border-black/30 rounded-xl p-4">
                 <h4 class="text-sm font-semibold mb-3" style="color:var(--hh-gold)">Filiales & Agences</h4>
                 <ul class="space-y-2 text-sm text-[#d0d0d0]">
                     @foreach($filiales as $f)
@@ -84,7 +84,7 @@
             </div>
         @endif
 
-        <div class="bg-[#0f0f10] border border-black/30 rounded-lg p-4">
+        <div class="bg-[#0f0f10] border border-black/30 rounded-xl p-4">
             <h4 class="text-sm font-semibold mb-3" style="color:var(--hh-gold)">Utilisateurs</h4>
             <ul class="space-y-2 text-sm text-[#d0d0d0]">
                 @forelse($users->take(12) as $u)

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Modifier Vente')
 
 @section('content')
-<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
+<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-xl p-6">
     <h1 class="text-2xl font-semibold mb-4">Modifier la vente</h1>
 
     <form action="{{ route('sales.update', $sale) }}" method="POST" class="space-y-4">

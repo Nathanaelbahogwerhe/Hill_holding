@@ -1,18 +1,18 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
     <div class="mb-6">
-        <h1 class="text-2xl font-bold">Nouvelle Maintenance</h1>
-        <p class="text-gray-600">Planifier une maintenance préventive ou corrective</p>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Nouvelle Maintenance</h1>
+        <p class="text-neutral-400">Planifier une maintenance préventive ou corrective</p>
     </div>
 
-    <form action="{{ route('maintenances.store') }}" method="POST" class="bg-white rounded-lg shadow p-6">
+    <form action="{{ route('maintenances.store') }}" method="POST" class="bg-white rounded-xl shadow p-6">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Équipement <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Équipement <span class="text-red-500">*</span></label>
                 <select name="equipment_id" class="form-select w-full @error('equipment_id') border-red-500 @enderror" required>
                     <option value="">Sélectionner</option>
                     @foreach($equipment as $item)
@@ -25,7 +25,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Type <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Type <span class="text-red-500">*</span></label>
                 <select name="type" class="form-select w-full @error('type') border-red-500 @enderror" required>
                     <option value="preventive" {{ old('type', 'preventive') == 'preventive' ? 'selected' : '' }}>Préventive</option>
                     <option value="corrective" {{ old('type') == 'corrective' ? 'selected' : '' }}>Corrective</option>
@@ -34,19 +34,19 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Date Maintenance <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Date Maintenance <span class="text-red-500">*</span></label>
                 <input type="date" name="date_maintenance" value="{{ old('date_maintenance', date('Y-m-d')) }}" class="form-input w-full @error('date_maintenance') border-red-500 @enderror" required>
                 @error('date_maintenance')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Description <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Description <span class="text-red-500">*</span></label>
                 <textarea name="description" rows="4" class="form-input w-full @error('description') border-red-500 @enderror" required>{{ old('description') }}</textarea>
                 @error('description')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Technicien</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Technicien</label>
                 <select name="technicien_id" class="form-select w-full @error('technicien_id') border-red-500 @enderror">
                     <option value="">Non assigné</option>
                     @foreach($techniciens as $tech)
@@ -57,31 +57,31 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Coût Estimé (FCFA)</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Coût Estimé (FCFA)</label>
                 <input type="number" name="cout" value="{{ old('cout') }}" class="form-input w-full @error('cout') border-red-500 @enderror" step="0.01" min="0">
                 @error('cout')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Durée Estimée (heures)</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Durée Estimée (heures)</label>
                 <input type="number" name="duree_estimee" value="{{ old('duree_estimee') }}" class="form-input w-full @error('duree_estimee') border-red-500 @enderror" step="0.5" min="0">
                 @error('duree_estimee')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Durée Réelle (heures)</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Durée Réelle (heures)</label>
                 <input type="number" name="duree_reelle" value="{{ old('duree_reelle') }}" class="form-input w-full @error('duree_reelle') border-red-500 @enderror" step="0.5" min="0">
                 @error('duree_reelle')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Pièces Remplacées</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Pièces Remplacées</label>
                 <textarea name="pieces_remplacees" rows="2" class="form-input w-full @error('pieces_remplacees') border-red-500 @enderror" placeholder="Liste des pièces...">{{ old('pieces_remplacees') }}</textarea>
                 @error('pieces_remplacees')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Remarques</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Remarques</label>
                 <textarea name="remarques" rows="2" class="form-input w-full @error('remarques') border-red-500 @enderror">{{ old('remarques') }}</textarea>
                 @error('remarques')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>

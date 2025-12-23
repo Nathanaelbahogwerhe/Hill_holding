@@ -1,11 +1,11 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Administration')
 
 @section('content')
 <div class="max-w-6xl mx-auto space-y-6">
 
-    <h1 class="text-2xl font-bold">Console d'administration</h1>
+    <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Console d'administration</h1>
 
     {{-- Notifications --}}
     @if(session('success'))

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Types de Congés')
 
@@ -120,14 +120,14 @@
                         </td>
                         <td class="p-4">
                             @if($type->is_paid)
-                                <span class="px-3 py-1 rounded-lg bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Payé
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -136,7 +136,7 @@
                             @endif
                         </td>
                         <td class="p-4">
-                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-800 rounded-lg">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-neutral-800 rounded-xl">
                                 <svg class="w-4 h-4 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>

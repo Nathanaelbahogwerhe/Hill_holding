@@ -1,6 +1,6 @@
-@props(['users'])
+﻿@props(['users'])
 
-<div class="bg-hh-card p-4 rounded-lg shadow">
+<div class="bg-hh-card p-4 rounded-xl shadow">
     <h4 class="text-lg font-semibold mb-3">Utilisateurs</h4>
     @if($users->isEmpty())
         <p class="text-sm text-hh-muted">Aucun utilisateur trouvé.</p>

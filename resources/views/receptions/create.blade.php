@@ -1,18 +1,18 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
     <div class="mb-6">
-        <h1 class="text-2xl font-bold">Nouvelle Réception</h1>
-        <p class="text-gray-600">Enregistrer la réception de marchandises</p>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Nouvelle Réception</h1>
+        <p class="text-neutral-400">Enregistrer la réception de marchandises</p>
     </div>
 
-    <form action="{{ route('receptions.store') }}" method="POST" class="bg-white rounded-lg shadow p-6">
+    <form action="{{ route('receptions.store') }}" method="POST" class="bg-white rounded-xl shadow p-6">
         @csrf
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Bon de Commande <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Bon de Commande <span class="text-red-500">*</span></label>
                 <select name="purchase_order_id" class="form-select w-full @error('purchase_order_id') border-red-500 @enderror" required>
                     <option value="">Sélectionner</option>
                     @foreach($purchaseOrders as $order)
@@ -25,13 +25,13 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Date Réception <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Date Réception <span class="text-red-500">*</span></label>
                 <input type="date" name="date_reception" value="{{ old('date_reception', date('Y-m-d')) }}" class="form-input w-full @error('date_reception') border-red-500 @enderror" required>
                 @error('date_reception')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Réceptionné Par <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Réceptionné Par <span class="text-red-500">*</span></label>
                 <select name="receptionnaire_id" class="form-select w-full @error('receptionnaire_id') border-red-500 @enderror" required>
                     <option value="">Sélectionner</option>
                     @foreach($users as $user)
@@ -42,7 +42,7 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Conformité <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Conformité <span class="text-red-500">*</span></label>
                 <select name="conformite" class="form-select w-full @error('conformite') border-red-500 @enderror" required>
                     <option value="en_attente" {{ old('conformite', 'en_attente') == 'en_attente' ? 'selected' : '' }}>En Attente</option>
                     <option value="conforme" {{ old('conformite') == 'conforme' ? 'selected' : '' }}>Conforme</option>
@@ -53,25 +53,25 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Quantité Commandée</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Quantité Commandée</label>
                 <input type="number" name="quantite_commandee" value="{{ old('quantite_commandee') }}" class="form-input w-full @error('quantite_commandee') border-red-500 @enderror" min="0">
                 @error('quantite_commandee')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Quantité Reçue</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Quantité Reçue</label>
                 <input type="number" name="quantite_recue" value="{{ old('quantite_recue') }}" class="form-input w-full @error('quantite_recue') border-red-500 @enderror" min="0">
                 @error('quantite_recue')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Remarques</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Remarques</label>
                 <textarea name="remarques" rows="3" class="form-input w-full @error('remarques') border-red-500 @enderror">{{ old('remarques') }}</textarea>
                 @error('remarques')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>
 
             <div class="md:col-span-2">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Réserves (si applicable)</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Réserves (si applicable)</label>
                 <textarea name="reserves" rows="3" class="form-input w-full @error('reserves') border-red-500 @enderror">{{ old('reserves') }}</textarea>
                 @error('reserves')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
             </div>

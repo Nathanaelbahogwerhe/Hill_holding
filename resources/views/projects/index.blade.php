@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Projets')
 
 @section('content')
-<div class="bg-hh-card rounded-lg shadow p-6">
+<div class="bg-hh-card rounded-xl shadow p-6">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">ðŸ­ Liste des projets</h2>
         <a href="{{ route('projects.create') }}" class="px-4 py-2 bg-hh-primary text-white rounded hover:bg-hh-primary-dark">
@@ -12,7 +12,7 @@
     </div>
 
     <table class="min-w-full text-sm text-left">
-        <thead class="bg-hh-gray-light uppercase text-gray-700">
+        <thead class="bg-hh-gray-light uppercase text-[#D4AF37]">
             <tr>
                 <th class="px-4 py-2">#</th>
                 <th class="px-4 py-2">Nom</th>
@@ -34,7 +34,7 @@
                         <span class="px-2 py-1 text-xs rounded font-medium
                             {{ $project->status === 'En cours' ? 'bg-yellow-100 text-yellow-700' :
                                ($project->status === 'Terminé' ? 'bg-green-100 text-green-700' : 
-                               'bg-gray-100 text-gray-700') }}">
+                               'bg-gray-100 text-[#D4AF37]') }}">
                             {{ $project->status }}
                         </span>
                     </td>

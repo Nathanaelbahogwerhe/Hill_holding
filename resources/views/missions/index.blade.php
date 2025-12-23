@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Missions</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Missions</h1>
         <a href="{{ route('missions.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouvelle Mission
         </a>
@@ -11,33 +11,33 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Total</p>
-            <p class="text-2xl font-bold">{{ $stats['total'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Total</p>
+            <p class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ $stats['total'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Planifiées</p>
-            <p class="text-2xl font-bold text-blue-600">{{ $stats['planifiee'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Planifiées</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['planifiee'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">En Cours</p>
-            <p class="text-2xl font-bold text-green-600">{{ $stats['en_cours'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">En Cours</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['en_cours'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Terminées</p>
-            <p class="text-2xl font-bold text-gray-600">{{ $stats['terminee'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Terminées</p>
+            <p class="text-2xl font-bold text-neutral-400">{{ $stats['terminee'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Annulées</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Annulées</p>
             <p class="text-2xl font-bold text-red-600">{{ $stats['annulee'] ?? 0 }}</p>
         </div>
     </div>
 
     {{-- Filtres --}}
-    <div class="bg-white rounded-lg shadow mb-6 p-4">
+    <div class="bg-white rounded-xl shadow mb-6 p-4">
         <form method="GET" action="{{ route('missions.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Filiale</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Filiale</label>
                 <select name="filiale_id" class="form-select w-full">
                     <option value="">Toutes</option>
                     @foreach($filiales as $filiale)
@@ -46,7 +46,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Véhicule</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Véhicule</label>
                 <select name="vehicle_id" class="form-select w-full">
                     <option value="">Tous</option>
                     @foreach($vehicles as $vehicle)
@@ -55,7 +55,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Statut</label>
                 <select name="statut" class="form-select w-full">
                     <option value="">Tous</option>
                     <option value="planifiee" {{ request('statut') == 'planifiee' ? 'selected' : '' }}>Planifiée</option>
@@ -65,7 +65,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Recherche</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Recherche</label>
                 <input type="text" name="search" value="{{ request('search') }}" class="form-input w-full" placeholder="Numéro, destination...">
             </div>
             <div class="flex items-end">
@@ -76,7 +76,7 @@
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -94,7 +94,7 @@
                 @forelse($missions as $mission)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('missions.show', $mission) }}" class="text-blue-600 hover:underline">{{ $mission->numero }}</a>
+                        <a href="{{ route('missions.show', $mission) }}" class="text-white hover:underline">{{ $mission->numero }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <span class="font-mono">{{ $mission->vehicle->immatriculation }}</span>
@@ -111,8 +111,8 @@
                     </td>
                     <td class="px-6 py-4">
                         <span class="px-2 py-1 text-xs rounded 
-                            @if($mission->statut === 'planifiee') bg-blue-100 text-blue-800
-                            @elseif($mission->statut === 'en_cours') bg-green-100 text-green-800
+                            @if($mission->statut === 'planifiee') bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300
+                            @elseif($mission->statut === 'en_cours') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
                             @elseif($mission->statut === 'terminee') bg-gray-100 text-gray-800
                             @else bg-red-100 text-red-800
                             @endif">
@@ -120,7 +120,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('missions.show', $mission) }}" class="text-blue-600 hover:underline mr-3">Voir</a>
+                        <a href="{{ route('missions.show', $mission) }}" class="text-white hover:underline mr-3">Voir</a>
                         @if($mission->statut === 'planifiee')
                         <form action="{{ route('missions.destroy', $mission) }}" method="POST" class="inline">
                             @csrf @method('DELETE')

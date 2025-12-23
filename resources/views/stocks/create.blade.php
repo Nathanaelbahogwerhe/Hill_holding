@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 py-6 text-white">
@@ -140,10 +140,10 @@
 
         {{-- Boutons --}}
         <div class="flex justify-between items-center pt-4 border-t border-gray-700">
-            <a href="{{ route('stocks.index') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg">
+            <a href="{{ route('stocks.index') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-xl">
                 ← Annuler
             </a>
-            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-lg">
+            <button type="submit" class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-xl">
                 ✅ Enregistrer
             </button>
         </div>

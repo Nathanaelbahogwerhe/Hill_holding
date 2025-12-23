@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-6">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="flex justify-end mt-4">
-            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-lg transition">
+            <button type="submit" class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-xl transition">
                 🔍 Filtrer
             </button>
         </div>
@@ -124,7 +124,7 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             @if($budgetStats['overBudget'] > 0)
-            <div class="bg-red-900/30 border border-red-600 rounded-lg p-4">
+            <div class="bg-red-900/30 border border-red-600 rounded-xl p-4">
                 <div class="flex items-center gap-3">
                     <span class="text-3xl">⚠️</span>
                     <div>
@@ -136,7 +136,7 @@
             @endif
 
             @if($budgetStats['nearLimit'] > 0)
-            <div class="bg-orange-900/30 border border-orange-600 rounded-lg p-4">
+            <div class="bg-orange-900/30 border border-orange-600 rounded-xl p-4">
                 <div class="flex items-center gap-3">
                     <span class="text-3xl">⚡</span>
                     <div>
@@ -243,7 +243,7 @@
         
         <div class="space-y-3">
             @foreach($alertBudgets as $budget)
-            <div class="bg-gray-900 rounded-lg p-4 
+            <div class="bg-gray-900 rounded-xl p-4 
                 @if($budget->isOverBudget()) border-l-4 border-red-500
                 @else border-l-4 border-orange-500
                 @endif">

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Détails du projet')
 
 @section('content')
-<div class="bg-hh-card rounded-lg shadow p-6 max-w-3xl mx-auto">
+<div class="bg-hh-card rounded-xl shadow p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">ðŸ“‹ {{ $project->name }}</h2>
 
     <div class="space-y-3">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="mt-4 flex justify-end space-x-2">
-        <a href="{{ route('projects.edit', $project) }}" class="px-4 py-2 bg-yellow-500 text-black rounded hover:bg-yellow-600">Modifier</a>
+        <a href="{{ route('projects.edit', $project) }}" class="px-4 py-2 bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black rounded hover:bg-yellow-600">Modifier</a>
         <form action="{{ route('projects.destroy', $project) }}" method="POST" onsubmit="return confirm('Supprimer ce projet ?')">
             @csrf @method('DELETE')
             <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Supprimer</button>

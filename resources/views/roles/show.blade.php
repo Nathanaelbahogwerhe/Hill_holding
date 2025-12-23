@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Détails du Rôle')
 
 @section('content')
@@ -14,10 +14,10 @@
     </div>
 
     {{-- Role Details --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-6 border border-hh-border">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-semibold">Détails du Rôle</h2>
-            <a href="{{ route('admin.roles.edit', $role->id) }}" class="px-4 py-2 bg-hh-gold text-hh-dark rounded-lg hover:bg-hh-gold/90 transition">
+            <a href="{{ route('admin.roles.edit', $role->id) }}" class="px-4 py-2 bg-hh-gold text-hh-dark rounded-xl hover:bg-hh-gold/90 transition">
                 Modifier
             </a>
         </div>
@@ -50,7 +50,7 @@
             @if($role->permissions->count() > 0)
             <div class="flex flex-wrap gap-2">
                 @foreach($role->permissions as $permission)
-                <span class="px-3 py-1 text-sm font-medium rounded-full bg-blue-500/20 text-blue-500">
+                <span class="px-3 py-1 text-sm font-medium rounded-full bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/300/20 text-blue-500">
                     {{ $permission->name }}
                 </span>
                 @endforeach
@@ -84,13 +84,13 @@
     </div>
 
     {{-- Delete Action --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-red-500/20">
+    <div class="bg-hh-card rounded-xl p-6 border border-red-500/20">
         <h3 class="text-lg font-semibold text-red-500 mb-2">Zone de danger</h3>
         <p class="text-sm text-hh-muted mb-4">La suppression de ce rôle est irréversible. Tous les utilisateurs perdront ce rôle.</p>
         <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm('Confirmer la suppression définitive?')">
             @csrf
             @method('DELETE')
-            <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
+            <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl transition">
                 Supprimer ce rôle
             </button>
         </form>

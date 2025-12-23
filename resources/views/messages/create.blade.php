@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="container mx-auto p-6">
@@ -32,12 +32,12 @@
 
         <div class="mb-6">
             <label class="block mb-2">ðŸ“Ž Pièce jointe (optionnel)</label>
-            <input type="file" name="attachment" class="w-full text-gray-300">
+            <input type="file" name="attachment" class="w-full text-neutral-300">
             @error('attachment') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
         </div>
 
         <div class="flex justify-end">
-            <button type="submit" class="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-600">
+            <button type="submit" class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black px-4 py-2 rounded hover:bg-yellow-600">
                 Envoyer âœ‰ï¸
             </button>
         </div>

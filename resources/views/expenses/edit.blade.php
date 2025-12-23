@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Modifier Dépense')
 
@@ -101,7 +101,7 @@
                 @endif
                 
                 <input type="file" name="attachment" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                       class="hh-input text-gray-300">
+                       class="hh-input text-neutral-300">
                 <p class="text-xs text-gray-400 mt-1">
                     @if($expense->attachment)
                         Choisir un nouveau fichier remplacera l'ancien. 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Détails du Log')
 
 @section('content')
@@ -14,7 +14,7 @@
     </div>
 
     {{-- Log Details --}}
-    <div class="bg-hh-card rounded-lg p-6 border border-hh-border">
+    <div class="bg-hh-card rounded-xl p-6 border border-hh-border">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-semibold">Log d'Activité #{{ $log->id }}</h2>
             <span class="px-3 py-1 text-sm font-medium rounded-full {{ $log->action_color }}">
@@ -77,7 +77,7 @@
         <div class="mt-6 pt-6 border-t border-hh-border">
             <h3 class="text-lg font-semibold mb-4">Modifications</h3>
             
-            <div class="bg-hh-dark/50 rounded-lg p-4 border border-hh-border overflow-x-auto">
+            <div class="bg-hh-dark/50 rounded-xl p-4 border border-hh-border overflow-x-auto">
                 <pre class="text-sm text-hh-light whitespace-pre-wrap">{{ json_encode($log->changes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) }}</pre>
             </div>
         </div>
@@ -89,7 +89,7 @@
         <form method="POST" action="{{ route('admin.activity-logs.destroy', $log) }}" onsubmit="return confirm('Supprimer ce log?')">
             @csrf
             @method('DELETE')
-            <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
+            <button type="submit" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl transition">
                 Supprimer ce log
             </button>
         </form>

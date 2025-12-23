@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Parc Informatique</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Parc Informatique</h1>
         <a href="{{ route('it_equipment.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouvel Équipement
         </a>
@@ -11,26 +11,26 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-lg shadow p-4">
+        <div class="bg-white rounded-xl shadow p-4">
             <div class="text-sm text-gray-500">Total</div>
-            <div class="text-2xl font-bold">{{ $stats['total'] }}</div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ $stats['total'] }}</div>
         </div>
-        <div class="bg-green-50 rounded-lg shadow p-4">
-            <div class="text-sm text-green-600">Disponible</div>
-            <div class="text-2xl font-bold text-green-600">{{ $stats['disponible'] }}</div>
+        <div class="bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/30 rounded-xl shadow p-4">
+            <div class="text-sm text-white">Disponible</div>
+            <div class="text-2xl font-bold text-white">{{ $stats['disponible'] }}</div>
         </div>
-        <div class="bg-blue-50 rounded-lg shadow p-4">
-            <div class="text-sm text-blue-600">En Service</div>
-            <div class="text-2xl font-bold text-blue-600">{{ $stats['en_service'] }}</div>
+        <div class="bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/30 rounded-xl shadow p-4">
+            <div class="text-sm text-white">En Service</div>
+            <div class="text-2xl font-bold text-white">{{ $stats['en_service'] }}</div>
         </div>
-        <div class="bg-yellow-50 rounded-lg shadow p-4">
-            <div class="text-sm text-yellow-600">En Réparation</div>
-            <div class="text-2xl font-bold text-yellow-600">{{ $stats['en_reparation'] }}</div>
+        <div class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/30 rounded-xl shadow p-4">
+            <div class="text-sm text-white">En Réparation</div>
+            <div class="text-2xl font-bold text-white">{{ $stats['en_reparation'] }}</div>
         </div>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -47,7 +47,7 @@
                 @forelse($itEquipment as $equipment)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('it_equipment.show', $equipment) }}" class="text-blue-600 hover:underline font-mono">{{ $equipment->numero }}</a>
+                        <a href="{{ route('it_equipment.show', $equipment) }}" class="text-white hover:underline font-mono">{{ $equipment->numero }}</a>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded">{{ ucfirst($equipment->type) }}</span>
@@ -72,7 +72,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('it_equipment.show', $equipment) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('it_equipment.show', $equipment) }}" class="text-white hover:underline">Voir</a>
                     </td>
                 </tr>
                 @empty

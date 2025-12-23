@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-6 text-white">
@@ -11,7 +11,7 @@
         </div>
 
         <a href="{{ route('stocks.create') }}"
-           class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg shadow">
+           class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-xl shadow">
             ➕ Nouveau mouvement
         </a>
     </div>
@@ -20,15 +20,15 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-gradient-to-br from-green-900 to-green-800 border border-green-600 rounded-xl p-4">
             <div class="text-sm text-green-300">Total Entrées</div>
-            <div class="text-2xl font-bold">{{ number_format($stats['total_entrees'], 0, ',', ' ') }}</div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ number_format($stats['total_entrees'], 0, ',', ' ') }}</div>
         </div>
         <div class="bg-gradient-to-br from-red-900 to-red-800 border border-red-600 rounded-xl p-4">
             <div class="text-sm text-red-300">Total Sorties</div>
-            <div class="text-2xl font-bold">{{ number_format($stats['total_sorties'], 0, ',', ' ') }}</div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ number_format($stats['total_sorties'], 0, ',', ' ') }}</div>
         </div>
         <div class="bg-gradient-to-br from-blue-900 to-blue-800 border border-blue-600 rounded-xl p-4">
             <div class="text-sm text-blue-300">Valeur Stock</div>
-            <div class="text-2xl font-bold">{{ number_format($stats['valeur_stock'], 0, ',', ' ') }} FBu</div>
+            <div class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ number_format($stats['valeur_stock'], 0, ',', ' ') }} FBu</div>
         </div>
     </div>
 
@@ -70,7 +70,7 @@
         </div>
 
         <div class="flex items-end gap-2">
-            <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded">
+            <button type="submit" class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black px-4 py-2 rounded">
                 🔍 Filtrer
             </button>
             <a href="{{ route('stocks.index') }}" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded">
@@ -82,7 +82,7 @@
     {{-- Tableau --}}
     <div class="bg-gray-900 border border-yellow-600 rounded-xl overflow-hidden">
         <table class="w-full">
-            <thead class="bg-yellow-500 text-black">
+            <thead class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black">
                 <tr>
                     <th class="px-4 py-3 text-left">Date</th>
                     <th class="px-4 py-3 text-left">Article</th>

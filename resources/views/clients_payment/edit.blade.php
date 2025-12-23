@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="container mx-auto p-4 max-w-lg">
@@ -49,7 +49,7 @@
         </div>
 
         <div class="flex justify-end">
-            <button type="submit" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600">Mettre à  jour</button>
+            <button type="submit" class="px-4 py-2 bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-white rounded hover:bg-yellow-600">Mettre à  jour</button>
         </div>
     </form>
 </div>

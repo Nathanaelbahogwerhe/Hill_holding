@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Assurances')
 
@@ -128,7 +128,7 @@
                             </div>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
                                 {{ $insurance->type ?? '—' }}
                             </span>
                         </td>

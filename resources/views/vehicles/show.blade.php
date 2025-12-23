@@ -1,11 +1,11 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-6xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <div>
-            <h1 class="text-2xl font-bold">{{ $vehicle->marque }} {{ $vehicle->modele }}</h1>
-            <p class="text-gray-600 font-mono text-lg">{{ $vehicle->immatriculation }}</p>
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ $vehicle->marque }} {{ $vehicle->modele }}</h1>
+            <p class="text-neutral-400 font-mono text-lg">{{ $vehicle->immatriculation }}</p>
         </div>
         <div class="flex gap-2">
             <a href="{{ route('missions.create', ['vehicle_id' => $vehicle->id]) }}" class="btn-primary">
@@ -22,40 +22,40 @@
         {{-- Colonne principale --}}
         <div class="lg:col-span-2 space-y-6">
             {{-- Informations véhicule --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Informations du Véhicule</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-sm text-gray-600">Type</p>
+                        <p class="text-sm text-neutral-400">Type</p>
                         <p class="font-medium">{{ ucfirst($vehicle->type) }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Année</p>
+                        <p class="text-sm text-neutral-400">Année</p>
                         <p class="font-medium">{{ $vehicle->annee }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Couleur</p>
+                        <p class="text-sm text-neutral-400">Couleur</p>
                         <p class="font-medium">{{ $vehicle->couleur ?? '-' }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Filiale</p>
+                        <p class="text-sm text-neutral-400">Filiale</p>
                         <p class="font-medium">{{ $vehicle->filiale->nom }}</p>
                     </div>
                     @if($vehicle->service)
                     <div>
-                        <p class="text-sm text-gray-600">Service</p>
+                        <p class="text-sm text-neutral-400">Service</p>
                         <p class="font-medium">{{ $vehicle->service->nom }}</p>
                     </div>
                     @endif
                     @if($vehicle->chauffeur)
                     <div>
-                        <p class="text-sm text-gray-600">Chauffeur</p>
+                        <p class="text-sm text-neutral-400">Chauffeur</p>
                         <p class="font-medium">{{ $vehicle->chauffeur->name }}</p>
                     </div>
                     @endif
                     @if($vehicle->numero_chassis)
                     <div class="col-span-2">
-                        <p class="text-sm text-gray-600">N° Châssis</p>
+                        <p class="text-sm text-neutral-400">N° Châssis</p>
                         <p class="font-mono">{{ $vehicle->numero_chassis }}</p>
                     </div>
                     @endif
@@ -63,33 +63,33 @@
             </div>
 
             {{-- Kilométrage et carburant --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Kilométrage & Carburant</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-sm text-gray-600">Kilométrage Initial</p>
+                        <p class="text-sm text-neutral-400">Kilométrage Initial</p>
                         <p class="font-medium">{{ number_format($vehicle->kilometrage_initial, 0, ',', ' ') }} km</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Kilométrage Actuel</p>
+                        <p class="text-sm text-neutral-400">Kilométrage Actuel</p>
                         <p class="font-bold text-lg">{{ number_format($vehicle->kilometrage_actuel, 0, ',', ' ') }} km</p>
                     </div>
                     @if($vehicle->capacite_reservoir)
                     <div>
-                        <p class="text-sm text-gray-600">Capacité Réservoir</p>
+                        <p class="text-sm text-neutral-400">Capacité Réservoir</p>
                         <p class="font-medium">{{ $vehicle->capacite_reservoir }} L</p>
                     </div>
                     @endif
                     @if($vehicle->consommation_moyenne)
                     <div>
-                        <p class="text-sm text-gray-600">Conso. Moyenne Théorique</p>
+                        <p class="text-sm text-neutral-400">Conso. Moyenne Théorique</p>
                         <p class="font-medium">{{ $vehicle->consommation_moyenne }} L/100km</p>
                     </div>
                     @endif
                     @if($vehicle->consommation_moyenne_reelle)
                     <div>
-                        <p class="text-sm text-gray-600">Conso. Moyenne Réelle</p>
-                        <p class="font-bold text-lg {{ $vehicle->consommation_moyenne_reelle > ($vehicle->consommation_moyenne ?? 0) ? 'text-red-600' : 'text-green-600' }}">
+                        <p class="text-sm text-neutral-400">Conso. Moyenne Réelle</p>
+                        <p class="font-bold text-lg {{ $vehicle->consommation_moyenne_reelle > ($vehicle->consommation_moyenne ?? 0) ? 'text-red-600' : 'text-white' }}">
                             {{ number_format($vehicle->consommation_moyenne_reelle, 2) }} L/100km
                         </p>
                     </div>
@@ -98,25 +98,25 @@
             </div>
 
             {{-- Assurance --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Assurance</h2>
                 <div class="grid grid-cols-2 gap-4">
                     @if($vehicle->compagnie_assurance)
                     <div>
-                        <p class="text-sm text-gray-600">Compagnie</p>
+                        <p class="text-sm text-neutral-400">Compagnie</p>
                         <p class="font-medium">{{ $vehicle->compagnie_assurance }}</p>
                     </div>
                     @endif
                     @if($vehicle->date_debut_assurance)
                     <div>
-                        <p class="text-sm text-gray-600">Date Début</p>
+                        <p class="text-sm text-neutral-400">Date Début</p>
                         <p class="font-medium">{{ $vehicle->date_debut_assurance->format('d/m/Y') }}</p>
                     </div>
                     @endif
                     @if($vehicle->date_fin_assurance)
                     <div>
-                        <p class="text-sm text-gray-600">Date Fin</p>
-                        <p class="font-medium {{ $vehicle->is_assurance_active ? 'text-green-600' : 'text-red-600' }}">
+                        <p class="text-sm text-neutral-400">Date Fin</p>
+                        <p class="font-medium {{ $vehicle->is_assurance_active ? 'text-white' : 'text-red-600' }}">
                             {{ $vehicle->date_fin_assurance->format('d/m/Y') }}
                             @if(!$vehicle->is_assurance_active)
                                 <span class="text-xs">(Expirée)</span>
@@ -126,7 +126,7 @@
                     @endif
                     @if($vehicle->date_visite_technique)
                     <div>
-                        <p class="text-sm text-gray-600">Visite Technique</p>
+                        <p class="text-sm text-neutral-400">Visite Technique</p>
                         <p class="font-medium">{{ $vehicle->date_visite_technique->format('d/m/Y') }}</p>
                     </div>
                     @endif
@@ -134,10 +134,10 @@
             </div>
 
             {{-- Missions récentes --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold">Missions Récentes</h2>
-                    <span class="text-sm text-gray-600">{{ $vehicle->missions->count() }} missions</span>
+                    <span class="text-sm text-neutral-400">{{ $vehicle->missions->count() }} missions</span>
                 </div>
                 @if($vehicle->missions->count() > 0)
                 <div class="space-y-3">
@@ -146,7 +146,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="font-medium">{{ $mission->numero }}</p>
-                                <p class="text-sm text-gray-600">{{ $mission->destination }}</p>
+                                <p class="text-sm text-neutral-400">{{ $mission->destination }}</p>
                                 <p class="text-xs text-gray-500 mt-1">
                                     {{ $mission->date_debut->format('d/m/Y') }} • 
                                     {{ $mission->distance_km ? $mission->distance_km . ' km' : '' }} • 
@@ -163,10 +163,10 @@
             </div>
 
             {{-- Ravitaillements récents --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold">Ravitaillements Récents</h2>
-                    <span class="text-sm text-gray-600">{{ $vehicle->fuelRecords->count() }} ravitaillements</span>
+                    <span class="text-sm text-neutral-400">{{ $vehicle->fuelRecords->count() }} ravitaillements</span>
                 </div>
                 @if($vehicle->fuelRecords->count() > 0)
                 <div class="space-y-3">
@@ -175,7 +175,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="font-medium">{{ $fuel->quantite }} L</p>
-                                <p class="text-sm text-gray-600">Km: {{ number_format($fuel->kilometrage, 0, ',', ' ') }}</p>
+                                <p class="text-sm text-neutral-400">Km: {{ number_format($fuel->kilometrage, 0, ',', ' ') }}</p>
                                 <p class="text-xs text-gray-500 mt-1">
                                     {{ $fuel->date_ravitaillement->format('d/m/Y') }}
                                     @if($fuel->consommation)
@@ -195,10 +195,10 @@
 
             {{-- Maintenances --}}
             @if($vehicle->maintenances->count() > 0)
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-lg font-semibold">Maintenances</h2>
-                    <span class="text-sm text-gray-600">{{ $vehicle->maintenances->count() }} maintenances</span>
+                    <span class="text-sm text-neutral-400">{{ $vehicle->maintenances->count() }} maintenances</span>
                 </div>
                 <div class="space-y-3">
                     @foreach($vehicle->maintenances->take(3) as $maintenance)
@@ -206,7 +206,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="font-medium">{{ $maintenance->numero }}</p>
-                                <p class="text-sm text-gray-600">{{ $maintenance->description }}</p>
+                                <p class="text-sm text-neutral-400">{{ $maintenance->description }}</p>
                                 <p class="text-xs text-gray-500 mt-1">
                                     {{ $maintenance->type_maintenance }} • 
                                     {{ ucfirst($maintenance->statut) }}
@@ -226,12 +226,12 @@
         {{-- Colonne latérale --}}
         <div class="space-y-6">
             {{-- Statut --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Statut</h2>
                 <div class="text-center">
                     <span class="inline-block px-4 py-2 text-sm font-semibold rounded 
-                        @if($vehicle->statut === 'disponible') bg-green-100 text-green-800
-                        @elseif($vehicle->statut === 'en_mission') bg-blue-100 text-blue-800
+                        @if($vehicle->statut === 'disponible') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
+                        @elseif($vehicle->statut === 'en_mission') bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300
                         @elseif($vehicle->statut === 'en_maintenance') bg-yellow-100 text-yellow-800
                         @else bg-red-100 text-red-800
                         @endif">
@@ -250,7 +250,7 @@
                     $alertes[] = 'Visite technique expirée';
             @endphp
             @if(count($alertes) > 0)
-            <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <div class="bg-red-50 border border-red-200 rounded-xl p-6">
                 <h2 class="text-lg font-semibold text-red-800 mb-4">⚠️ Alertes</h2>
                 <ul class="space-y-2">
                     @foreach($alertes as $alerte)
@@ -261,36 +261,36 @@
             @endif
 
             {{-- Statistiques --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Statistiques</h2>
                 <div class="space-y-3">
                     <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Missions</span>
+                        <span class="text-sm text-neutral-400">Missions</span>
                         <span class="font-medium">{{ $vehicle->missions->count() }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Ravitaillements</span>
+                        <span class="text-sm text-neutral-400">Ravitaillements</span>
                         <span class="font-medium">{{ $vehicle->fuelRecords->count() }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Maintenances</span>
+                        <span class="text-sm text-neutral-400">Maintenances</span>
                         <span class="font-medium">{{ $vehicle->maintenances->count() }}</span>
                     </div>
                     <div class="flex justify-between pt-3 border-t">
-                        <span class="text-sm text-gray-600">Coût Carburant</span>
+                        <span class="text-sm text-neutral-400">Coût Carburant</span>
                         <span class="font-bold">{{ number_format($vehicle->fuelRecords->sum('montant'), 0, ',', ' ') }} FCFA</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-sm text-gray-600">Coût Maintenance</span>
+                        <span class="text-sm text-neutral-400">Coût Maintenance</span>
                         <span class="font-bold">{{ number_format($vehicle->maintenances->sum('cout'), 0, ',', ' ') }} FCFA</span>
                     </div>
                 </div>
             </div>
 
             @if($vehicle->remarques)
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Remarques</h2>
-                <p class="text-sm text-gray-700">{{ $vehicle->remarques }}</p>
+                <p class="text-sm text-[#D4AF37]">{{ $vehicle->remarques }}</p>
             </div>
             @endif
         </div>

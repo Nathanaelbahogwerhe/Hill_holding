@@ -1,14 +1,14 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Détails Contrat')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 py-6">
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-bold text-[#D4AF37]">📋 Détails du Contrat</h1>
-        <a href="{{ route('contracts.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg">← Retour</a>
+        <a href="{{ route('contracts.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl">← Retour</a>
     </div>
 
-    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800">
+    <div class="bg-black rounded-xl shadow-xl p-8 border border-neutral-800">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
             <div>
                 <p class="text-neutral-400 text-sm uppercase font-semibold mb-2">Employé</p>
@@ -68,26 +68,26 @@
         </div>
 
         @if($contract->description)
-            <div class="bg-neutral-900 rounded-lg p-6 mb-8 border border-neutral-800">
+            <div class="bg-neutral-900 rounded-xl p-6 mb-8 border border-neutral-800">
                 <h3 class="text-xl font-bold text-[#D4AF37] mb-4">Description</h3>
                 <p class="text-neutral-300 whitespace-pre-wrap">{{ $contract->description }}</p>
             </div>
         @endif
 
         @if($contract->attachment)
-            <div class="bg-neutral-900 rounded-lg p-6 mb-8 border border-neutral-800">
+            <div class="bg-neutral-900 rounded-xl p-6 mb-8 border border-neutral-800">
                 <h3 class="text-xl font-bold text-[#D4AF37] mb-4">Document du Contrat</h3>
-                <a href="{{ Storage::url($contract->attachment) }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-semibold transition">
+                <a href="{{ Storage::url($contract->attachment) }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-[#D4AF37] hover:bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black rounded-xl font-semibold transition">
                     📎 Télécharger le document
                 </a>
             </div>
         @endif
 
         <div class="flex gap-4 pt-8 border-t border-neutral-700">
-            <a href="{{ route('contracts.edit', $contract->id) }}" class="px-6 py-3 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold transition">✏️ Modifier</a>
+            <a href="{{ route('contracts.edit', $contract->id) }}" class="px-6 py-3 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl font-bold transition">✏️ Modifier</a>
             <form action="{{ route('contracts.destroy', $contract->id) }}" method="POST" class="inline" onsubmit="return confirm('Êtes-vous sûr?')">
                 @csrf @method('DELETE')
-                <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition">🗑️ Supprimer</button>
+                <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition">🗑️ Supprimer</button>
             </form>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Congés')
 
@@ -130,17 +130,17 @@
                         </td>
                         <td class="p-4">
                             @if($leave->employee?->filiale)
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     {{ $leave->employee->filiale->name }}
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
                                     Maison Mère
                                 </span>
                             @endif
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-orange-900/30 border border-orange-500/50 text-orange-300 text-sm">
+                            <span class="px-3 py-1 rounded-xl bg-orange-900/30 border border-orange-500/50 text-orange-300 text-sm">
                                 {{ $leave->leaveType?->name ?? '—' }}
                             </span>
                         </td>
@@ -151,27 +151,27 @@
                             </div>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-neutral-800 text-white text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-neutral-800 text-white text-sm font-semibold">
                                 {{ $leave->start_date && $leave->end_date ? $leave->start_date->diffInDays($leave->end_date) + 1 : '—' }} j
                             </span>
                         </td>
                         <td class="p-4">
                             @if($leave->status === 'pending')
-                                <span class="px-3 py-1 rounded-lg bg-amber-900/30 border border-amber-500/50 text-amber-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-amber-900/30 border border-amber-500/50 text-amber-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     En attente
                                 </span>
                             @elseif($leave->status === 'approved')
-                                <span class="px-3 py-1 rounded-lg bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     Approuvé
                                 </span>
                             @elseif($leave->status === 'rejected')
-                                <span class="px-3 py-1 rounded-lg bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
+                                <span class="px-3 py-1 rounded-xl bg-red-900/30 border border-red-500/50 text-red-300 text-sm font-semibold flex items-center gap-1 w-fit">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>

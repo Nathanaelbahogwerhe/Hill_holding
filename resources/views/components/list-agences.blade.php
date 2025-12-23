@@ -1,6 +1,6 @@
-@props(['agences'])
+﻿@props(['agences'])
 
-<div class="bg-hh-card p-4 rounded-lg shadow">
+<div class="bg-hh-card p-4 rounded-xl shadow">
     <h4 class="text-lg font-semibold mb-3">Agences</h4>
     @if($agences->isEmpty())
         <p class="text-sm text-hh-muted">Aucune agence trouvée.</p>

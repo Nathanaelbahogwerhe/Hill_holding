@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Achats')
 
 @section('content')
-<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-lg p-6">
+<div class="bg-white dark:bg-hh-gray-dark shadow-md rounded-xl p-6">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-semibold">Liste des achats</h1>
         <a href="{{ route('purchases.create') }}" 

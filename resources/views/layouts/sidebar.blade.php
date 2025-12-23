@@ -73,7 +73,7 @@
                     <li><a href="{{ route('revenues.index') }}" class="sub-link">Revenus</a></li>
                     <li><a href="{{ route('budgets.index') }}" class="sub-link">Budgets</a></li>
                     <li><a href="{{ route('invoices.index') }}" class="sub-link">Factures</a></li>
-                    <li><a href="{{ route('financial_reports.index') }}" class="sub-link">Rapports financiers</a></li>
+                    <li><a href="{{ route('finance.reports.index') }}" class="sub-link">Rapports financiers</a></li>
                     <li><a href="{{ route('finances.index') }}" class="sub-link">Finances</a></li>
                 </ul>
             </li>

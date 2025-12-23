@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-5xl mx-auto px-4 py-6">
@@ -16,20 +16,20 @@
             {{-- Statut Badge --}}
             <div>
                 @if($budget->budget_status === 'exceeded')
-                    <span class="px-4 py-2 bg-red-900 text-red-300 rounded-lg text-sm font-semibold">⚠️ Budget Dépassé</span>
+                    <span class="px-4 py-2 bg-red-900 text-red-300 rounded-xl text-sm font-semibold">⚠️ Budget Dépassé</span>
                 @elseif($budget->budget_status === 'warning')
-                    <span class="px-4 py-2 bg-orange-900 text-orange-300 rounded-lg text-sm font-semibold">⚡ Alerte Budgétaire</span>
+                    <span class="px-4 py-2 bg-orange-900 text-orange-300 rounded-xl text-sm font-semibold">⚡ Alerte Budgétaire</span>
                 @elseif($budget->budget_status === 'active')
-                    <span class="px-4 py-2 bg-green-900 text-green-300 rounded-lg text-sm font-semibold">✓ Budget Actif</span>
+                    <span class="px-4 py-2 bg-green-900 text-green-300 rounded-xl text-sm font-semibold">✓ Budget Actif</span>
                 @else
-                    <span class="px-4 py-2 bg-gray-800 text-gray-400 rounded-lg text-sm">○ Non Utilisé</span>
+                    <span class="px-4 py-2 bg-gray-800 text-gray-400 rounded-xl text-sm">○ Non Utilisé</span>
                 @endif
             </div>
         </div>
 
         {{-- Description --}}
         @if($budget->description)
-        <p class="text-gray-300 mb-4">{{ $budget->description }}</p>
+        <p class="text-neutral-300 mb-4">{{ $budget->description }}</p>
         @endif
 
         {{-- Dates --}}
@@ -123,7 +123,7 @@
 
         {{-- Messages d'alerte --}}
         @if($budget->isOverBudget())
-        <div class="bg-red-900/30 border border-red-600 rounded-lg p-4 mt-4">
+        <div class="bg-red-900/30 border border-red-600 rounded-xl p-4 mt-4">
             <div class="flex items-center gap-2 text-red-300">
                 <span class="text-2xl">⚠️</span>
                 <div>
@@ -133,7 +133,7 @@
             </div>
         </div>
         @elseif($budget->isNearLimit())
-        <div class="bg-orange-900/30 border border-orange-600 rounded-lg p-4 mt-4">
+        <div class="bg-orange-900/30 border border-orange-600 rounded-xl p-4 mt-4">
             <div class="flex items-center gap-2 text-orange-300">
                 <span class="text-2xl">⚡</span>
                 <div>
@@ -143,7 +143,7 @@
             </div>
         </div>
         @elseif($budget->percentage_used > 0)
-        <div class="bg-green-900/30 border border-green-600 rounded-lg p-4 mt-4">
+        <div class="bg-green-900/30 border border-green-600 rounded-xl p-4 mt-4">
             <div class="flex items-center gap-2 text-green-300">
                 <span class="text-2xl">✓</span>
                 <div>
@@ -190,7 +190,7 @@
     <div class="bg-black border border-yellow-600 rounded-xl p-6 mb-6">
         <h3 class="text-xl font-semibold text-yellow-500 mb-4">📎 Document Joint</h3>
         <a href="{{ Storage::url($budget->attachment) }}" target="_blank" 
-           class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+           class="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black rounded-xl font-bold text-white px-4 py-2 rounded-xl transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
@@ -202,14 +202,14 @@
     {{-- Actions --}}
     <div class="flex justify-between items-center">
         <a href="{{ route('budgets.index') }}" 
-           class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-lg transition">
+           class="bg-gray-700 hover:bg-gray-600 text-white px-6 py-2 rounded-xl transition">
             ← Retour à la liste
         </a>
         
         <div class="flex gap-3">
             @can('update', $budget)
             <a href="{{ route('budgets.edit', $budget) }}" 
-               class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-lg transition">
+               class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-xl transition">
                 ✏️ Modifier
             </a>
             @endcan
@@ -219,7 +219,7 @@
                 @csrf @method('DELETE')
                 <button type="submit" 
                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce budget ?')"
-                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition">
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-xl transition">
                     🗑️ Supprimer
                 </button>
             </form>

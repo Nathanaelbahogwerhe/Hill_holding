@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Véhicules</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Véhicules</h1>
         <a href="{{ route('vehicles.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouveau Véhicule
         </a>
@@ -11,31 +11,31 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Total</p>
-            <p class="text-2xl font-bold">{{ $stats['total'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Total</p>
+            <p class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">{{ $stats['total'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Disponibles</p>
-            <p class="text-2xl font-bold text-green-600">{{ $stats['disponible'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Disponibles</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['disponible'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">En Mission</p>
-            <p class="text-2xl font-bold text-blue-600">{{ $stats['en_mission'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">En Mission</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['en_mission'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">En Maintenance</p>
-            <p class="text-2xl font-bold text-yellow-600">{{ $stats['en_maintenance'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">En Maintenance</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['en_maintenance'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Assurance Expirée</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Assurance Expirée</p>
             <p class="text-2xl font-bold text-red-600">{{ $stats['assurance_expiree'] ?? 0 }}</p>
         </div>
     </div>
 
     {{-- Alertes --}}
     @if(isset($alertes) && count($alertes) > 0)
-    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+    <div class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/30 border-l-4 border-yellow-400 p-4 mb-6">
         <div class="flex">
             <div class="flex-shrink-0">
                 <i class="fas fa-exclamation-triangle text-yellow-400"></i>
@@ -55,10 +55,10 @@
     @endif
 
     {{-- Filtres --}}
-    <div class="bg-white rounded-lg shadow mb-6 p-4">
+    <div class="bg-white rounded-xl shadow mb-6 p-4">
         <form method="GET" action="{{ route('vehicles.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Filiale</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Filiale</label>
                 <select name="filiale_id" class="form-select w-full">
                     <option value="">Toutes</option>
                     @foreach($filiales as $filiale)
@@ -67,7 +67,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Type</label>
                 <select name="type" class="form-select w-full">
                     <option value="">Tous</option>
                     <option value="voiture" {{ request('type') == 'voiture' ? 'selected' : '' }}>Voiture</option>
@@ -77,7 +77,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Statut</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Statut</label>
                 <select name="statut" class="form-select w-full">
                     <option value="">Tous</option>
                     <option value="disponible" {{ request('statut') == 'disponible' ? 'selected' : '' }}>Disponible</option>
@@ -87,7 +87,7 @@
                 </select>
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Recherche</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Recherche</label>
                 <input type="text" name="search" value="{{ request('search') }}" class="form-input w-full" placeholder="Immatriculation, marque...">
             </div>
             <div class="flex items-end">
@@ -98,7 +98,7 @@
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -117,7 +117,7 @@
                 @forelse($vehicles as $vehicle)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('vehicles.show', $vehicle) }}" class="text-blue-600 hover:underline font-mono font-bold">
+                        <a href="{{ route('vehicles.show', $vehicle) }}" class="text-white hover:underline font-mono font-bold">
                             {{ $vehicle->immatriculation }}
                         </a>
                     </td>
@@ -138,8 +138,8 @@
                     </td>
                     <td class="px-6 py-4">
                         <span class="px-2 py-1 text-xs rounded 
-                            @if($vehicle->statut === 'disponible') bg-green-100 text-green-800
-                            @elseif($vehicle->statut === 'en_mission') bg-blue-100 text-blue-800
+                            @if($vehicle->statut === 'disponible') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
+                            @elseif($vehicle->statut === 'en_mission') bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300
                             @elseif($vehicle->statut === 'en_maintenance') bg-yellow-100 text-yellow-800
                             @else bg-red-100 text-red-800
                             @endif">
@@ -163,7 +163,7 @@
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('vehicles.show', $vehicle) }}" class="text-blue-600 hover:underline mr-3">Voir</a>
+                        <a href="{{ route('vehicles.show', $vehicle) }}" class="text-white hover:underline mr-3">Voir</a>
                         <form action="{{ route('vehicles.destroy', $vehicle) }}" method="POST" class="inline">
                             @csrf @method('DELETE')
                             <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Confirmer la suppression ?')">Supprimer</button>

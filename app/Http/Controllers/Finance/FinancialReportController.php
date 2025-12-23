@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Finance;
 
 use App\Http\Controllers\Controller;
-use App\Models\FinancialReport;
+use App\Models\Report;
+use App\Models\Expense;
+use App\Models\Revenue;
+use App\Models\Filiale;
+use App\Models\Agence;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,17 +17,31 @@ class FinancialReportController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $query = FinancialReport::query()->with('filiale', 'project');
+        $query = Report::query()
+            ->where('type', 'financier')
+            ->with(['filiale', 'project']);
 
         if ($user->hasRole('superadmin')) {
-            $reports = $query->get();
+            $reports = $query->latest()->get();
+            $filiales = Filiale::orderBy('name')->get();
+            $agences = Agence::orderBy('name')->get();
         } elseif ($user->filiale_id) {
-            $reports = $query->where('filiale_id', $user->filiale_id)->get();
+            $reports = $query->where('filiale_id', $user->filiale_id)->latest()->get();
+            $filiales = Filiale::where('id', $user->filiale_id)->get();
+            $agences = Agence::where('filiale_id', $user->filiale_id)->get();
         } else {
             $reports = collect();
+            $filiales = collect();
+            $agences = collect();
         }
 
-        return view('financial_reports.index', compact('reports'));
+        $projects = Project::orderBy('name')->get();
+        
+        // Dates par défaut (mois en cours)
+        $start_date = request('start_date', now()->startOfMonth()->format('Y-m-d'));
+        $end_date = request('end_date', now()->endOfMonth()->format('Y-m-d'));
+
+        return view('finance.reports.index', compact('reports', 'filiales', 'agences', 'projects', 'start_date', 'end_date'));
     }
 
     public function generateReport(Request $request)
@@ -34,31 +53,40 @@ class FinancialReportController extends Controller
             'project_id' => 'nullable|exists:projects,id',
         ]);
 
-        $query = FinancialReport::query();
+        $user = Auth::user();
+
+        // Récupérer les dépenses et recettes pour la période
+        $expensesQuery = Expense::whereBetween('date', [$request->start_date, $request->end_date]);
+        $revenuesQuery = Revenue::whereBetween('date', [$request->start_date, $request->end_date]);
 
         if ($request->filiale_id) {
-            $query->where('filiale_id', $request->filiale_id);
+            $expensesQuery->where('filiale_id', $request->filiale_id);
+            $revenuesQuery->where('filiale_id', $request->filiale_id);
         }
         if ($request->project_id) {
-            $query->where('project_id', $request->project_id);
+            $expensesQuery->where('project_id', $request->project_id);
+            $revenuesQuery->where('project_id', $request->project_id);
         }
 
-        $query->whereBetween('date', [$request->start_date, $request->end_date]);
+        $expenses = $expensesQuery->get();
+        $revenues = $revenuesQuery->get();
 
-        $reportData = $query->get();
+        $totalExpenses = $expenses->sum('montant');
+        $totalRevenues = $revenues->sum('montant');
+        $balance = $totalRevenues - $totalExpenses;
 
-        return view('financial_reports.generate', compact('reportData'));
+        return view('finance.reports.index', compact(
+            'expenses',
+            'revenues',
+            'totalExpenses',
+            'totalRevenues',
+            'balance'
+        ));
     }
 
-    public function show(FinancialReport $financialReport)
+    public function show(Report $report)
     {
-        return view('financial_reports.show', compact('financialReport'));
-    }
-
-    public function exportPDF(FinancialReport $financialReport)
-    {
-        $pdf = \PDF::loadView('financial_reports.pdf', compact('financialReport'));
-        return $pdf->download('financial_report_'.$financialReport->id.'.pdf');
+        return view('finance.reports.show', compact('report'));
     }
 }
 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Modifier Employé')
 
 @section('content')
@@ -7,12 +7,12 @@
     {{-- Header --}}
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-bold text-yellow-400">✏️ Modifier un Employé</h1>
-        <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700">← Retour</a>
+        <a href="{{ route('employees.index') }}" class="px-4 py-2 bg-gray-800 text-white rounded-xl hover:bg-gray-700">← Retour</a>
     </div>
 
     {{-- Erreurs --}}
     @if ($errors->any())
-        <div class="bg-red-900 border border-red-700 text-red-100 p-4 rounded-lg mb-6">
+        <div class="bg-red-900 border border-red-700 text-red-100 p-4 rounded-xl mb-6">
             <h3 class="font-bold mb-2">❌ Erreurs :</h3>
             <ul class="list-disc pl-5 space-y-1">
                 @foreach ($errors->all() as $error)
@@ -272,8 +272,8 @@
 
             {{-- Actions --}}
             <div class="flex gap-4 mt-8">
-                <button type="submit" class="px-6 py-3 bg-yellow-500 text-black font-bold rounded-lg">✅ Enregistrer</button>
-                <a href="{{ route('employees.index') }}" class="px-6 py-3 bg-gray-800 text-white rounded-lg">❌ Annuler</a>
+                <button type="submit" class="px-6 py-3 bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black font-bold rounded-xl">✅ Enregistrer</button>
+                <a href="{{ route('employees.index') }}" class="px-6 py-3 bg-gray-800 text-white rounded-xl">❌ Annuler</a>
             </div>
         </form>
     </div>

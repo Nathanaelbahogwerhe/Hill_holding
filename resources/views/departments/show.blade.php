@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Détails Département')
 
 @section('content')
@@ -6,12 +6,12 @@
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-bold text-[#D4AF37]">🏢 {{ $department->name }}</h1>
         <div class="space-x-2">
-            <a href="{{ route('departments.edit', $department->id) }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold">✏️ Éditer</a>
-            <a href="{{ route('departments.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg">← Retour</a>
+            <a href="{{ route('departments.edit', $department->id) }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl font-bold">✏️ Éditer</a>
+            <a href="{{ route('departments.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl">← Retour</a>
         </div>
     </div>
 
-    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800 mb-6">
+    <div class="bg-black rounded-xl shadow-xl p-8 border border-neutral-800 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <p class="text-neutral-400 text-sm uppercase">Code</p>
@@ -41,11 +41,11 @@
     </div>
 
     @if($department->employees->count() > 0)
-    <div class="bg-black rounded-lg shadow-xl p-8 border border-neutral-800">
+    <div class="bg-black rounded-xl shadow-xl p-8 border border-neutral-800">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-6">👥 Employés ({{ $department->employees->count() }})</h2>
         <div class="space-y-2">
             @foreach($department->employees as $emp)
-            <div class="bg-neutral-900 p-3 rounded-lg flex justify-between items-center border border-neutral-800">
+            <div class="bg-neutral-900 p-3 rounded-xl flex justify-between items-center border border-neutral-800">
                 <div>
                     <p class="text-white font-semibold">{{ $emp->first_name }} {{ $emp->last_name }}</p>
                     <p class="text-neutral-400 text-xs">{{ $emp->position?->name ?? 'Poste non défini' }}</p>
@@ -65,7 +65,7 @@
     <div class="mt-8 pt-6 border-t border-neutral-700">
         <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="inline" onsubmit="return confirm('Confirmer la suppression de ce département ?')">
             @csrf @method('DELETE')
-            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition">🗑️ Supprimer</button>
+            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition">🗑️ Supprimer</button>
         </form>
     </div>
 </div>

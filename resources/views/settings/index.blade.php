@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Paramètres')
 
@@ -111,7 +111,7 @@
                         </td>
                         <td class="p-4">
                             <div class="max-w-md">
-                                <div class="text-white bg-neutral-800/50 rounded-lg px-3 py-2 font-mono text-sm border border-neutral-700">
+                                <div class="text-white bg-neutral-800/50 rounded-xl px-3 py-2 font-mono text-sm border border-neutral-700">
                                     {{ Str::limit($setting->value, 60) }}
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
     <!-- Info Box -->
     <div class="mt-8 bg-gradient-to-r from-blue-900/30 to-blue-800/20 border border-blue-500/50 rounded-2xl p-6">
         <div class="flex items-start gap-4">
-            <div class="p-3 bg-blue-500 rounded-xl">
+            <div class="p-3 bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/300 rounded-xl">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>

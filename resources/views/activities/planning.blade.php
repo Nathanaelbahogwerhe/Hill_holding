@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Planification des Activités')
 
@@ -224,7 +224,7 @@
                                 
                                 @if($activities->count() > 0)
                                     <!-- Compteur d'activités -->
-                                    <div class="mb-2 flex items-center justify-between bg-neutral-100 rounded-lg px-3 py-1.5">
+                                    <div class="mb-2 flex items-center justify-between bg-neutral-100 rounded-xl px-3 py-1.5">
                                         <span class="text-xs font-bold text-neutral-700">
                                             {{ $activities->count() }} activité{{ $activities->count() > 1 ? 's' : '' }}
                                         </span>
@@ -244,7 +244,7 @@
                                     <!-- Liste des activités avec scroll -->
                                     <div class="space-y-2 max-h-96 overflow-y-auto pr-1 custom-scrollbar">
                                         @foreach($activities as $activity)
-                                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg p-3 hover:shadow-md transition-all duration-200">
+                                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-xl p-3 hover:shadow-md transition-all duration-200">
                                             <div class="flex items-start justify-between gap-2">
                                                 <div class="flex-1 min-w-0">
                                                     <p class="text-sm font-bold text-neutral-900 truncate" title="{{ $activity->titre }}">
@@ -252,7 +252,7 @@
                                                     </p>
                                                     <div class="flex items-center gap-2 mt-1 flex-wrap">
                                                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold
-                                                            @if($activity->statut == 'terminée') bg-green-100 text-green-800
+                                                            @if($activity->statut == 'terminée') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
                                                             @elseif($activity->statut == 'en_cours') bg-amber-100 text-amber-800
                                                             @elseif($activity->statut == 'planifiée') bg-purple-100 text-purple-800
                                                             @else bg-red-100 text-red-800
@@ -316,7 +316,7 @@
                                                     </p>
                                                     @endif
                                                 </div>
-                                                <a href="{{ route('activities.show', $activity) }}" class="flex-shrink-0 text-blue-600 hover:text-blue-800 transition-colors">
+                                                <a href="{{ route('activities.show', $activity) }}" class="flex-shrink-0 text-white hover:text-blue-800 transition-colors">
                                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -346,14 +346,14 @@
                                             @if($activity->participants && $activity->participants->isNotEmpty())
                                             <div class="mt-2 pt-2 border-t border-blue-300">
                                                 <div class="flex items-start gap-2">
-                                                    <svg class="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <svg class="w-4 h-4 text-white flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                                                         <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                                                     </svg>
                                                     <div class="flex-1 min-w-0">
-                                                        <p class="text-xs font-bold text-green-600 mb-1">PARTICIPANTS ({{ $activity->participants->count() }})</p>
+                                                        <p class="text-xs font-bold text-white mb-1">PARTICIPANTS ({{ $activity->participants->count() }})</p>
                                                         <div class="flex flex-wrap gap-1">
                                                             @foreach($activity->participants->take(3) as $participant)
-                                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300">
                                                                 {{ $participant->name ?? 'N/A' }}
                                                             </span>
                                                             @endforeach
@@ -397,7 +397,7 @@
                                 <div class="text-center">
                                     <div class="inline-flex flex-col items-center bg-white rounded-xl p-4 shadow-md">
                                         <div class="text-3xl font-black 
-                                            @if($periodRate >= 75) text-green-600
+                                            @if($periodRate >= 75) text-white
                                             @elseif($periodRate >= 50) text-amber-600
                                             @else text-red-600
                                             @endif">
@@ -456,7 +456,7 @@
                                 <div class="text-center">
                                     <div class="inline-flex flex-col items-center bg-white rounded-xl p-4 shadow-md">
                                         <div class="text-3xl font-black 
-                                            @if($deptPerf['rate'] >= 75) text-green-600
+                                            @if($deptPerf['rate'] >= 75) text-white
                                             @elseif($deptPerf['rate'] >= 50) text-amber-600
                                             @else text-red-600
                                             @endif">
@@ -506,7 +506,7 @@
             </h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="flex items-center gap-2">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300">
                         <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                         </svg>

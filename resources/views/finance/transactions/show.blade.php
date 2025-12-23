@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', '💳 Détails Transaction')
 
 @section('content')
-<div class="bg-hh-card dark:bg-hh-gray-dark rounded-lg shadow p-6 max-w-3xl mx-auto">
+<div class="bg-hh-card dark:bg-hh-gray-dark rounded-xl shadow p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">💳 Détails Transaction</h2>
 
     <div class="space-y-3">

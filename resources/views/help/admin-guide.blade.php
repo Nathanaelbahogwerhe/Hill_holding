@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Guide Administration')
 
@@ -10,22 +10,22 @@
     </div>
 
     <!-- Navigation rapide -->
-    <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800 mb-8">
+    <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-8">
         <h3 class="text-xl font-bold text-[#D4AF37] mb-4">🔗 Navigation Rapide</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <a href="#users" class="p-4 bg-black border border-neutral-700 rounded-lg hover:border-[#D4AF37] transition text-center">
+            <a href="#users" class="p-4 bg-black border border-neutral-700 rounded-xl hover:border-[#D4AF37] transition text-center">
                 <div class="text-2xl mb-2">👤</div>
                 <div class="text-sm text-white">Utilisateurs</div>
             </a>
-            <a href="#filiales" class="p-4 bg-black border border-neutral-700 rounded-lg hover:border-[#D4AF37] transition text-center">
+            <a href="#filiales" class="p-4 bg-black border border-neutral-700 rounded-xl hover:border-[#D4AF37] transition text-center">
                 <div class="text-2xl mb-2">🏭</div>
                 <div class="text-sm text-white">Filiales</div>
             </a>
-            <a href="#agences" class="p-4 bg-black border border-neutral-700 rounded-lg hover:border-[#D4AF37] transition text-center">
+            <a href="#agences" class="p-4 bg-black border border-neutral-700 rounded-xl hover:border-[#D4AF37] transition text-center">
                 <div class="text-2xl mb-2">📍</div>
                 <div class="text-sm text-white">Agences</div>
             </a>
-            <a href="#roles" class="p-4 bg-black border border-neutral-700 rounded-lg hover:border-[#D4AF37] transition text-center">
+            <a href="#roles" class="p-4 bg-black border border-neutral-700 rounded-xl hover:border-[#D4AF37] transition text-center">
                 <div class="text-2xl mb-2">🎭</div>
                 <div class="text-sm text-white">Rôles</div>
             </a>
@@ -33,13 +33,13 @@
     </div>
 
     <!-- Section Utilisateurs -->
-    <div id="users" class="bg-neutral-900 rounded-lg p-6 border border-neutral-800 mb-6">
+    <div id="users" class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4 flex items-center gap-2">
             <span>👤</span> Gérer les Utilisateurs
         </h2>
 
         <div class="space-y-4">
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">✅ Créer un nouvel utilisateur</h3>
                 <ol class="list-decimal list-inside space-y-2 text-neutral-300 ml-4">
                     <li>Depuis le <strong>Dashboard</strong>, cliquez sur le bouton <span class="px-2 py-1 bg-[#D4AF37] text-black rounded text-sm">👤 Nouvel Utilisateur</span></li>
@@ -66,7 +66,7 @@
                 </ol>
             </div>
 
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">✏️ Modifier un utilisateur existant</h3>
                 <ol class="list-decimal list-inside space-y-2 text-neutral-300 ml-4">
                     <li>Allez dans <strong>RH → Utilisateurs</strong></li>
@@ -79,7 +79,7 @@
                 </ol>
             </div>
 
-            <div class="bg-amber-900/20 border border-amber-700 p-4 rounded-lg">
+            <div class="bg-amber-900/20 border border-amber-700 p-4 rounded-xl">
                 <h4 class="font-semibold text-amber-400 mb-2">💡 Conseils</h4>
                 <ul class="list-disc list-inside space-y-1 text-amber-200">
                     <li>Un utilisateur peut avoir plusieurs rôles simultanément</li>
@@ -92,13 +92,13 @@
     </div>
 
     <!-- Section Filiales -->
-    <div id="filiales" class="bg-neutral-900 rounded-lg p-6 border border-neutral-800 mb-6">
+    <div id="filiales" class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4 flex items-center gap-2">
             <span>🏭</span> Gérer les Filiales
         </h2>
 
         <div class="space-y-4">
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">✅ Créer une nouvelle filiale</h3>
                 <ol class="list-decimal list-inside space-y-2 text-neutral-300 ml-4">
                     <li>Depuis le Dashboard, cliquez sur <span class="px-2 py-1 bg-[#D4AF37] text-black rounded text-sm">🏭 Nouvelle Filiale</span></li>
@@ -115,7 +115,7 @@
                 </ol>
             </div>
 
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">📊 Consulter les détails d'une filiale</h3>
                 <p class="text-neutral-300 mb-2">Allez dans <strong>RH → Filiales</strong>, puis cliquez sur une filiale pour voir:</p>
                 <ul class="list-disc list-inside space-y-1 text-neutral-300 ml-4">
@@ -129,13 +129,13 @@
     </div>
 
     <!-- Section Agences -->
-    <div id="agences" class="bg-neutral-900 rounded-lg p-6 border border-neutral-800 mb-6">
+    <div id="agences" class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4 flex items-center gap-2">
             <span>📍</span> Gérer les Agences
         </h2>
 
         <div class="space-y-4">
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">✅ Créer une nouvelle agence</h3>
                 <ol class="list-decimal list-inside space-y-2 text-neutral-300 ml-4">
                     <li>Depuis le Dashboard, cliquez sur <span class="px-2 py-1 bg-[#D4AF37] text-black rounded text-sm">📍 Nouvelle Agence</span></li>
@@ -152,7 +152,7 @@
                 </ol>
             </div>
 
-            <div class="bg-blue-900/20 border border-blue-700 p-4 rounded-lg">
+            <div class="bg-blue-900/20 border border-blue-700 p-4 rounded-xl">
                 <h4 class="font-semibold text-blue-400 mb-2">ℹ️ Structure Hiérarchique</h4>
                 <div class="text-blue-200">
                     <p class="mb-2">Hill Holding (Maison Mère)</p>
@@ -167,13 +167,13 @@
     </div>
 
     <!-- Section Rôles -->
-    <div id="roles" class="bg-neutral-900 rounded-lg p-6 border border-neutral-800 mb-6">
+    <div id="roles" class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 mb-6">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4 flex items-center gap-2">
             <span>🎭</span> Comprendre les Rôles et Permissions
         </h2>
 
         <div class="space-y-4">
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-3">Rôles disponibles</h3>
                 
                 <div class="space-y-3">
@@ -199,13 +199,13 @@
 
                     <div class="p-3 bg-gray-800/20 border border-gray-700 rounded">
                         <h4 class="font-semibold text-gray-400 mb-1">👤 Employee</h4>
-                        <p class="text-sm text-gray-300">Accès limité aux fonctionnalités de consultation et de gestion personnelle</p>
+                        <p class="text-sm text-neutral-300">Accès limité aux fonctionnalités de consultation et de gestion personnelle</p>
                     </div>
                 </div>
             </div>
 
             @role('Super Admin')
-            <div class="bg-black p-4 rounded-lg border border-neutral-700">
+            <div class="bg-black p-4 rounded-xl border border-neutral-700">
                 <h3 class="text-lg font-semibold text-white mb-2">⚙️ Gérer les rôles (Super Admin uniquement)</h3>
                 <ol class="list-decimal list-inside space-y-2 text-neutral-300 ml-4">
                     <li>Allez dans <strong>Administration → Rôles & Permissions</strong></li>
@@ -219,10 +219,10 @@
     </div>
 
     <!-- Actions rapides -->
-    <div class="bg-gradient-to-r from-[#D4AF37]/10 to-transparent rounded-lg p-6 border border-[#D4AF37]/30 mb-6">
+    <div class="bg-gradient-to-r from-[#D4AF37]/10 to-transparent rounded-xl p-6 border border-[#D4AF37]/30 mb-6">
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4">⚡ Actions Rapides</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <a href="{{ route('users.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-lg border border-neutral-700 hover:border-[#D4AF37] transition">
+            <a href="{{ route('users.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-xl border border-neutral-700 hover:border-[#D4AF37] transition">
                 <span class="text-3xl">👤</span>
                 <div>
                     <div class="font-semibold text-white">Créer un utilisateur</div>
@@ -230,7 +230,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('filiales.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-lg border border-neutral-700 hover:border-[#D4AF37] transition">
+            <a href="{{ route('filiales.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-xl border border-neutral-700 hover:border-[#D4AF37] transition">
                 <span class="text-3xl">🏭</span>
                 <div>
                     <div class="font-semibold text-white">Créer une filiale</div>
@@ -238,7 +238,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('agences.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-lg border border-neutral-700 hover:border-[#D4AF37] transition">
+            <a href="{{ route('agences.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-xl border border-neutral-700 hover:border-[#D4AF37] transition">
                 <span class="text-3xl">📍</span>
                 <div>
                     <div class="font-semibold text-white">Créer une agence</div>
@@ -246,7 +246,7 @@
                 </div>
             </a>
 
-            <a href="{{ route('employees.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-lg border border-neutral-700 hover:border-[#D4AF37] transition">
+            <a href="{{ route('employees.create') }}" class="flex items-center gap-3 p-4 bg-black rounded-xl border border-neutral-700 hover:border-[#D4AF37] transition">
                 <span class="text-3xl">👥</span>
                 <div>
                     <div class="font-semibold text-white">Créer un employé</div>
@@ -258,7 +258,7 @@
 
     <!-- Retour au dashboard -->
     <div class="text-center">
-        <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#D4AF37] hover:bg-yellow-500 text-black rounded-lg font-bold transition">
+        <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#D4AF37] hover:bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black rounded-xl font-bold transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>

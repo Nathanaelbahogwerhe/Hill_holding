@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Maintenances</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Maintenances</h1>
         <a href="{{ route('maintenances.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouvelle Maintenance
         </a>
@@ -11,26 +11,26 @@
 
     {{-- Statistiques --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Planifiées</p>
-            <p class="text-2xl font-bold text-blue-600">{{ $stats['planifiee'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Planifiées</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['planifiee'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">En Cours</p>
-            <p class="text-2xl font-bold text-green-600">{{ $stats['en_cours'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">En Cours</p>
+            <p class="text-2xl font-bold text-white">{{ $stats['en_cours'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Terminées</p>
-            <p class="text-2xl font-bold text-gray-600">{{ $stats['terminee'] ?? 0 }}</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Terminées</p>
+            <p class="text-2xl font-bold text-neutral-400">{{ $stats['terminee'] ?? 0 }}</p>
         </div>
-        <div class="bg-white p-4 rounded-lg shadow">
-            <p class="text-sm text-gray-600">Annulées</p>
+        <div class="bg-white p-4 rounded-xl shadow">
+            <p class="text-sm text-neutral-400">Annulées</p>
             <p class="text-2xl font-bold text-red-600">{{ $stats['annulee'] ?? 0 }}</p>
         </div>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -48,14 +48,14 @@
                 @forelse($maintenances as $maintenance)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('maintenances.show', $maintenance) }}" class="text-blue-600 hover:underline">{{ $maintenance->numero }}</a>
+                        <a href="{{ route('maintenances.show', $maintenance) }}" class="text-white hover:underline">{{ $maintenance->numero }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <span class="font-mono">{{ $maintenance->equipment->code }}</span>
                         <p class="text-sm text-gray-500">{{ $maintenance->equipment->nom }}</p>
                     </td>
                     <td class="px-6 py-4">
-                        <span class="px-2 py-1 text-xs rounded {{ $maintenance->type === 'preventive' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800' }}">
+                        <span class="px-2 py-1 text-xs rounded {{ $maintenance->type === 'preventive' ? 'bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300' : 'bg-orange-100 text-orange-800' }}">
                             {{ ucfirst($maintenance->type) }}
                         </span>
                     </td>
@@ -70,8 +70,8 @@
                     </td>
                     <td class="px-6 py-4">
                         <span class="px-2 py-1 text-xs rounded 
-                            @if($maintenance->statut === 'planifiee') bg-blue-100 text-blue-800
-                            @elseif($maintenance->statut === 'en_cours') bg-green-100 text-green-800
+                            @if($maintenance->statut === 'planifiee') bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300
+                            @elseif($maintenance->statut === 'en_cours') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
                             @elseif($maintenance->statut === 'terminee') bg-gray-100 text-gray-800
                             @else bg-red-100 text-red-800
                             @endif">
@@ -79,7 +79,7 @@
                         </span>
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('maintenances.show', $maintenance) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('maintenances.show', $maintenance) }}" class="text-white hover:underline">Voir</a>
                     </td>
                 </tr>
                 @empty

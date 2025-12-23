@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-black text-white rounded-2xl shadow-lg border border-yellow-600 p-6 mt-8">
@@ -144,7 +144,7 @@
             
             <input type="file" name="attachment" 
                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                   class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-gray-300">
+                   class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-neutral-300">
             <p class="text-xs text-gray-400 mt-1">
                 @if($budget->attachment)
                     Choisir un nouveau fichier remplacera l'ancien. 
@@ -160,7 +160,7 @@
         <div class="flex justify-end gap-3">
             <a href="{{ route('budgets.show', $budget) }}"
                class="bg-gray-700 hover:bg-gray-600 px-5 py-2 rounded transition">Annuler</a>
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded transition">
+            <button class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded transition">
                 💾 Enregistrer les modifications
             </button>
         </div>

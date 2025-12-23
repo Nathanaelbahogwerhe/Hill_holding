@@ -1,16 +1,16 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Carburant</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Carburant</h1>
         <a href="{{ route('fuel_records.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouveau Ravitaillement
         </a>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -36,7 +36,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{ number_format($fuel->kilometrage, 0, ',', ' ') }} km</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         @if($fuel->consommation)
-                            <span class="{{ $fuel->consommation > ($fuel->vehicle->consommation_moyenne ?? 999) ? 'text-red-600 font-bold' : 'text-green-600' }}">
+                            <span class="{{ $fuel->consommation > ($fuel->vehicle->consommation_moyenne ?? 999) ? 'text-red-600 font-bold' : 'text-white' }}">
                                 {{ number_format($fuel->consommation, 2) }} L/100km
                             </span>
                         @else
@@ -45,13 +45,13 @@
                     </td>
                     <td class="px-6 py-4">
                         @if($fuel->valide)
-                            <span class="text-green-600">✓</span>
+                            <span class="text-white">✓</span>
                         @else
                             <span class="text-gray-400">✗</span>
                         @endif
                     </td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('fuel_records.show', $fuel) }}" class="text-blue-600 hover:underline mr-3">Voir</a>
+                        <a href="{{ route('fuel_records.show', $fuel) }}" class="text-white hover:underline mr-3">Voir</a>
                         @if(!$fuel->valide)
                         <form action="{{ route('fuel_records.destroy', $fuel) }}" method="POST" class="inline">
                             @csrf @method('DELETE')

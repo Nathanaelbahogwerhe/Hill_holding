@@ -1,11 +1,11 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-5xl mx-auto">
     <div class="flex justify-between items-center mb-6">
         <div>
-            <h1 class="text-2xl font-bold">Demande d'Achat {{ $purchaseRequest->numero }}</h1>
-            <p class="text-gray-600">Créée le {{ $purchaseRequest->created_at->format('d/m/Y à H:i') }}</p>
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Demande d'Achat {{ $purchaseRequest->numero }}</h1>
+            <p class="text-neutral-400">Créée le {{ $purchaseRequest->created_at->format('d/m/Y à H:i') }}</p>
         </div>
         <div class="flex gap-2">
             @if($purchaseRequest->statut === 'soumise')
@@ -24,38 +24,38 @@
         {{-- Colonne principale --}}
         <div class="lg:col-span-2 space-y-6">
             {{-- Informations générales --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Informations Générales</h2>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-sm text-gray-600">Filiale</p>
+                        <p class="text-sm text-neutral-400">Filiale</p>
                         <p class="font-medium">{{ $purchaseRequest->filiale->nom }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Service</p>
+                        <p class="text-sm text-neutral-400">Service</p>
                         <p class="font-medium">{{ $purchaseRequest->service->nom }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Demandeur</p>
+                        <p class="text-sm text-neutral-400">Demandeur</p>
                         <p class="font-medium">{{ $purchaseRequest->demandeur->name }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Date de Nécessité</p>
+                        <p class="text-sm text-neutral-400">Date de Nécessité</p>
                         <p class="font-medium">{{ $purchaseRequest->date_necessite->format('d/m/Y') }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Priorité</p>
+                        <p class="text-sm text-neutral-400">Priorité</p>
                         <span class="px-2 py-1 text-xs rounded {{ $purchaseRequest->priorite_color }}">
                             {{ ucfirst($purchaseRequest->priorite) }}
                         </span>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600">Montant Estimé</p>
+                        <p class="text-sm text-neutral-400">Montant Estimé</p>
                         <p class="font-bold text-lg">{{ number_format($purchaseRequest->montant_estime, 0, ',', ' ') }} FCFA</p>
                     </div>
                     @if($purchaseRequest->categorie)
                     <div>
-                        <p class="text-sm text-gray-600">Catégorie</p>
+                        <p class="text-sm text-neutral-400">Catégorie</p>
                         <p class="font-medium">{{ $purchaseRequest->categorie }}</p>
                     </div>
                     @endif
@@ -63,24 +63,24 @@
             </div>
 
             {{-- Détails --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Détails de la Demande</h2>
                 <div class="space-y-4">
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Objet</p>
+                        <p class="text-sm text-neutral-400 font-medium">Objet</p>
                         <p class="mt-1">{{ $purchaseRequest->objet }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Description</p>
+                        <p class="text-sm text-neutral-400 font-medium">Description</p>
                         <p class="mt-1 whitespace-pre-line">{{ $purchaseRequest->description }}</p>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Justification</p>
+                        <p class="text-sm text-neutral-400 font-medium">Justification</p>
                         <p class="mt-1 whitespace-pre-line">{{ $purchaseRequest->justification }}</p>
                     </div>
                     @if($purchaseRequest->remarques)
                     <div>
-                        <p class="text-sm text-gray-600 font-medium">Remarques</p>
+                        <p class="text-sm text-neutral-400 font-medium">Remarques</p>
                         <p class="mt-1 whitespace-pre-line">{{ $purchaseRequest->remarques }}</p>
                     </div>
                     @endif
@@ -89,12 +89,12 @@
 
             {{-- Pièces jointes --}}
             @if($purchaseRequest->attachments && count($purchaseRequest->attachments) > 0)
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Pièces Jointes</h2>
                 <ul class="space-y-2">
                     @foreach($purchaseRequest->attachments as $attachment)
                     <li>
-                        <a href="{{ Storage::url($attachment) }}" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                        <a href="{{ Storage::url($attachment) }}" target="_blank" class="text-white hover:underline flex items-center">
                             <i class="fas fa-file mr-2"></i>
                             {{ basename($attachment) }}
                         </a>
@@ -108,13 +108,13 @@
         {{-- Colonne latérale --}}
         <div class="space-y-6">
             {{-- Statut --}}
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Statut</h2>
                 <div class="text-center">
                     <span class="inline-block px-4 py-2 text-sm font-semibold rounded 
                         @if($purchaseRequest->statut === 'brouillon') bg-gray-100 text-gray-800
-                        @elseif($purchaseRequest->statut === 'soumise') bg-blue-100 text-blue-800
-                        @elseif($purchaseRequest->statut === 'approuvee') bg-green-100 text-green-800
+                        @elseif($purchaseRequest->statut === 'soumise') bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300
+                        @elseif($purchaseRequest->statut === 'approuvee') bg-gradient-to-r from-green-900/50 to-green-800/50 border border-green-500/30 text-green-300
                         @else bg-red-100 text-red-800
                         @endif">
                         {{ strtoupper($purchaseRequest->statut) }}
@@ -123,7 +123,7 @@
 
                 @if($purchaseRequest->statut === 'approuvee')
                 <div class="mt-4 pt-4 border-t">
-                    <p class="text-sm text-gray-600">Approuvée par</p>
+                    <p class="text-sm text-neutral-400">Approuvée par</p>
                     <p class="font-medium">{{ $purchaseRequest->approbateur->name }}</p>
                     <p class="text-xs text-gray-500">{{ $purchaseRequest->date_approbation->format('d/m/Y à H:i') }}</p>
                     @if($purchaseRequest->commentaire_approbation)
@@ -132,7 +132,7 @@
                 </div>
                 @elseif($purchaseRequest->statut === 'rejetee')
                 <div class="mt-4 pt-4 border-t">
-                    <p class="text-sm text-gray-600">Rejetée par</p>
+                    <p class="text-sm text-neutral-400">Rejetée par</p>
                     <p class="font-medium">{{ $purchaseRequest->approbateur->name }}</p>
                     <p class="text-xs text-gray-500">{{ $purchaseRequest->date_approbation->format('d/m/Y à H:i') }}</p>
                     @if($purchaseRequest->commentaire_approbation)
@@ -144,7 +144,7 @@
 
             {{-- Actions rapides --}}
             @if($purchaseRequest->statut === 'approuvee')
-            <div class="bg-white rounded-lg shadow p-6">
+            <div class="bg-white rounded-xl shadow p-6">
                 <h2 class="text-lg font-semibold mb-4">Actions</h2>
                 <a href="{{ route('purchase_orders.create', ['request_id' => $purchaseRequest->id]) }}" class="btn-primary w-full text-center">
                     <i class="fas fa-file-invoice mr-2"></i>Créer Bon de Commande
@@ -162,7 +162,7 @@
         <form action="{{ route('purchase_requests.approve', $purchaseRequest) }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Commentaire</label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Commentaire</label>
                 <textarea name="commentaire" rows="3" class="form-input w-full" placeholder="Commentaire facultatif..."></textarea>
             </div>
             <div class="flex justify-end gap-2">
@@ -180,7 +180,7 @@
         <form action="{{ route('purchase_requests.reject', $purchaseRequest) }}" method="POST">
             @csrf
             <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-700 mb-1">Motif du Rejet <span class="text-red-500">*</span></label>
+                <label class="block text-sm font-medium text-[#D4AF37] mb-1">Motif du Rejet <span class="text-red-500">*</span></label>
                 <textarea name="commentaire" rows="3" class="form-input w-full" required placeholder="Précisez le motif du rejet..."></textarea>
             </div>
             <div class="flex justify-end gap-2">

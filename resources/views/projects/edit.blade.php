@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Modifier le projet')
 
 @section('content')
-<div class="bg-hh-card rounded-lg shadow p-6 max-w-3xl mx-auto">
+<div class="bg-hh-card rounded-xl shadow p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">âœï¸ Modifier le projet</h2>
 
     <form action="{{ route('projects.update', $project) }}" method="POST" class="space-y-4">

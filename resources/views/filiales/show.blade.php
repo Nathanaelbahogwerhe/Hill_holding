@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 @section('title', 'Détails Filiale')
 
 @section('content')
@@ -8,8 +8,8 @@
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-4xl font-bold text-[#D4AF37]">🏛️ {{ $filiale->name }}</h1>
         <div class="space-x-2">
-            <a href="{{ route('filiales.edit', $filiale->id) }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg font-bold transition">✏️ Éditer</a>
-            <a href="{{ route('filiales.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition">← Retour</a>
+            <a href="{{ route('filiales.edit', $filiale->id) }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl font-bold transition">✏️ Éditer</a>
+            <a href="{{ route('filiales.index') }}" class="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-xl transition">← Retour</a>
         </div>
     </div>
 
@@ -45,7 +45,7 @@
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4">📂 Départements ({{ $filiale->departments->count() }})</h2>
         <div class="space-y-2">
             @foreach($filiale->departments as $dept)
-                <div class="bg-neutral-900 p-3 rounded-lg flex justify-between items-center border border-neutral-800">
+                <div class="bg-neutral-900 p-3 rounded-xl flex justify-between items-center border border-neutral-800">
                     <div>
                         <p class="font-semibold text-white">{{ $dept->name }}</p>
                         <p class="text-xs text-neutral-400">{{ $dept->code ?? '—' }}</p>
@@ -66,7 +66,7 @@
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4">🏢 Agences ({{ $filiale->agences->count() }})</h2>
         <div class="space-y-2">
             @foreach($filiale->agences as $agence)
-                <div class="bg-neutral-900 p-3 rounded-lg flex justify-between items-center border border-neutral-800">
+                <div class="bg-neutral-900 p-3 rounded-xl flex justify-between items-center border border-neutral-800">
                     <div>
                         <p class="font-semibold text-white">{{ $agence->name }}</p>
                         <p class="text-xs text-neutral-400">{{ $agence->location ?? 'Localisation non définie' }}</p>
@@ -87,7 +87,7 @@
         <h2 class="text-2xl font-bold text-[#D4AF37] mb-4">👥 Employés ({{ $filiale->employees->count() }})</h2>
         <div class="space-y-2">
             @foreach($filiale->employees->take(20) as $emp)
-                <div class="bg-neutral-900 p-3 rounded-lg flex justify-between items-center border border-neutral-800">
+                <div class="bg-neutral-900 p-3 rounded-xl flex justify-between items-center border border-neutral-800">
                     <div>
                         <p class="font-semibold text-white">{{ $emp->first_name }} {{ $emp->last_name }}</p>
                         <p class="text-xs text-neutral-400">{{ $emp->position?->name ?? 'Poste non défini' }}</p>
@@ -115,7 +115,7 @@
         <form action="{{ route('filiales.destroy', $filiale->id) }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer cette filiale ?')" class="inline">
             @csrf
             @method('DELETE')
-            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold transition">🗑️ Supprimer</button>
+            <button type="submit" class="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition">🗑️ Supprimer</button>
         </form>
     </div>
 </div>

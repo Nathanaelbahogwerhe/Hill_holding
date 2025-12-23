@@ -263,11 +263,14 @@ Route::middleware(['auth'])->group(function () {
     */
     Route::middleware(['role:Super Admin|Admin Finance'])->group(function () {
         Route::resources([
-            'transactions'      => TransactionController::class,
-            'financial_reports' => FinancialReportController::class,
-            'budgets'           => BudgetController::class,
-            'invoices'          => InvoiceController::class,
+            'transactions' => TransactionController::class,
+            'budgets'      => BudgetController::class,
+            'invoices'     => InvoiceController::class,
         ]);
+
+        Route::prefix('finance')->name('finance.')->group(function () {
+            Route::resource('reports', FinancialReportController::class);
+        });
 
         Route::prefix('finance')->group(function () {
         Route::resource('expenses', App\Http\Controllers\Finance\ExpenseController::class);

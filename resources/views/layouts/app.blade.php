@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr" class="h-full" x-data="{ dark: false }" :class="{ 'dark': dark }">
 <head>
     <meta charset="UTF-8" />
@@ -78,7 +78,7 @@
                         <li><a href="{{ route('revenues.index') }}" class="sub-link">Revenus</a></li>
                         <li><a href="{{ route('budgets.index') }}" class="sub-link">Budgets</a></li>
                         <li><a href="{{ route('invoices.index') }}" class="sub-link">Factures</a></li>
-                        <li><a href="{{ route('financial_reports.index') }}" class="sub-link">Rapports financiers</a></li>
+                        <li><a href="{{ route('finance.reports.index') }}" class="sub-link">Rapports financiers</a></li>
                     </ul>
                 </li>
                 @endrole
@@ -98,7 +98,7 @@
                         <li><a href="{{ route('contracts_business.index') }}" class="sub-link">Contrats Business</a></li>
                         
                         <!-- Séparateur -->
-                        <li class="pt-2 border-t border-gray-300 mt-2"><strong class="text-xs text-gray-500">SUIVI & RAPPORTS</strong></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"><strong class="text-xs text-gray-500">SUIVI & RAPPORTS</strong></li>
                         <li><a href="{{ route('activities.index') }}" class="sub-link">Activités</a></li>
                         <li><a href="{{ route('daily_operations.index') }}" class="sub-link">Opérations Journalières</a></li>
                         <li><a href="{{ route('evaluations.index') }}" class="sub-link">Évaluations</a></li>
@@ -107,28 +107,28 @@
                         <li><a href="{{ route('report_schedules.index') }}" class="sub-link">Calendrier Rapports</a></li>
                         
                         <!-- Achats -->
-                        <li class="pt-2 border-t border-gray-300 mt-2"><strong class="text-xs text-gray-500">ACHATS</strong></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"><strong class="text-xs text-gray-500">ACHATS</strong></li>
                         <li><a href="{{ route('purchase_requests.index') }}" class="sub-link">Demandes d'Achat</a></li>
                         <li><a href="{{ route('purchase_orders.index') }}" class="sub-link">Bons de Commande</a></li>
                         <li><a href="{{ route('receptions.index') }}" class="sub-link">Réceptions</a></li>
                         <li><a href="{{ route('supplier_contracts.index') }}" class="sub-link">Contrats Fournisseurs</a></li>
                         
                         <!-- Maintenance -->
-                        <li class="pt-2 border-t border-gray-300 mt-2"><strong class="text-xs text-gray-500">MAINTENANCE</strong></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"><strong class="text-xs text-gray-500">MAINTENANCE</strong></li>
                         <li><a href="{{ route('equipment.index') }}" class="sub-link">Équipements</a></li>
                         <li><a href="{{ route('maintenances.index') }}" class="sub-link">Maintenances</a></li>
                         <li><a href="{{ route('breakdowns.index') }}" class="sub-link">Pannes</a></li>
                         <li><a href="{{ route('interventions.index') }}" class="sub-link">Interventions</a></li>
                         
                         <!-- Logistique -->
-                        <li class="pt-2 border-t border-gray-300 mt-2"><strong class="text-xs text-gray-500">LOGISTIQUE</strong></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"><strong class="text-xs text-gray-500">LOGISTIQUE</strong></li>
                         <li><a href="{{ route('vehicles.index') }}" class="sub-link">Véhicules</a></li>
                         <li><a href="{{ route('missions.index') }}" class="sub-link">Missions</a></li>
                         <li><a href="{{ route('fuel_records.index') }}" class="sub-link">Carburant</a></li>
                         <li><a href="{{ route('vehicle_maintenances.index') }}" class="sub-link">Maintenance Véhicules</a></li>
                         
                         <!-- Informatique -->
-                        <li class="pt-2 border-t border-gray-300 mt-2"><strong class="text-xs text-gray-500">INFORMATIQUE</strong></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"><strong class="text-xs text-gray-500">INFORMATIQUE</strong></li>
                         <li><a href="{{ route('it_equipment.index') }}" class="sub-link">Équipements IT</a></li>
                         <li><a href="{{ route('software_licenses.index') }}" class="sub-link">Licences Logiciels</a></li>
                         <li><a href="{{ route('it_interventions.index') }}" class="sub-link">Support IT</a></li>
@@ -161,13 +161,13 @@
                     <ul x-show="open === 'admin'" x-cloak class="mt-2 pl-4 space-y-1">
                         <li><a href="{{ route('users.index') }}" class="sub-link">Utilisateurs</a></li>
                         @role('Super Admin')
-                        <li class="pt-2 border-t border-gray-300 mt-2"></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"></li>
                         <li><a href="{{ route('admin.dashboard') }}" class="sub-link">Dashboard Admin</a></li>
                         <li><a href="{{ route('admin.activity-logs.index') }}" class="sub-link">Logs d'Activité</a></li>
                         <li><a href="{{ route('admin.system-settings.index') }}" class="sub-link">Paramètres Système</a></li>
                         <li><a href="{{ route('admin.backups.index') }}" class="sub-link">Sauvegardes</a></li>
                         <li><a href="{{ route('admin.system-notifications.index') }}" class="sub-link">Notifications Système</a></li>
-                        <li class="pt-2 border-t border-gray-300 mt-2"></li>
+                        <li class="pt-2 border-t border-neutral-700 mt-2"></li>
                         <li><a href="{{ route('admin.roles.index') }}" class="sub-link">Rôles</a></li>
                         <li><a href="{{ route('admin.permissions.index') }}" class="sub-link">Permissions</a></li>
                         @endrole
@@ -258,7 +258,7 @@
                             @forelse($notifications as $note)
                                 <div class="p-4 border-b border-neutral-800 hover:bg-neutral-800/50 transition-colors">
                                     <div class="flex items-start gap-3">
-                                        <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 {{ $note->type == 'success' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400' }}">
+                                        <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 {{ $note->type == 'success' ? 'bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/300/20 text-green-400' : 'bg-red-500/20 text-red-400' }}">
                                             @if($note->type == 'success')
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -314,7 +314,7 @@
                  class="fixed bottom-6 right-6 z-50 w-96 p-5 rounded-2xl shadow-2xl border-2
                  {{ session('success') ? 'bg-gradient-to-br from-green-900 to-green-800 border-green-600' : 'bg-gradient-to-br from-red-900 to-red-800 border-red-600' }}">
                 <div class="flex items-start gap-4">
-                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 {{ session('success') ? 'bg-green-500' : 'bg-red-500' }}">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 {{ session('success') ? 'bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/300' : 'bg-red-500' }}">
                         @if(session('success'))
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

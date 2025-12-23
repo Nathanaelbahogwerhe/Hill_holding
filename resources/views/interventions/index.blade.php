@@ -1,16 +1,16 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Interventions</h1>
+        <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Interventions</h1>
         <a href="{{ route('interventions.create') }}" class="btn-primary">
             <i class="fas fa-plus mr-2"></i>Nouvelle Intervention
         </a>
     </div>
 
     {{-- Liste --}}
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-xl shadow overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -27,7 +27,7 @@
                 @forelse($interventions as $intervention)
                 <tr>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <a href="{{ route('interventions.show', $intervention) }}" class="text-blue-600 hover:underline">{{ $intervention->numero }}</a>
+                        <a href="{{ route('interventions.show', $intervention) }}" class="text-white hover:underline">{{ $intervention->numero }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <span class="font-mono">{{ $intervention->equipment->code }}</span>
@@ -37,14 +37,14 @@
                         @if($intervention->breakdown_id)
                             <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Panne</span>
                         @else
-                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Maintenance</span>
+                            <span class="text-xs bg-gradient-to-r from-blue-900/50 to-blue-800/50 border border-blue-500/30 text-blue-300 px-2 py-1 rounded">Maintenance</span>
                         @endif
                     </td>
                     <td class="px-6 py-4">{{ Str::limit($intervention->description, 40) }}</td>
                     <td class="px-6 py-4">{{ $intervention->technicien->name }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{ $intervention->date_intervention->format('d/m/Y') }}</td>
                     <td class="px-6 py-4 text-right text-sm">
-                        <a href="{{ route('interventions.show', $intervention) }}" class="text-blue-600 hover:underline">Voir</a>
+                        <a href="{{ route('interventions.show', $intervention) }}" class="text-white hover:underline">Voir</a>
                     </td>
                 </tr>
                 @empty

@@ -24,6 +24,8 @@ class BudgetController extends Controller
         // 🏢 Maison mère
         if ($user->hasRole('superadmin')) {
             $budgets = $query->latest()->get();
+            $filiales = Filiale::orderBy('name')->get();
+            $agences = Agence::orderBy('name')->get();
         }
         // 🏬 Filiale
         elseif ($user->filiale_id) {
@@ -31,13 +33,19 @@ class BudgetController extends Controller
                 ->where('filiale_id', $user->filiale_id)
                 ->latest()
                 ->get();
+            $filiales = Filiale::where('id', $user->filiale_id)->get();
+            $agences = Agence::where('filiale_id', $user->filiale_id)->get();
         }
         // 🏪 Agence → pas de budgets
         else {
             $budgets = collect();
+            $filiales = collect();
+            $agences = collect();
         }
 
-        return view('budgets.index', compact('budgets'));
+        $projects = Project::orderBy('name')->get();
+
+        return view('budgets.index', compact('budgets', 'filiales', 'agences', 'projects'));
     }
 
     /**

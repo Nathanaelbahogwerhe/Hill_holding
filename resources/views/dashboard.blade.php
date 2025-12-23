@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Tableau de Bord')
 
@@ -17,7 +17,7 @@
     @if(auth()->user()->filiale_id)
     <div class="mb-8 bg-gradient-to-br from-blue-600/20 via-blue-500/10 to-transparent border border-blue-500/50 rounded-2xl p-6 shadow-[0_0_30px_rgba(59,130,246,0.2)]">
         <div class="flex items-center gap-4">
-            <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/300/20 rounded-2xl flex items-center justify-center">
                 <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -142,13 +142,13 @@
 
         <!-- Liens vers les guides -->
         <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="{{ route('help.filiale-guide') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-600 text-white rounded-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
+            <a href="{{ route('help.filiale-guide') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-600 text-white rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
                 🎯 Guide : Créer une Filiale et y Accéder
             </a>
-            <a href="{{ route('help.admin-guide') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-yellow-600 hover:from-yellow-600 hover:to-[#D4AF37] text-black rounded-lg font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+            <a href="{{ route('help.admin-guide') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-yellow-600 hover:from-yellow-600 hover:to-[#D4AF37] text-black rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // ACTIONS avec design moderne
             latestActions.innerHTML = (data.latest_actions || [])
                 .map(a => `
-                    <li class="flex items-start gap-3 p-3 rounded-lg hover:bg-neutral-800/50 transition-colors">
+                    <li class="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800/50 transition-colors">
                         <span class="w-2 h-2 bg-[#D4AF37] rounded-full mt-2 flex-shrink-0"></span>
                         <span class="text-neutral-300">${a}</span>
                     </li>
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="text-red-400">Erreur de chargement des données</span>
-                <button onclick="location.reload()" class="ml-auto px-4 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-lg text-sm transition">
+                <button onclick="location.reload()" class="ml-auto px-4 py-1 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded-xl text-sm transition">
                     Réessayer
                 </button>
             `;

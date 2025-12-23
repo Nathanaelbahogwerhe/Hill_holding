@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-4xl mx-auto bg-black text-white rounded-2xl shadow-lg border border-yellow-600 p-6 mt-8">
@@ -122,7 +122,7 @@
             <label class="text-yellow-400 font-semibold">Document joint (optionnel)</label>
             <input type="file" name="attachment" 
                    accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                   class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-gray-300">
+                   class="w-full bg-gray-900 border border-gray-700 rounded px-4 py-2 text-neutral-300">
             <p class="text-xs text-gray-400 mt-1">Formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (max 10MB)</p>
             @error('attachment')
                 <p class="text-red-400 text-xs mt-1">{{ $message }}</p>
@@ -133,7 +133,7 @@
         <div class="flex justify-end gap-3">
             <a href="{{ route('budgets.index') }}"
                class="bg-gray-700 px-5 py-2 rounded">Annuler</a>
-            <button class="bg-yellow-500 text-black font-semibold px-6 py-2 rounded">
+            <button class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black font-semibold px-6 py-2 rounded">
                 💾 Enregistrer
             </button>
         </div>

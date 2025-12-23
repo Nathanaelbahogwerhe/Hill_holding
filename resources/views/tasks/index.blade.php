@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Tâches')
 
 @section('content')
-<div class="bg-hh-card rounded-lg shadow p-6">
+<div class="bg-hh-card rounded-xl shadow p-6">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-hh-dark">Liste des tâches</h2>
         <a href="{{ route('tasks.create') }}" 
@@ -35,18 +35,18 @@
                         <span class="px-2 py-1 text-xs rounded font-medium 
                             {{ $task->status === 'En cours' ? 'bg-yellow-100 text-yellow-700' :
                                ($task->status === 'Terminé' ? 'bg-green-100 text-green-700' : 
-                               'bg-gray-100 text-gray-700') }}">
+                               'bg-gray-100 text-[#D4AF37]') }}">
                             {{ $task->status }}
                         </span>
                     </td>
                     <td class="px-4 py-2">{{ \Carbon\Carbon::parse($task->due_date)->format('d/m/Y') ?? '—' }}</td>
                     <td class="px-4 py-2 text-right flex justify-end gap-2">
                         <a href="{{ route('tasks.show', $task) }}" 
-                           class="px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs font-semibold">
+                           class="px-2 py-1 bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/300 text-white rounded hover:bg-blue-600 text-xs font-semibold">
                             Voir
                         </a>
                         <a href="{{ route('tasks.edit', $task) }}" 
-                           class="px-2 py-1 bg-yellow-500 text-black rounded hover:bg-yellow-600 text-xs font-semibold">
+                           class="px-2 py-1 bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 text-black rounded hover:bg-yellow-600 text-xs font-semibold">
                             Modifier
                         </a>
                         <form action="{{ route('tasks.destroy', $task) }}" method="POST" 

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Nouveau Revenu')
 
@@ -66,7 +66,7 @@
             <div>
                 <label class="hh-label">Pièce Jointe (optionnel)</label>
                 <input type="file" name="attachment" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png"
-                       class="hh-input text-gray-300">
+                       class="hh-input text-neutral-300">
                 <p class="text-xs text-gray-400 mt-1">Formats: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG (max 10MB)</p>
                 @error('attachment')
                     <p class="text-red-400 text-xs mt-1">{{ $message }}</p>

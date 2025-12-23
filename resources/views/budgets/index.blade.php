@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 py-6 text-white">
@@ -15,7 +15,7 @@
         {{-- Créer --}}
         @if(auth()->user()->hasRole('superadmin') || auth()->user()->filiale_id)
         <a href="{{ route('budgets.create') }}"
-           class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-lg shadow">
+           class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-xl shadow">
             ➕ Nouveau budget
         </a>
         @endif
@@ -67,7 +67,7 @@
 
         {{-- Bouton --}}
         <div class="flex items-end">
-            <button class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded w-full">
+            <button class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/300 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded w-full">
                 🔍 Filtrer
             </button>
         </div>
@@ -116,7 +116,7 @@
                                     <div class="h-2.5 rounded-full transition-all
                                         @if($budget->percentage_used >= 100) bg-red-500
                                         @elseif($budget->percentage_used >= 80) bg-orange-500
-                                        @elseif($budget->percentage_used > 0) bg-green-500
+                                        @elseif($budget->percentage_used > 0) bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/300
                                         @else bg-gray-500
                                         @endif"
                                         style="width: {{ min($budget->percentage_used, 100) }}%">

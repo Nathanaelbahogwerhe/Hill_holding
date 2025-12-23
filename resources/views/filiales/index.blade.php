@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Filiales')
 
@@ -128,7 +128,7 @@
                             </div>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-neutral-800 text-neutral-300 text-sm font-mono">
+                            <span class="px-3 py-1 rounded-xl bg-neutral-800 text-neutral-300 text-sm font-mono">
                                 {{ $fil->code ?? '—' }}
                             </span>
                         </td>
@@ -145,17 +145,17 @@
                             @endif
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
                                 {{ $fil->departments->count() }}
                             </span>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold">
                                 {{ $fil->agences->count() }}
                             </span>
                         </td>
                         <td class="p-4">
-                            <span class="px-3 py-1 rounded-lg bg-blue-900/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                            <span class="px-3 py-1 rounded-xl bg-blue-900/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                 {{ $fil->employees->count() }}
                             </span>
                         </td>

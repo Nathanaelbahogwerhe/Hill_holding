@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Mon Profil')
 
@@ -29,13 +29,13 @@
         @method('PUT')
 
         <div>
-            <label class="block text-gray-700">Nom</label>
+            <label class="block text-[#D4AF37]">Nom</label>
             <input type="text" name="name" value="{{ old('name', $user->name) }}"
                    class="w-full border rounded p-2">
         </div>
 
         <div>
-            <label class="block text-gray-700">Email</label>
+            <label class="block text-[#D4AF37]">Email</label>
             <input type="email" name="email" value="{{ old('email', $user->email) }}"
                    class="w-full border rounded p-2">
         </div>
@@ -55,17 +55,17 @@
         @method('PUT')
 
         <div>
-            <label class="block text-gray-700">Mot de passe actuel</label>
+            <label class="block text-[#D4AF37]">Mot de passe actuel</label>
             <input type="password" name="current_password" class="w-full border rounded p-2" required>
         </div>
 
         <div>
-            <label class="block text-gray-700">Nouveau mot de passe</label>
+            <label class="block text-[#D4AF37]">Nouveau mot de passe</label>
             <input type="password" name="password" class="w-full border rounded p-2" required>
         </div>
 
         <div>
-            <label class="block text-gray-700">Confirmer le mot de passe</label>
+            <label class="block text-[#D4AF37]">Confirmer le mot de passe</label>
             <input type="password" name="password_confirmation" class="w-full border rounded p-2" required>
         </div>
 

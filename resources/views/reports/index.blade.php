@@ -1,42 +1,42 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto px-4 py-8">
-    <div class="bg-white rounded-lg shadow-md p-6">
+<div class="px-6 py-6">
+    <div class="bg-gradient-to-br from-neutral-900 to-black border border-neutral-800 rounded-2xl shadow-2xl p-8">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">Rapports</h1>
+            <h1 class="text-5xl font-bold bg-gradient-to-r from-[#D4AF37] via-yellow-500 to-[#D4AF37] bg-clip-text text-transparent animate-gradient">Rapports</h1>
             <a href="{{ route('reports.create') }}" 
-               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+               class="px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black rounded-xl font-bold transition-all duration-300 shadow-lg hover:shadow-[#D4AF37]/50">
                 + Nouveau Rapport
             </a>
         </div>
 
         <!-- Statistiques -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-blue-50 rounded-lg p-4">
-                <p class="text-sm text-gray-600">Total</p>
-                <p class="text-2xl font-bold text-blue-600">{{ $stats['total'] }}</p>
+            <div class="bg-gradient-to-br from-blue-900/50 to-blue-800/50 border border-blue-500/30 rounded-xl p-4">
+                <p class="text-sm text-neutral-400">Total</p>
+                <p class="text-2xl font-bold text-white">{{ $stats['total'] }}</p>
             </div>
-            <div class="bg-yellow-50 rounded-lg p-4">
-                <p class="text-sm text-gray-600">Brouillons</p>
-                <p class="text-2xl font-bold text-yellow-600">{{ $stats['brouillons'] }}</p>
+            <div class="bg-gradient-to-br from-yellow-900/50 to-yellow-800/50 border border-yellow-500/30 rounded-xl p-4">
+                <p class="text-sm text-neutral-400">Brouillons</p>
+                <p class="text-2xl font-bold text-white">{{ $stats['brouillons'] }}</p>
             </div>
-            <div class="bg-orange-50 rounded-lg p-4">
-                <p class="text-sm text-gray-600">En Attente</p>
+            <div class="bg-orange-50 rounded-xl p-4">
+                <p class="text-sm text-neutral-400">En Attente</p>
                 <p class="text-2xl font-bold text-orange-600">{{ $stats['en_attente'] }}</p>
             </div>
-            <div class="bg-green-50 rounded-lg p-4">
-                <p class="text-sm text-gray-600">Validés</p>
-                <p class="text-2xl font-bold text-green-600">{{ $stats['valides'] }}</p>
+            <div class="bg-gradient-to-br from-green-900/50 to-green-800/50 border border-green-500/30 rounded-xl p-4">
+                <p class="text-sm text-neutral-400">Validés</p>
+                <p class="text-2xl font-bold text-white">{{ $stats['valides'] }}</p>
             </div>
         </div>
 
         <!-- Filtres -->
         <form method="GET" class="mb-6 grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
-                <select name="type" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                <label class="block text-sm font-medium text-[#D4AF37] mb-2">Type</label>
+                <select name="type" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                     <option value="">Tous</option>
                     <option value="journalier" {{ request('type') == 'journalier' ? 'selected' : '' }}>Journalier</option>
                     <option value="hebdomadaire" {{ request('type') == 'hebdomadaire' ? 'selected' : '' }}>Hebdomadaire</option>
@@ -48,8 +48,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Statut</label>
-                <select name="statut" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                <label class="block text-sm font-medium text-[#D4AF37] mb-2">Statut</label>
+                <select name="statut" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                     <option value="">Tous</option>
                     <option value="brouillon" {{ request('statut') == 'brouillon' ? 'selected' : '' }}>Brouillon</option>
                     <option value="soumis" {{ request('statut') == 'soumis' ? 'selected' : '' }}>Soumis</option>
@@ -59,8 +59,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Département</label>
-                <select name="department_id" class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                <label class="block text-sm font-medium text-[#D4AF37] mb-2">Département</label>
+                <select name="department_id" class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20">
                     <option value="">Tous</option>
                     @foreach($departments as $dept)
                         <option value="{{ $dept->id }}" {{ request('department_id') == $dept->id ? 'selected' : '' }}>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="flex items-end">
-                <button type="submit" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                <button type="submit" class="w-full px-4 py-2 bg-gradient-to-r from-[#D4AF37] to-yellow-500 hover:from-yellow-500 hover:to-[#D4AF37] text-black rounded-xl font-bold transition-all duration-300 shadow-lg">
                     Filtrer
                 </button>
             </div>
@@ -110,10 +110,10 @@
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('reports.show', $report) }}" 
-                               class="text-blue-600 hover:text-blue-800 mr-3">Voir</a>
+                               class="text-white hover:text-blue-800 mr-3">Voir</a>
                             @if($report->statut == 'brouillon')
                                 <a href="{{ route('reports.edit', $report) }}" 
-                                   class="text-green-600 hover:text-green-800">Modifier</a>
+                                   class="text-white hover:text-green-800">Modifier</a>
                             @endif
                         </td>
                     </tr>

@@ -1,9 +1,9 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Créer un projet')
 
 @section('content')
-<div class="bg-hh-card rounded-lg shadow p-6 max-w-3xl mx-auto">
+<div class="bg-hh-card rounded-xl shadow p-6 max-w-3xl mx-auto">
     <h2 class="text-xl font-semibold mb-4">âž• Créer un projet</h2>
 
     <form action="{{ route('projects.store') }}" method="POST" class="space-y-4">

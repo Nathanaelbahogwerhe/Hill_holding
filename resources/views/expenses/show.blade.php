@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('title', 'Détails Dépense')
 
@@ -8,7 +8,7 @@
     <div class="bg-hh-card p-6 rounded-xl shadow border border-hh-border">
         <h2 class="text-xl font-semibold text-hh-gold mb-4">📄 Détails de la Dépense</h2>
 
-        <div class="space-y-4 text-sm text-gray-300">
+        <div class="space-y-4 text-sm text-neutral-300">
 
             <div class="detail-row">
                 <span class="label">Description :</span>

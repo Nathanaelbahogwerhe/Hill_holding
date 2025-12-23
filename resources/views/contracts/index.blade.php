@@ -129,30 +129,30 @@
                         </td>
                         <td class="p-4">
                             @if($contract->employee?->filiale)
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-600/30 to-blue-700/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     {{ $contract->employee->filiale->name }}
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-gradient-to-r from-[#D4AF37]/30 to-yellow-500/30 border border-[#D4AF37]/50 text-[#D4AF37] text-sm font-semibold">
                                     Maison Mère
                                 </span>
                             @endif
                         </td>
                         <td class="p-4">
                             @if($contract->type === 'CDI')
-                                <span class="px-3 py-1 rounded-lg bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-green-900/30 border border-green-500/50 text-green-300 text-sm font-semibold">
                                     CDI
                                 </span>
                             @elseif($contract->type === 'CDD')
-                                <span class="px-3 py-1 rounded-lg bg-blue-900/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-blue-900/30 border border-blue-500/50 text-blue-300 text-sm font-semibold">
                                     CDD
                                 </span>
                             @elseif($contract->type === 'Stage')
-                                <span class="px-3 py-1 rounded-lg bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
+                                <span class="px-3 py-1 rounded-xl bg-purple-900/30 border border-purple-500/50 text-purple-300 text-sm font-semibold">
                                     Stage
                                 </span>
                             @else
-                                <span class="px-3 py-1 rounded-lg bg-neutral-800 text-neutral-300 text-sm">
+                                <span class="px-3 py-1 rounded-xl bg-neutral-800 text-neutral-300 text-sm">
                                     {{ $contract->type ?? '—' }}
                                 </span>
                             @endif
